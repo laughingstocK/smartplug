@@ -1,0 +1,411 @@
+;#include <mega128a.h>
+;PCODE: $00000000 VOL: 0
+	#ifndef __SLEEP_DEFINED__
+;PCODE: $00000001 VOL: 0
+	#define __SLEEP_DEFINED__
+;PCODE: $00000002 VOL: 0
+	.EQU __se_bit=0x20
+;PCODE: $00000003 VOL: 0
+	.EQU __sm_mask=0x1C
+;PCODE: $00000004 VOL: 0
+	.EQU __sm_powerdown=0x10
+;PCODE: $00000005 VOL: 0
+	.EQU __sm_powersave=0x18
+;PCODE: $00000006 VOL: 0
+	.EQU __sm_standby=0x14
+;PCODE: $00000007 VOL: 0
+	.EQU __sm_ext_standby=0x1C
+;PCODE: $00000008 VOL: 0
+	.EQU __sm_adc_noise_red=0x08
+;PCODE: $00000009 VOL: 0
+	.SET power_ctrl_reg=mcucr
+;PCODE: $0000000A VOL: 0
+	#endif
+;PCODE: $0000000B VOL: 0
+;PCODE: $0000000C VOL: 0
+;#include <stdio.h>
+;#include <stdint.h>
+;#include <delay.h>
+;#include <string.h>
+;#include <timer.h>
+;#include <debug.h>
+;#include <int_protocol.h>
+;#include <initial_system.h>
+;
+;TIMER baseCounter = 0;    // -- increase continually by 1 second timer. use for timer comparison -- //
+;uint8_t pressedBTCounter = 0;
+;uint8_t _FlagBT = 0;
+;uint8_t _Flag05INT = 0;
+;uint8_t _Flag0001INT = 0;
+;uint8_t _BlinkLED_1Hz = 0;
+;
+;/* ================================================================================= */
+;/*************************************************************************************/
+;/******************************* Software Timer Support ******************************/
+;/*************************************************************************************/
+;/* ================================================================================= */
+;
+;/* ================================================================================= */
+;
+;/* ================================================================================= */
+;/* ================================================================================= */
+;/*************************************************************************************/
+;/********************************* Hardware Support **********************************/
+;/*************************************************************************************/
+;/* ================================================================================= */
+;// Timer 0 overflow interrupt service routine (1 ms.)
+;interrupt [TIM0_OVF] void timer0_ovf_isr(void) {
+; 0002 0021 interrupt [17] void timer0_ovf_isr(void) {
+
+	.CSEG
+;PCODE: $0000000D VOL: 0
+;PCODE: $0000000E VOL: 0
+; 0002 0022 
+; 0002 0023     // Reinitialize Timer 0 value
+; 0002 0024     TCNT0 = 0xD7;
+;PCODE: $0000000F VOL: 0
+;PCODE: $00000010 VOL: 0
+; 0002 0025     // Place your code here
+; 0002 0026     if(SWITCH == TURN_ON /*&& _pired*/) {
+;PCODE: $00000011 VOL: 0
+;PCODE: $00000012 VOL: 0
+;PCODE: $00000013 VOL: 0
+; 0002 0027         _Flag0001INT = 1;
+;PCODE: $00000014 VOL: 0
+;PCODE: $00000015 VOL: 0
+; 0002 0028     }
+; 0002 0029 
+; 0002 002A }
+;PCODE: $00000016 VOL: 0
+;PCODE: $00000017 VOL: 0
+;PCODE: $00000018 VOL: 0
+;PCODE: $00000019 VOL: 0
+;/* ================================================================================= */
+;// Timer1 overflow interrupt service routine (1 sec.)
+;interrupt [TIM1_OVF] void timer1_ovf_isr(void) {
+; 0002 002D interrupt [15] void timer1_ovf_isr(void) {
+;PCODE: $0000001A VOL: 0
+;PCODE: $0000001B VOL: 0
+; 0002 002E 
+; 0002 002F     //char i;
+; 0002 0030 
+; 0002 0031     // Reinitialize Timer1 value
+; 0002 0032     TCNT1H = 0x57;
+;PCODE: $0000001C VOL: 0
+;PCODE: $0000001D VOL: 0
+; 0002 0033     TCNT1L = 0x40;
+;PCODE: $0000001E VOL: 0
+;PCODE: $0000001F VOL: 0
+; 0002 0034 
+; 0002 0035     baseCounter++;
+;PCODE: $00000020 VOL: 0
+;PCODE: $00000021 VOL: 0
+;PCODE: $00000022 VOL: 0
+;PCODE: $00000023 VOL: 0
+; 0002 0036 }
+;PCODE: $00000024 VOL: 0
+;PCODE: $00000025 VOL: 0
+;PCODE: $00000026 VOL: 0
+;/* ================================================================================= */
+;// Timer3 overflow interrupt service routine (0.5 sec.)
+;interrupt [TIM3_OVF] void timer3_ovf_isr(void) {
+; 0002 0039 interrupt [30] void timer3_ovf_isr(void) {
+;PCODE: $00000027 VOL: 0
+;PCODE: $00000028 VOL: 0
+; 0002 003A 
+; 0002 003B     // Reinitialize Timer3 value
+; 0002 003C     TCNT3H = 0xAB;
+;PCODE: $00000029 VOL: 0
+;PCODE: $0000002A VOL: 0
+; 0002 003D     TCNT3L = 0xA0;
+;PCODE: $0000002B VOL: 0
+;PCODE: $0000002C VOL: 0
+; 0002 003E 
+; 0002 003F     /*----- Count time pressed button -----*/
+; 0002 0040     if(_FlagBT) {
+;PCODE: $0000002D VOL: 0
+;PCODE: $0000002E VOL: 0
+;PCODE: $0000002F VOL: 0
+; 0002 0041         pressedBTCounter++;
+;PCODE: $00000030 VOL: 0
+;PCODE: $00000031 VOL: 0
+;PCODE: $00000032 VOL: 0
+; 0002 0042     }
+; 0002 0043 
+; 0002 0044     /*----- 0.5 millisecond flag -----*/
+; 0002 0045     if(SWITCH == TURN_ON /*&& _pired*/) {
+;PCODE: $00000033 VOL: 0
+;PCODE: $00000034 VOL: 0
+;PCODE: $00000035 VOL: 0
+;PCODE: $00000036 VOL: 0
+; 0002 0046         _Flag05INT = 1;
+;PCODE: $00000037 VOL: 0
+;PCODE: $00000038 VOL: 0
+; 0002 0047     }
+; 0002 0048 
+; 0002 0049     /*----- Blink Power LED 1 Hz -----*/
+; 0002 004A     if(_BlinkLED_1Hz) {
+;PCODE: $00000039 VOL: 0
+;PCODE: $0000003A VOL: 0
+;PCODE: $0000003B VOL: 0
+;PCODE: $0000003C VOL: 0
+; 0002 004B         if(LED_STAT_PIN == 1) {
+;PCODE: $0000003D VOL: 0
+;PCODE: $0000003E VOL: 0
+;PCODE: $0000003F VOL: 0
+; 0002 004C             LED_STAT_ON;
+;PCODE: $00000040 VOL: 0
+;PCODE: $00000041 VOL: 0
+; 0002 004D         }else {
+;PCODE: $00000042 VOL: 0
+;PCODE: $00000043 VOL: 0
+; 0002 004E             LED_STAT_OFF;
+;PCODE: $00000044 VOL: 0
+;PCODE: $00000045 VOL: 0
+; 0002 004F         }
+;PCODE: $00000046 VOL: 0
+; 0002 0050     }
+; 0002 0051 
+; 0002 0052 }
+;PCODE: $00000047 VOL: 0
+;PCODE: $00000048 VOL: 0
+;PCODE: $00000049 VOL: 0
+;PCODE: $0000004A VOL: 0
+;/* ================================================================================= */
+;void init_timer(void) {
+; 0002 0054 void init_timer(void) {
+;PCODE: $0000004B VOL: 0
+;PCODE: $0000004C VOL: 0
+; 0002 0055 
+; 0002 0056     // Timer/Counter 0 initialization (1 ms.)
+; 0002 0057     // Clock source: System Clock
+; 0002 0058     // Clock value: 43.200 kHz
+; 0002 0059     // Mode: Normal top=0xFF
+; 0002 005A     // OC0 output: Disconnected
+; 0002 005B     ASSR=0x00;
+;PCODE: $0000004D VOL: 0
+;PCODE: $0000004E VOL: 0
+; 0002 005C     TCCR0=0x06;
+;PCODE: $0000004F VOL: 0
+;PCODE: $00000050 VOL: 0
+; 0002 005D     TCNT0=0xD7;
+;PCODE: $00000051 VOL: 0
+;PCODE: $00000052 VOL: 0
+; 0002 005E     OCR0=0x00;
+;PCODE: $00000053 VOL: 0
+;PCODE: $00000054 VOL: 0
+; 0002 005F 
+; 0002 0060     // Timer/Counter 1 initialization (1 sec.)
+; 0002 0061     // Clock source: System Clock
+; 0002 0062     // Clock value: 43.200 kHz
+; 0002 0063     // Mode: Normal top=0xFFFF
+; 0002 0064     // OC1A output: Discon.
+; 0002 0065     // OC1B output: Discon.
+; 0002 0066     // OC1C output: Discon.
+; 0002 0067     // Noise Canceler: Off
+; 0002 0068     // Input Capture on Falling Edge
+; 0002 0069     // Timer1 Overflow Interrupt: On
+; 0002 006A     // Input Capture Interrupt: Off
+; 0002 006B     // Compare A Match Interrupt: Off
+; 0002 006C     // Compare B Match Interrupt: Off
+; 0002 006D     // Compare C Match Interrupt: Off
+; 0002 006E     TCCR1A=0x00;
+;PCODE: $00000055 VOL: 0
+;PCODE: $00000056 VOL: 0
+; 0002 006F     TCCR1B=0x04;
+;PCODE: $00000057 VOL: 0
+;PCODE: $00000058 VOL: 0
+; 0002 0070     TCNT1H=0x57;
+;PCODE: $00000059 VOL: 0
+;PCODE: $0000005A VOL: 0
+; 0002 0071     TCNT1L=0x40;
+;PCODE: $0000005B VOL: 0
+;PCODE: $0000005C VOL: 0
+; 0002 0072     ICR1H=0x00;
+;PCODE: $0000005D VOL: 0
+;PCODE: $0000005E VOL: 0
+; 0002 0073     ICR1L=0x00;
+;PCODE: $0000005F VOL: 0
+;PCODE: $00000060 VOL: 0
+; 0002 0074     OCR1AH=0x00;
+;PCODE: $00000061 VOL: 0
+;PCODE: $00000062 VOL: 0
+; 0002 0075     OCR1AL=0x00;
+;PCODE: $00000063 VOL: 0
+;PCODE: $00000064 VOL: 0
+; 0002 0076     OCR1BH=0x00;
+;PCODE: $00000065 VOL: 0
+;PCODE: $00000066 VOL: 0
+; 0002 0077     OCR1BL=0x00;
+;PCODE: $00000067 VOL: 0
+;PCODE: $00000068 VOL: 0
+; 0002 0078     OCR1CH=0x00;
+;PCODE: $00000069 VOL: 0
+;PCODE: $0000006A VOL: 0
+; 0002 0079     OCR1CL=0x00;
+;PCODE: $0000006B VOL: 0
+;PCODE: $0000006C VOL: 0
+; 0002 007A 
+; 0002 007B     // Timer/Counter 2 initialization
+; 0002 007C     // Clock source: System Clock
+; 0002 007D     // Clock value: Timer2 Stopped
+; 0002 007E     // Mode: Normal top=0xFF
+; 0002 007F     // OC2 output: Disconnected
+; 0002 0080     TCCR2=0x00;
+;PCODE: $0000006D VOL: 0
+;PCODE: $0000006E VOL: 0
+; 0002 0081     TCNT2=0x00;
+;PCODE: $0000006F VOL: 0
+;PCODE: $00000070 VOL: 0
+; 0002 0082     OCR2=0x00;
+;PCODE: $00000071 VOL: 0
+;PCODE: $00000072 VOL: 0
+; 0002 0083 
+; 0002 0084     // Timer/Counter 3 initialization (0.5 sec.)
+; 0002 0085     // Clock source: System Clock
+; 0002 0086     // Clock value: 43.200 kHz
+; 0002 0087     // Mode: Normal top=0xFFFF
+; 0002 0088     // OC3A output: Discon.
+; 0002 0089     // OC3B output: Discon.
+; 0002 008A     // OC3C output: Discon.
+; 0002 008B     // Noise Canceler: Off
+; 0002 008C     // Input Capture on Falling Edge
+; 0002 008D     // Timer3 Overflow Interrupt: On
+; 0002 008E     // Input Capture Interrupt: Off
+; 0002 008F     // Compare A Match Interrupt: Off
+; 0002 0090     // Compare B Match Interrupt: Off
+; 0002 0091     // Compare C Match Interrupt: Off
+; 0002 0092     TCCR3A=0x00;
+;PCODE: $00000073 VOL: 0
+;PCODE: $00000074 VOL: 0
+; 0002 0093     TCCR3B=0x04;
+;PCODE: $00000075 VOL: 0
+;PCODE: $00000076 VOL: 0
+; 0002 0094     TCNT3H=0xAB;
+;PCODE: $00000077 VOL: 0
+;PCODE: $00000078 VOL: 0
+; 0002 0095     TCNT3L=0xA0;
+;PCODE: $00000079 VOL: 0
+;PCODE: $0000007A VOL: 0
+; 0002 0096     ICR3H=0x00;
+;PCODE: $0000007B VOL: 0
+;PCODE: $0000007C VOL: 0
+; 0002 0097     ICR3L=0x00;
+;PCODE: $0000007D VOL: 0
+;PCODE: $0000007E VOL: 0
+; 0002 0098     OCR3AH=0x00;
+;PCODE: $0000007F VOL: 0
+;PCODE: $00000080 VOL: 0
+; 0002 0099     OCR3AL=0x00;
+;PCODE: $00000081 VOL: 0
+;PCODE: $00000082 VOL: 0
+; 0002 009A     OCR3BH=0x00;
+;PCODE: $00000083 VOL: 0
+;PCODE: $00000084 VOL: 0
+; 0002 009B     OCR3BL=0x00;
+;PCODE: $00000085 VOL: 0
+;PCODE: $00000086 VOL: 0
+; 0002 009C     OCR3CH=0x00;
+;PCODE: $00000087 VOL: 0
+;PCODE: $00000088 VOL: 0
+; 0002 009D     OCR3CL=0x00;
+;PCODE: $00000089 VOL: 0
+;PCODE: $0000008A VOL: 0
+; 0002 009E 
+; 0002 009F     // Watchdog Timer initialization
+; 0002 00A0     // Watchdog Timer Prescaler: OSC/2048k
+; 0002 00A1     #pragma optsize-
+; 0002 00A2     WDTCR=0x1F;
+;PCODE: $0000008B VOL: 0
+;PCODE: $0000008C VOL: 0
+; 0002 00A3     WDTCR=0x0F;
+;PCODE: $0000008D VOL: 0
+;PCODE: $0000008E VOL: 0
+; 0002 00A4     #ifdef _OPTIMIZE_SIZE_
+; 0002 00A5     #pragma optsize+
+; 0002 00A6     #endif
+; 0002 00A7 
+; 0002 00A8     // Timer/Counter 0 Interrupt(s) initialization
+; 0002 00A9     TIMSK = 0x00;
+;PCODE: $0000008F VOL: 0
+;PCODE: $00000090 VOL: 0
+; 0002 00AA 
+; 0002 00AB     // Timer/Counter 1 Interrupt(s) initialization
+; 0002 00AC     TIMSK = 0x00;
+;PCODE: $00000091 VOL: 0
+;PCODE: $00000092 VOL: 0
+; 0002 00AD 
+; 0002 00AE     // Timer/Counter 3 Interrupt(s) initialization
+; 0002 00AF     ETIMSK = 0x00;
+;PCODE: $00000093 VOL: 0
+;PCODE: $00000094 VOL: 0
+; 0002 00B0 
+; 0002 00B1 }
+;PCODE: $00000095 VOL: 0
+;PCODE: $00000096 VOL: 0
+;/* ================================================================================= */
+;void enable_timerOverflow(int ch) {
+; 0002 00B3 void enable_timerOverflow(int ch) {
+;PCODE: $00000097 VOL: 0
+;PCODE: $00000098 VOL: 0
+; 0002 00B4 
+; 0002 00B5     /*-------------- enable timer ---------------*/
+; 0002 00B6     switch(ch){
+;PCODE: $00000099 VOL: 0
+;	ch -> Y+0
+;PCODE: $0000009A VOL: 0
+; 0002 00B7         case 0: // Timer/Counter 0 Interrupt(s) initialization
+;PCODE: $0000009B VOL: 0
+;PCODE: $0000009C VOL: 0
+; 0002 00B8                 TIMSK |= 0x01;
+;PCODE: $0000009D VOL: 0
+;PCODE: $0000009E VOL: 0
+;PCODE: $0000009F VOL: 0
+; 0002 00B9                 break;
+;PCODE: $000000A0 VOL: 0
+; 0002 00BA         case 1: // Timer/Counter 1 Interrupt(s) initialization
+;PCODE: $000000A1 VOL: 0
+;PCODE: $000000A2 VOL: 0
+;PCODE: $000000A3 VOL: 0
+; 0002 00BB                 TIMSK |= 0x04;
+;PCODE: $000000A4 VOL: 0
+;PCODE: $000000A5 VOL: 0
+;PCODE: $000000A6 VOL: 0
+; 0002 00BC                 break;
+;PCODE: $000000A7 VOL: 0
+; 0002 00BD         case 2: // Timer/Counter 2 Interrupt(s) initialization
+;PCODE: $000000A8 VOL: 0
+;PCODE: $000000A9 VOL: 0
+;PCODE: $000000AA VOL: 0
+; 0002 00BE                 //TIMSK2=0x01;
+; 0002 00BF                 break;
+;PCODE: $000000AB VOL: 0
+; 0002 00C0         case 3: // Timer/Counter 3 Interrupt(s) initialization
+;PCODE: $000000AC VOL: 0
+;PCODE: $000000AD VOL: 0
+;PCODE: $000000AE VOL: 0
+; 0002 00C1                 ETIMSK |= 0x04;
+;PCODE: $000000AF VOL: 0
+;PCODE: $000000B0 VOL: 0
+;PCODE: $000000B1 VOL: 0
+; 0002 00C2                 break;
+;PCODE: $000000B2 VOL: 0
+; 0002 00C3         case 4: // Timer/Counter 4 Interrupt(s) initialization
+;PCODE: $000000B3 VOL: 0
+;PCODE: $000000B4 VOL: 0
+;PCODE: $000000B5 VOL: 0
+; 0002 00C4                 //TIMSK4=0x01;
+; 0002 00C5                 break;
+;PCODE: $000000B6 VOL: 0
+; 0002 00C6     }
+;PCODE: $000000B7 VOL: 0
+; 0002 00C7     // Global enable interrupts
+; 0002 00C8     #asm("sei")
+;PCODE: $000000B8 VOL: 0
+	sei
+;PCODE: $000000B9 VOL: 0
+; 0002 00C9 }
+;PCODE: $000000BA VOL: 0
+;PCODE: $000000BB VOL: 0
+;PCODE: $000000BC VOL: 0
+;

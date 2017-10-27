@@ -1,0 +1,20 @@
+#ifndef INT_DATAQUEUE_H
+#define INT_DATAQUEUE_H   
+
+#include "timer.h"
+
+#define INT_MAX_WAIT_QUEUE  10
+#define INT_MAX_PKT_LEN     255
+#define INT_MAX_RETRY       1
+                     
+struct INTQUEUE {                                
+    char            retryCount;    
+    TIMER           retryTime;
+    int             timeout;          
+    unsigned char   packetLen;     
+    char            packetID; 
+    char            *packetData;
+};
+
+
+#endif 

@@ -27,6 +27,7 @@ Frequency       : 11.059200 MHz
 #include <adc.h>
 #include <eeprom.h>
 #include <meansure.h>
+#include <queue.h>
 #define SWITCH_PRESSED !(PINC & (1<<PINC0))
 
 uint8_t SWITCH          = TURN_OFF;
@@ -35,22 +36,19 @@ uint8_t error;
 int8_t read_D_SW;
 int start_event;
 int counter = 0;
-int e = 0;
-uint8_t SEND_EVENT_TEST[38];
+//int e = 0;
+//uint8_t SEND_EVENT_TEST[38];
 
-void get_event(){
-    int event = 0;
-    event = input[count_event];
-    printDebug("EVENT = %d\r\n", event);
-    if (event != 0) count_event++;
-    printDebug("count_event = %d\r\n", count_event);
-    if(count_event == 30 ) count_event = 0;
-    do_something(event);
-}
-
-void put_event(int event){
-    input[count_input] = event;
-    count_input++;
+void device_state(int state){
+    if(state == 0){
+        POWER_RELAY_OFF;
+        LED_STAT_OFF;
+        STATUS_DEVICE = 0;
+    }else if(state == 1){
+        POWER_RELAY_ON;
+        LED_STAT_ON;
+        STATUS_DEVICE = 1;
+    }
 }
 
 void main(void) {
@@ -121,24 +119,24 @@ void main(void) {
     while(1) {
         xbee_read();
         
-        if(counter%111 == 0 && counter >= 111){
-        if(e%2 == 0){
-            SEND_EVENT_TEST[2] = 0x90;
-            SEND_EVENT_TEST[3] = 0x90;
-            SEND_EVENT_TEST[35] = 0xA5;
-            SEND_EVENT_TEST[36] = 0x01; 
-            SEND_EVENT_TEST[37] = 0x01;
-            xbee_receivePacket(SEND_EVENT_TEST,38);
-        }else{
-            SEND_EVENT_TEST[2] = 0x90;
-            SEND_EVENT_TEST[3] = 0x90;
-            SEND_EVENT_TEST[35] = 0xA5;
-            SEND_EVENT_TEST[36] = 0x01; 
-            SEND_EVENT_TEST[37] = 0x00;
-            xbee_receivePacket(SEND_EVENT_TEST,38);
-       }
-       e++;
-}
+//        if(counter%111 == 0 && counter >= 111){
+//        if(e%2 == 0){
+//            SEND_EVENT_TEST[2] = 0x90;
+//            SEND_EVENT_TEST[3] = 0x90;
+//            SEND_EVENT_TEST[35] = 0xA5;
+//            SEND_EVENT_TEST[36] = 0x01; 
+//            SEND_EVENT_TEST[37] = 0x01;
+//            xbee_receivePacket(SEND_EVENT_TEST,38);
+//        }else{
+//            SEND_EVENT_TEST[2] = 0x90;
+//            SEND_EVENT_TEST[3] = 0x90;
+//            SEND_EVENT_TEST[35] = 0xA5;
+//            SEND_EVENT_TEST[36] = 0x01; 
+//            SEND_EVENT_TEST[37] = 0x00;
+//            xbee_receivePacket(SEND_EVENT_TEST,38);
+//       }
+//       e++;
+//}
         switch (flag_state) {
         
             /*=============== Send AI ===============*/
@@ -150,11 +148,10 @@ void main(void) {
                 
                 if(STATUS_DEVICE == 1){
                     delay_ms(100);
-                    POWER_RELAY_ON;
-                    LED_STAT_ON;
+                    device_state(1);   //on
                     EEPROM_write(Eaddress,STATUS_DEVICE); 
                     start_event = 1;
-                    put_event(511);
+                    push_event(511);
                 }
             break;
            
@@ -171,47 +168,47 @@ void main(void) {
             break;
             
             /*=============== Send Join ===============*/
-//            case 3 :
-//                delay_ms(2000);
-//                send_join();
-//                delay_ms(100);
-//                
-//                if(SWITCH_PRESSED){
-//                    delay_ms(100);
-//                    if(STATUS_DEVICE == 0){
-//                        POWER_RELAY_ON;
-//                        LED_STAT_ON; 
-//                        STATUS_DEVICE = 1;
-//                        EEPROM_write(Eaddress,STATUS_DEVICE);
-//                        event_state = 1;
-//                        put_event(511);      
+            case 3 :
+                delay_ms(2000);
+                send_join();
+                delay_ms(100);
+                
+                if(SWITCH_PRESSED){
+                    delay_ms(100);
+                    if(STATUS_DEVICE == 0){
+                        POWER_RELAY_ON;
+                        LED_STAT_ON; 
+                        STATUS_DEVICE = 1;
+                        device_state(1);      //on        
+                        EEPROM_write(Eaddress,STATUS_DEVICE);
+                        push_event(511);      
        
-//                    }else if(STATUS_DEVICE == 1){
-//                        LED_STAT_OFF;
-//                        POWER_RELAY_OFF; 
-//                        STATUS_DEVICE = 0;
-//                        EEPROM_write(Eaddress,STATUS_DEVICE);
-//                        event_state = 1;
-//                        put_event(510);      
+                    }else if(STATUS_DEVICE == 1){
+                        LED_STAT_OFF;
+                        POWER_RELAY_OFF; 
+                        STATUS_DEVICE = 0;
+                        device_state(0);      //off       
+                        EEPROM_write(Eaddress,STATUS_DEVICE);
+                        push_event(510);      
         
-//                    }
-//                }
-//            break;
+                    }
+                }
+            break;
             
             /*=============== Idle State ===============*/
-            case 3 :
+            case 4 :
                 printDebug("\r\n-------- Idle --------\r\n");
                 counter++;
                 if(counter%10 == 0 ){
-                    get_event();
-                    printDebug("\r\n-------- GET EVENT --------\r\n");
+                    pop_event();
+                    printDebug("\r\n-------- POP EVENT --------\r\n");
                 } 
                 
                 if(start_event == 1){
                     if(STATUS_DEVICE == 1){
-                        flag_state = 4;    
+                        flag_state = 5;    
                     }else if(STATUS_DEVICE == 0){
-                        flag_state = 3;
+                        flag_state = 4;
                     }
                     start_event = 0;
                 }                               
@@ -220,35 +217,37 @@ void main(void) {
                 if(SWITCH_PRESSED){
                     delay_ms(200);
                        if(STATUS_DEVICE == 0){
-                            POWER_RELAY_ON; 
-                            LED_STAT_ON;     
-                            STATUS_DEVICE = 1;
+//                            POWER_RELAY_ON; 
+//                            LED_STAT_ON;
+//                            STATUS_DEVICE = 1;
+                            device_state(1);      //on                            
+                            EEPROM_write(Eaddress,STATUS_DEVICE);
+                            flag_state = 5;
+                            //printDebug("count_input = %d\r\n", count_input);
+                            push_event(511);       
+                       }else if(STATUS_DEVICE == 1){
+//                            POWER_RELAY_OFF; 
+//                            LED_STAT_OFF;
+//                            STATUS_DEVICE = 0;
+                            device_state(0);     //off 
                             EEPROM_write(Eaddress,STATUS_DEVICE);
                             flag_state = 4;
                             //printDebug("count_input = %d\r\n", count_input);
-                            put_event(511);       
-                       }else if(STATUS_DEVICE == 1){
-                            POWER_RELAY_OFF; 
-                            LED_STAT_OFF;     
-                            STATUS_DEVICE = 0;
-                            EEPROM_write(Eaddress,STATUS_DEVICE);
-                            flag_state = 3;
-                            //printDebug("count_input = %d\r\n", count_input);
-                            put_event(510);      
+                            push_event(510);      
                        }
                 }              
             break;
             
             /*=============== Active State ===============*/
-            case 4 : 
+            case 5 : 
             printDebug("\r\n-------- Active --------\r\n");
                 ReadCurrent();
                 ReadVoltage();
                 
                 counter++;
                 if(counter%10 == 0 ){
-                    printDebug("\r\n-------- GET EVENT --------\r\n");
-                    get_event();
+                    printDebug("\r\n-------- POP EVENT --------\r\n");
+                    pop_event();
                 }
                 
                 
@@ -258,13 +257,14 @@ void main(void) {
                  
                 if(SWITCH_PRESSED){
                     delay_ms(200);
-                    POWER_RELAY_OFF;
-                    LED_STAT_OFF;
-                    STATUS_DEVICE = 0;
+//                    POWER_RELAY_OFF;
+//                    LED_STAT_OFF;
+//                    STATUS_DEVICE = 0;
+                    device_state(0); // off
                     EEPROM_write(Eaddress,STATUS_DEVICE);
-                    flag_state = 3;
-                    printDebug("count_input = %d\r\n", count_input);
-                    put_event(510);
+                    flag_state = 4;
+//                    printDebug("count_input = %d\r\n", count_input);
+                    push_event(510);
                 }
             break;                                      
         }

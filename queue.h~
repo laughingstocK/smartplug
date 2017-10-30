@@ -1,0 +1,14 @@
+#ifndef QUEUE_H
+#define QUEUE_H
+
+#include <mega128a.h> 
+
+void pop_event();
+void push_event(int event);
+void do_event(int _event);
+
+extern int input[30];
+extern int count_input;
+extern int count_event; 
+
+#endif

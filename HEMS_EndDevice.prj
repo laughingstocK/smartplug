@@ -5,13 +5,13 @@ CV=2.05.3 Standard
 A=BIG_M
 C=
 D=12/6/2013 16:54:33
-Files=10
+Files=11
 OpenedFiles=7
 OutputListFilesDirectory=List
 OutputObjectFilesDirectory=Obj
 OutputExecutableFilesDirectory=Exe
 OutputLinkerFilesDirectory=Linker
-AllowDisplayFunctionCallTree=1
+AllowDisplayFunctionCallTree=0
 CleanUp=2
 EditorPanelMode=0
 ActiveEditorPanel=0
@@ -124,6 +124,7 @@ F7=int_protocol.c
 F8=adc.c
 F9=eeprom.c
 F10=meansure.c
+F11=queue.c
 [Compiler]
 RebuildAll=0
 LinkageInformationPresent=1
@@ -218,7 +219,7 @@ WarningExternalDeclaredNeverDefined=1
 WarningUnknownPragma=1
 DebugBootLoader=0
 WatchAVR8LAutoVariables=0
-Build=1348
+Build=1373
 UseEEPROMLocation0=1
 IncludePath0=
 IncludePath1=
@@ -398,7 +399,7 @@ UserProgPath=
 UserProgCmdLine=
 UserProgWorkDir=
 [BookmarksFoldedCode]
-Files=78
+Files=80
 F1=main.c
 F2=timer.c
 F3=initial_system.h
@@ -477,6 +478,8 @@ F75=C:\cvavr2\inc\stdlib.h
 F76=C:\cvavr2\inc\string.h
 F77=C:\cvavr2\inc\mega128a.h
 F78=C:\cvavr2\inc\io.h
+F79=C:\Users\NextCrop\Downloads\Smart plug lastversion\Smart plug lastversion\HEMS.-SmartPlug by koon\queue.c
+F80=C:\Users\NextCrop\Downloads\Smart plug lastversion\Smart plug lastversion\HEMS.-SmartPlug by koon\queue.h
 [Bookmarks1]
 TimeStamp=1264286681
 Row=122
@@ -520,7 +523,7 @@ TimeStamp=1262050209
 Row=7
 Column=21
 ScrollPosX=0
-ScrollPosY=54
+ScrollPosY=0
 BK0=-1
 BK1=-1
 BK2=-1
@@ -564,11 +567,11 @@ BK7=-1
 BK8=-1
 BK9=-1
 [Bookmarks6]
-TimeStamp=1264286043
-Row=131
-Column=12
+TimeStamp=1264289973
+Row=0
+Column=0
 ScrollPosX=0
-ScrollPosY=222
+ScrollPosY=0
 BK0=-1
 BK1=-1
 BK2=-1
@@ -597,7 +600,7 @@ BK8=-1
 BK9=-1
 [Bookmarks8]
 TimeStamp=1262780192
-Row=5
+Row=0
 Column=0
 ScrollPosX=0
 ScrollPosY=0
@@ -708,11 +711,11 @@ BK7=-1
 BK8=-1
 BK9=-1
 [Bookmarks15]
-TimeStamp=1264282824
-Row=26
+TimeStamp=1264289578
+Row=0
 Column=0
 ScrollPosX=0
-ScrollPosY=9
+ScrollPosY=18
 BK0=-1
 BK1=-1
 BK2=-1
@@ -902,7 +905,7 @@ TimeStamp=1262312194
 Row=95
 Column=0
 ScrollPosX=0
-ScrollPosY=74
+ScrollPosY=0
 BK0=-1
 BK1=-1
 BK2=-1
@@ -1832,8 +1835,6 @@ BK9=-1
 Blocks=0
 [FoldedCode14]
 Blocks=0
-[FoldedCode8]
-Blocks=0
 [FoldedCode76]
 Blocks=0
 [FoldedCode75]
@@ -1852,13 +1853,9 @@ Blocks=0
 Blocks=0
 [FoldedCode69]
 Blocks=0
-[FoldedCode3]
-Blocks=0
 [FoldedCode27]
 Blocks=0
 [FoldedCode78]
-Blocks=0
-[FoldedCode57]
 Blocks=0
 [FoldedCode67]
 Blocks=0
@@ -1878,18 +1875,60 @@ Blocks=0
 Blocks=0
 [FoldedCode9]
 Blocks=0
-[FoldedCode6]
-Blocks=0
-[FoldedCode26]
+[FoldedCode20]
 Blocks=0
 [FoldedCode70]
 Blocks=0
+[FoldedCode6]
+Blocks=0
 [FoldedCode15]
 Blocks=0
-[FoldedCode20]
+[FoldedCode57]
+Blocks=0
+[FoldedCode3]
+Blocks=0
+[Bookmarks79]
+TimeStamp=1264473334
+Row=9
+Column=0
+ScrollPosX=0
+ScrollPosY=0
+BK0=-1
+BK1=-1
+BK2=-1
+BK3=-1
+BK4=-1
+BK5=-1
+BK6=-1
+BK7=-1
+BK8=-1
+BK9=-1
+[FoldedCode79]
+Blocks=0
+[Bookmarks80]
+TimeStamp=1264473357
+Row=5
+Column=0
+ScrollPosX=0
+ScrollPosY=0
+BK0=-1
+BK1=-1
+BK2=-1
+BK3=-1
+BK4=-1
+BK5=-1
+BK6=-1
+BK7=-1
+BK8=-1
+BK9=-1
+[FoldedCode80]
+Blocks=0
+[FoldedCode8]
+Blocks=0
+[FoldedCode26]
 Blocks=0
 [HeadersList]
-Files=10
+Files=11
 F1=C:\Users\NextCrop\Downloads\Smart plug lastversion\Smart plug lastversion\HEMS.-SmartPlug by koon\main.c
 F2=C:\Users\NextCrop\Downloads\Smart plug lastversion\Smart plug lastversion\HEMS.-SmartPlug by koon\debug.c
 F3=C:\Users\NextCrop\Downloads\Smart plug lastversion\Smart plug lastversion\HEMS.-SmartPlug by koon\timer.c
@@ -1900,8 +1939,9 @@ F7=C:\Users\NextCrop\Downloads\Smart plug lastversion\Smart plug lastversion\HEM
 F8=C:\Users\NextCrop\Downloads\Smart plug lastversion\Smart plug lastversion\HEMS.-SmartPlug by koon\adc.c
 F9=C:\Users\NextCrop\Downloads\Smart plug lastversion\Smart plug lastversion\HEMS.-SmartPlug by koon\eeprom.c
 F10=C:\Users\NextCrop\Downloads\Smart plug lastversion\Smart plug lastversion\HEMS.-SmartPlug by koon\meansure.c
+F11=C:\Users\NextCrop\Downloads\Smart plug lastversion\Smart plug lastversion\HEMS.-SmartPlug by koon\queue.c
 [Header1]
-Files=20
+Files=21
 F1=C:\cvavr2\inc\mega128a.h
 F2=C:\cvavr2\inc\mega128_bits.h
 F3=C:\cvavr2\inc\stdlib.h
@@ -1922,6 +1962,7 @@ F17=adc.h
 F18=xbee.h
 F19=timer.h
 F20=eeprom.h
+F21=queue.h
 [Header2]
 Files=12
 F1=C:\cvavr2\inc\stdio.h
@@ -1966,7 +2007,7 @@ F8=uart.h
 F9=debug.h
 F10=xbee.h
 [Header5]
-Files=17
+Files=18
 F1=C:\cvavr2\inc\mega128a.h
 F2=C:\cvavr2\inc\mega128_bits.h
 F3=C:\cvavr2\inc\stdio.h
@@ -1977,13 +2018,14 @@ F7=C:\cvavr2\inc\delay.h
 F8=uart.h
 F9=C:\cvavr2\inc\stdint.h
 F10=xbee.h
-F11=debug.h
-F12=int_protocol.h
-F13=meansure.h
-F14=adc.h
-F15=C:\cvavr2\inc\math.h
-F16=initial_system.h
-F17=eeprom.h
+F11=queue.h
+F12=debug.h
+F13=int_protocol.h
+F14=meansure.h
+F15=adc.h
+F16=C:\cvavr2\inc\math.h
+F17=initial_system.h
+F18=eeprom.h
 [Header6]
 Files=18
 F1=C:\cvavr2\inc\mega128a.h
@@ -2065,3 +2107,23 @@ F11=debug.h
 F12=adc.h
 F13=C:\cvavr2\inc\math.h
 F14=initial_system.h
+[Header11]
+Files=18
+F1=C:\cvavr2\inc\mega128a.h
+F2=C:\cvavr2\inc\mega128_bits.h
+F3=queue.h
+F4=C:\cvavr2\inc\stdio.h
+F5=C:\cvavr2\inc\stdarg.h
+F6=C:\cvavr2\inc\stdlib.h
+F7=C:\cvavr2\inc\string.h
+F8=debug.h
+F9=C:\cvavr2\inc\stdint.h
+F10=xbee.h
+F11=int_protocol.h
+F12=meansure.h
+F13=C:\cvavr2\inc\delay.h
+F14=uart.h
+F15=adc.h
+F16=C:\cvavr2\inc\math.h
+F17=initial_system.h
+F18=eeprom.h

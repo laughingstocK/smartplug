@@ -1,0 +1,320 @@
+;#include <mega128a.h>
+;PCODE: $00000000 VOL: 0
+	#ifndef __SLEEP_DEFINED__
+;PCODE: $00000001 VOL: 0
+	#define __SLEEP_DEFINED__
+;PCODE: $00000002 VOL: 0
+	.EQU __se_bit=0x20
+;PCODE: $00000003 VOL: 0
+	.EQU __sm_mask=0x1C
+;PCODE: $00000004 VOL: 0
+	.EQU __sm_powerdown=0x10
+;PCODE: $00000005 VOL: 0
+	.EQU __sm_powersave=0x18
+;PCODE: $00000006 VOL: 0
+	.EQU __sm_standby=0x14
+;PCODE: $00000007 VOL: 0
+	.EQU __sm_ext_standby=0x1C
+;PCODE: $00000008 VOL: 0
+	.EQU __sm_adc_noise_red=0x08
+;PCODE: $00000009 VOL: 0
+	.SET power_ctrl_reg=mcucr
+;PCODE: $0000000A VOL: 0
+	#endif
+;PCODE: $0000000B VOL: 0
+;PCODE: $0000000C VOL: 0
+;#include <queue.h>
+;#include <stdio.h>
+;#include <stdlib.h>
+;#include <string.h>
+;#include <debug.h>
+;#include <xbee.h>
+;#include <int_protocol.h>
+;#include <uart.h>
+;#include <eeprom.h>
+;
+;int input[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+;int count_input = 0;
+;int count_event = 0;
+;
+;void push_event(int event){
+; 000A 0010 void push_event(int event){
+
+	.CSEG
+;PCODE: $0000000D VOL: 0
+;PCODE: $0000000E VOL: 0
+; 000A 0011     input[count_input] = event;
+;PCODE: $0000000F VOL: 0
+;	event -> Y+0
+;PCODE: $00000010 VOL: 0
+;PCODE: $00000011 VOL: 0
+;PCODE: $00000012 VOL: 0
+;PCODE: $00000013 VOL: 0
+;PCODE: $00000014 VOL: 0
+;PCODE: $00000015 VOL: 0
+; 000A 0012     count_input++;
+;PCODE: $00000016 VOL: 0
+;PCODE: $00000017 VOL: 0
+;PCODE: $00000018 VOL: 0
+;PCODE: $00000019 VOL: 0
+; 000A 0013 }
+;PCODE: $0000001A VOL: 0
+;PCODE: $0000001B VOL: 0
+;PCODE: $0000001C VOL: 0
+;
+;void pop_event(){
+; 000A 0015 void pop_event(){
+;PCODE: $0000001D VOL: 0
+;PCODE: $0000001E VOL: 0
+; 000A 0016     int event = 0;
+; 000A 0017     event = input[count_event];
+;PCODE: $0000001F VOL: 0
+;PCODE: $00000020 VOL: 0
+;	event -> R16,R17
+;PCODE: $00000021 VOL: 0
+;PCODE: $00000022 VOL: 0
+;PCODE: $00000023 VOL: 0
+;PCODE: $00000024 VOL: 0
+;PCODE: $00000025 VOL: 0
+;PCODE: $00000026 VOL: 0
+;PCODE: $00000027 VOL: 0
+; 000A 0018     printDebug("EVENT = %d\r\n", event);
+;PCODE: $00000028 VOL: 0
+;PCODE: $00000029 VOL: 0
+;PCODE: $0000002A VOL: 0
+;PCODE: $0000002B VOL: 0
+;PCODE: $0000002C VOL: 0
+;PCODE: $0000002D VOL: 0
+;PCODE: $0000002E VOL: 0
+;PCODE: $0000002F VOL: 0
+;PCODE: $00000030 VOL: 0
+;PCODE: $00000031 VOL: 0
+; 000A 0019     if (event != 0) count_event++;
+;PCODE: $00000032 VOL: 0
+;PCODE: $00000033 VOL: 0
+;PCODE: $00000034 VOL: 0
+;PCODE: $00000035 VOL: 0
+;PCODE: $00000036 VOL: 0
+;PCODE: $00000037 VOL: 0
+; 000A 001A     printDebug("count_event = %d\r\n", count_event);
+;PCODE: $00000038 VOL: 0
+;PCODE: $00000039 VOL: 0
+;PCODE: $0000003A VOL: 0
+;PCODE: $0000003B VOL: 0
+;PCODE: $0000003C VOL: 0
+;PCODE: $0000003D VOL: 0
+;PCODE: $0000003E VOL: 0
+;PCODE: $0000003F VOL: 0
+;PCODE: $00000040 VOL: 0
+;PCODE: $00000041 VOL: 0
+;PCODE: $00000042 VOL: 0
+; 000A 001B     if(count_event == 30 ) count_event = 0;
+;PCODE: $00000043 VOL: 0
+;PCODE: $00000044 VOL: 0
+;PCODE: $00000045 VOL: 0
+;PCODE: $00000046 VOL: 0
+;PCODE: $00000047 VOL: 0
+; 000A 001C     do_event(event);
+;PCODE: $00000048 VOL: 0
+;PCODE: $00000049 VOL: 0
+;PCODE: $0000004A VOL: 0
+; 000A 001D }
+;PCODE: $0000004B VOL: 0
+;PCODE: $0000004C VOL: 0
+;PCODE: $0000004D VOL: 0
+;
+;void do_event(int event){
+; 000A 001F void do_event(int event){
+;PCODE: $0000004E VOL: 0
+;PCODE: $0000004F VOL: 0
+; 000A 0020 
+; 000A 0021             if(event == 2){
+;PCODE: $00000050 VOL: 0
+;	event -> Y+0
+;PCODE: $00000051 VOL: 0
+;PCODE: $00000052 VOL: 0
+;PCODE: $00000053 VOL: 0
+; 000A 0022                 flag_state = 4;
+;PCODE: $00000054 VOL: 0
+;PCODE: $00000055 VOL: 0
+; 000A 0023                 printDebug("\r\n-------- JOINT SUCCESS --------\r\n");
+;PCODE: $00000056 VOL: 0
+;PCODE: $00000057 VOL: 0
+;PCODE: $00000058 VOL: 0
+;PCODE: $00000059 VOL: 0
+;PCODE: $0000005A VOL: 0
+;PCODE: $0000005B VOL: 0
+;PCODE: $0000005C VOL: 0
+; 000A 0024             }
+; 000A 0025 
+; 000A 0026         /*=============== Recive ACK ===============*/
+; 000A 0027             else if(event == 3){
+;PCODE: $0000005D VOL: 0
+;PCODE: $0000005E VOL: 0
+;PCODE: $0000005F VOL: 0
+;PCODE: $00000060 VOL: 0
+;PCODE: $00000061 VOL: 0
+; 000A 0028                 printDebug("\r\n-------- RECIVE PING --------\r\n");
+;PCODE: $00000062 VOL: 0
+;PCODE: $00000063 VOL: 0
+;PCODE: $00000064 VOL: 0
+;PCODE: $00000065 VOL: 0
+;PCODE: $00000066 VOL: 0
+;PCODE: $00000067 VOL: 0
+;PCODE: $00000068 VOL: 0
+; 000A 0029                 send_ping();
+;PCODE: $00000069 VOL: 0
+; 000A 002A             }
+; 000A 002B 
+; 000A 002C         /*=============== Recive EVENT ===============*/
+; 000A 002D             else if(event == 510 || event == 511){
+;PCODE: $0000006A VOL: 0
+;PCODE: $0000006B VOL: 0
+;PCODE: $0000006C VOL: 0
+;PCODE: $0000006D VOL: 0
+;PCODE: $0000006E VOL: 0
+;PCODE: $0000006F VOL: 0
+;PCODE: $00000070 VOL: 0
+;PCODE: $00000071 VOL: 0
+;PCODE: $00000072 VOL: 0
+;PCODE: $00000073 VOL: 0
+; 000A 002E             printDebug("\r\n ++++++++++ _event == 510 || _event == 511 ++++++++\r\n");
+;PCODE: $00000074 VOL: 0
+;PCODE: $00000075 VOL: 0
+;PCODE: $00000076 VOL: 0
+;PCODE: $00000077 VOL: 0
+;PCODE: $00000078 VOL: 0
+;PCODE: $00000079 VOL: 0
+;PCODE: $0000007A VOL: 0
+; 000A 002F                 if(event == 511){
+;PCODE: $0000007B VOL: 0
+;PCODE: $0000007C VOL: 0
+;PCODE: $0000007D VOL: 0
+; 000A 0030                     EVENT[1] = 1;
+;PCODE: $0000007E VOL: 0
+;PCODE: $0000007F VOL: 0
+;PCODE: $00000080 VOL: 0
+; 000A 0031                     //flag_state = 5;
+; 000A 0032                     flag_state = 4;
+;PCODE: $00000081 VOL: 0
+;PCODE: $00000082 VOL: 0
+; 000A 0033                     STATUS_DEVICE = 1;
+;PCODE: $00000083 VOL: 0
+;PCODE: $00000084 VOL: 0
+; 000A 0034                     EEPROM_write(Eaddress,STATUS_DEVICE);
+;PCODE: $00000085 VOL: 0
+;PCODE: $00000086 VOL: 0
+;PCODE: $00000087 VOL: 0
+;PCODE: $00000088 VOL: 0
+;PCODE: $00000089 VOL: 0
+; 000A 0035                     LED_STAT_ON;
+;PCODE: $0000008A VOL: 0
+;PCODE: $0000008B VOL: 0
+; 000A 0036                     POWER_RELAY_ON;
+;PCODE: $0000008C VOL: 0
+;PCODE: $0000008D VOL: 0
+;PCODE: $0000008E VOL: 0
+; 000A 0037                     send_event(1,1);
+;PCODE: $0000008F VOL: 0
+;PCODE: $00000090 VOL: 0
+;PCODE: $00000091 VOL: 0
+;PCODE: $00000092 VOL: 0
+; 000A 0038                 }else if(event == 510){
+;PCODE: $00000093 VOL: 0
+;PCODE: $00000094 VOL: 0
+;PCODE: $00000095 VOL: 0
+;PCODE: $00000096 VOL: 0
+;PCODE: $00000097 VOL: 0
+; 000A 0039                     EVENT[1] = 0;
+;PCODE: $00000098 VOL: 0
+;PCODE: $00000099 VOL: 0
+;PCODE: $0000009A VOL: 0
+; 000A 003A                     //flag_state = 4;
+; 000A 003B                     flag_state = 3;
+;PCODE: $0000009B VOL: 0
+;PCODE: $0000009C VOL: 0
+; 000A 003C                     STATUS_DEVICE = 0;
+;PCODE: $0000009D VOL: 0
+;PCODE: $0000009E VOL: 0
+; 000A 003D                     EEPROM_write(Eaddress,STATUS_DEVICE);
+;PCODE: $0000009F VOL: 0
+;PCODE: $000000A0 VOL: 0
+;PCODE: $000000A1 VOL: 0
+;PCODE: $000000A2 VOL: 0
+;PCODE: $000000A3 VOL: 0
+; 000A 003E                     LED_STAT_OFF;
+;PCODE: $000000A4 VOL: 0
+;PCODE: $000000A5 VOL: 0
+; 000A 003F                     POWER_RELAY_OFF;
+;PCODE: $000000A6 VOL: 0
+;PCODE: $000000A7 VOL: 0
+;PCODE: $000000A8 VOL: 0
+; 000A 0040                     send_event(1,0);
+;PCODE: $000000A9 VOL: 0
+;PCODE: $000000AA VOL: 0
+;PCODE: $000000AB VOL: 0
+;PCODE: $000000AC VOL: 0
+; 000A 0041                 }
+; 000A 0042                 recive_event(1,EVENT[1]);
+;PCODE: $000000AD VOL: 0
+;PCODE: $000000AE VOL: 0
+;PCODE: $000000AF VOL: 0
+;PCODE: $000000B0 VOL: 0
+;PCODE: $000000B1 VOL: 0
+;PCODE: $000000B2 VOL: 0
+;PCODE: $000000B3 VOL: 0
+; 000A 0043                 printDebug("\r\n-------- RECIVE EVENT --------\r\n");
+;PCODE: $000000B4 VOL: 0
+;PCODE: $000000B5 VOL: 0
+;PCODE: $000000B6 VOL: 0
+;PCODE: $000000B7 VOL: 0
+;PCODE: $000000B8 VOL: 0
+;PCODE: $000000B9 VOL: 0
+;PCODE: $000000BA VOL: 0
+; 000A 0044             }
+; 000A 0045 
+; 000A 0046             /*=============== Send EVENT Success ===============*/
+; 000A 0047             else if(event == 6){
+;PCODE: $000000BB VOL: 0
+;PCODE: $000000BC VOL: 0
+;PCODE: $000000BD VOL: 0
+;PCODE: $000000BE VOL: 0
+;PCODE: $000000BF VOL: 0
+; 000A 0048                 printDebug("\r\n-------- SEND EVENT SUCCESS --------\r\n");
+;PCODE: $000000C0 VOL: 0
+;PCODE: $000000C1 VOL: 0
+;PCODE: $000000C2 VOL: 0
+;PCODE: $000000C3 VOL: 0
+;PCODE: $000000C4 VOL: 0
+;PCODE: $000000C5 VOL: 0
+;PCODE: $000000C6 VOL: 0
+; 000A 0049             }
+; 000A 004A 
+; 000A 004B             /*=============== Send REPPORT Success ===============*/
+; 000A 004C             else if(event == 8){
+;PCODE: $000000C7 VOL: 0
+;PCODE: $000000C8 VOL: 0
+;PCODE: $000000C9 VOL: 0
+;PCODE: $000000CA VOL: 0
+;PCODE: $000000CB VOL: 0
+; 000A 004D                 printDebug("\r\n-------- SEND REPORT SUCCESS --------\r\n");
+;PCODE: $000000CC VOL: 0
+;PCODE: $000000CD VOL: 0
+;PCODE: $000000CE VOL: 0
+;PCODE: $000000CF VOL: 0
+;PCODE: $000000D0 VOL: 0
+;PCODE: $000000D1 VOL: 0
+;PCODE: $000000D2 VOL: 0
+; 000A 004E             }
+; 000A 004F }
+;PCODE: $000000D3 VOL: 0
+;PCODE: $000000D4 VOL: 0
+;PCODE: $000000D5 VOL: 0
+;PCODE: $000000D6 VOL: 0
+;PCODE: $000000D7 VOL: 0
+;PCODE: $000000D8 VOL: 0
+;PCODE: $000000D9 VOL: 0
+;PCODE: $000000DA VOL: 0
+;
+;
+;

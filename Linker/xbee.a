@@ -29,6 +29,7 @@
 ;#include <delay.h>
 ;#include <uart.h>
 ;#include <xbee.h>
+;#include <queue.h>
 ;#include <debug.h>
 ;#include <int_protocol.h>
 ;#include <eeprom.h>
@@ -38,10 +39,7 @@
 ;
 ;char EndDevice_MacAddress[8];
 ;char Gateway_MacAddress[8];
-;int input[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-;int count_input = 0;
-;//int *ptr[30] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-;int count_event = 0;
+;
 ;
 ;uint8_t AI_COMMAND[]            = {0x7E,0x00,0x04,0x08,0x01,0x41,0x49,0x6C};
 
@@ -51,24 +49,22 @@
 ;uint8_t EVENT[2]                = {0x00,0x00};
 ;uint8_t STATUS_DEVICE           = 0;
 ;int flag_state                  = 0;
-;int event_state                 = 3;
-;
 ;
 ;
 ;void xbee_sendATCommand(int param){
-; 0004 0020 void xbee_sendATCommand(int param){
+; 0004 001C void xbee_sendATCommand(int param){
 
 	.CSEG
 ;PCODE: $0000000D VOL: 0
 ;PCODE: $0000000E VOL: 0
-; 0004 0021      switch(param) {
+; 0004 001D      switch(param) {
 ;PCODE: $0000000F VOL: 0
 ;	param -> Y+0
 ;PCODE: $00000010 VOL: 0
-; 0004 0022         case 0  :
+; 0004 001E         case 0  :
 ;PCODE: $00000011 VOL: 0
 ;PCODE: $00000012 VOL: 0
-; 0004 0023             printDebug("\r\n ++++++++++ Send AI ++++++++\r\n");
+; 0004 001F             printDebug("\r\n ++++++++++ Send AI ++++++++\r\n");
 ;PCODE: $00000013 VOL: 0
 ;PCODE: $00000014 VOL: 0
 ;PCODE: $00000015 VOL: 0
@@ -76,27 +72,27 @@
 ;PCODE: $00000017 VOL: 0
 ;PCODE: $00000018 VOL: 0
 ;PCODE: $00000019 VOL: 0
-; 0004 0024             print_payload(AI_COMMAND,8);
+; 0004 0020             print_payload(AI_COMMAND,8);
 ;PCODE: $0000001A VOL: 0
 ;PCODE: $0000001B VOL: 0
 ;PCODE: $0000001C VOL: 0
 ;PCODE: $0000001D VOL: 0
 ;PCODE: $0000001E VOL: 0
-; 0004 0025             xbee_send(AI_COMMAND,8);
+; 0004 0021             xbee_send(AI_COMMAND,8);
 ;PCODE: $0000001F VOL: 0
 ;PCODE: $00000020 VOL: 0
 ;PCODE: $00000021 VOL: 0
 ;PCODE: $00000022 VOL: 0
 ;PCODE: $00000023 VOL: 0
-; 0004 0026 
-; 0004 0027         break;
+; 0004 0022 
+; 0004 0023         break;
 ;PCODE: $00000024 VOL: 0
-; 0004 0028 
-; 0004 0029         case 1  :
+; 0004 0024 
+; 0004 0025         case 1  :
 ;PCODE: $00000025 VOL: 0
 ;PCODE: $00000026 VOL: 0
 ;PCODE: $00000027 VOL: 0
-; 0004 002A             printDebug("\r\n ++++++++++ Send SH ++++++++\r\n");
+; 0004 0026             printDebug("\r\n ++++++++++ Send SH ++++++++\r\n");
 ;PCODE: $00000028 VOL: 0
 ;PCODE: $00000029 VOL: 0
 ;PCODE: $0000002A VOL: 0
@@ -104,27 +100,27 @@
 ;PCODE: $0000002C VOL: 0
 ;PCODE: $0000002D VOL: 0
 ;PCODE: $0000002E VOL: 0
-; 0004 002B             print_payload(SH_COMMAND,8);
+; 0004 0027             print_payload(SH_COMMAND,8);
 ;PCODE: $0000002F VOL: 0
 ;PCODE: $00000030 VOL: 0
 ;PCODE: $00000031 VOL: 0
 ;PCODE: $00000032 VOL: 0
 ;PCODE: $00000033 VOL: 0
-; 0004 002C             xbee_send(SH_COMMAND,8);
+; 0004 0028             xbee_send(SH_COMMAND,8);
 ;PCODE: $00000034 VOL: 0
 ;PCODE: $00000035 VOL: 0
 ;PCODE: $00000036 VOL: 0
 ;PCODE: $00000037 VOL: 0
 ;PCODE: $00000038 VOL: 0
-; 0004 002D 
-; 0004 002E         break;
+; 0004 0029 
+; 0004 002A         break;
 ;PCODE: $00000039 VOL: 0
-; 0004 002F 
-; 0004 0030         case 2  :
+; 0004 002B 
+; 0004 002C         case 2  :
 ;PCODE: $0000003A VOL: 0
 ;PCODE: $0000003B VOL: 0
 ;PCODE: $0000003C VOL: 0
-; 0004 0031             printDebug("\r\n ++++++++++ Send SL ++++++++\r\n");
+; 0004 002D             printDebug("\r\n ++++++++++ Send SL ++++++++\r\n");
 ;PCODE: $0000003D VOL: 0
 ;PCODE: $0000003E VOL: 0
 ;PCODE: $0000003F VOL: 0
@@ -132,36 +128,36 @@
 ;PCODE: $00000041 VOL: 0
 ;PCODE: $00000042 VOL: 0
 ;PCODE: $00000043 VOL: 0
-; 0004 0032             print_payload(SL_COMMAND,8);
+; 0004 002E             print_payload(SL_COMMAND,8);
 ;PCODE: $00000044 VOL: 0
 ;PCODE: $00000045 VOL: 0
 ;PCODE: $00000046 VOL: 0
 ;PCODE: $00000047 VOL: 0
 ;PCODE: $00000048 VOL: 0
-; 0004 0033             xbee_send(SL_COMMAND,8);
+; 0004 002F             xbee_send(SL_COMMAND,8);
 ;PCODE: $00000049 VOL: 0
 ;PCODE: $0000004A VOL: 0
 ;PCODE: $0000004B VOL: 0
 ;PCODE: $0000004C VOL: 0
 ;PCODE: $0000004D VOL: 0
-; 0004 0034 
-; 0004 0035         break;
+; 0004 0030 
+; 0004 0031         break;
 ;PCODE: $0000004E VOL: 0
-; 0004 0036      }
+; 0004 0032      }
 ;PCODE: $0000004F VOL: 0
-; 0004 0037 }
+; 0004 0033 }
 ;PCODE: $00000050 VOL: 0
 ;PCODE: $00000051 VOL: 0
 ;PCODE: $00000052 VOL: 0
 ;
 ;int xbee_checksum(char buf[],int len) {
-; 0004 0039 int xbee_checksum(char buf[],int len) {
+; 0004 0035 int xbee_checksum(char buf[],int len) {
 ;PCODE: $00000053 VOL: 0
 ;PCODE: $00000054 VOL: 0
-; 0004 003A 
-; 0004 003B     int i;
-; 0004 003C     char sum = 0;
-; 0004 003D     for (i = 0; i < len; i++) {
+; 0004 0036 
+; 0004 0037     int i;
+; 0004 0038     char sum = 0;
+; 0004 0039     for (i = 0; i < len; i++) {
 ;PCODE: $00000055 VOL: 0
 ;PCODE: $00000056 VOL: 0
 ;	buf -> Y+6
@@ -179,20 +175,20 @@
 ;PCODE: $0000005F VOL: 0
 ;PCODE: $00000060 VOL: 0
 ;PCODE: $00000061 VOL: 0
-; 0004 003E         sum += buf[i];
+; 0004 003A         sum += buf[i];
 ;PCODE: $00000062 VOL: 0
 ;PCODE: $00000063 VOL: 0
 ;PCODE: $00000064 VOL: 0
 ;PCODE: $00000065 VOL: 0
 ;PCODE: $00000066 VOL: 0
 ;PCODE: $00000067 VOL: 0
-; 0004 003F     }
+; 0004 003B     }
 ;PCODE: $00000068 VOL: 0
 ;PCODE: $00000069 VOL: 0
 ;PCODE: $0000006A VOL: 0
 ;PCODE: $0000006B VOL: 0
 ;PCODE: $0000006C VOL: 0
-; 0004 0040     return (0xFF - (sum & 0xFF));
+; 0004 003C     return (0xFF - (sum & 0xFF));
 ;PCODE: $0000006D VOL: 0
 ;PCODE: $0000006E VOL: 0
 ;PCODE: $0000006F VOL: 0
@@ -202,15 +198,15 @@
 ;PCODE: $00000073 VOL: 0
 ;PCODE: $00000074 VOL: 0
 ;PCODE: $00000075 VOL: 0
-; 0004 0041 }
+; 0004 003D }
 ;PCODE: $00000076 VOL: 0
 ;
 ;
 ;void xbee_sendAPI(uint8_t buff[],uint16_t len){
-; 0004 0044 void xbee_sendAPI(uint8_t buff[],uint16_t len){
+; 0004 0040 void xbee_sendAPI(uint8_t buff[],uint16_t len){
 ;PCODE: $00000077 VOL: 0
 ;PCODE: $00000078 VOL: 0
-; 0004 0045     xbee_send(buff,len);
+; 0004 0041     xbee_send(buff,len);
 ;PCODE: $00000079 VOL: 0
 ;	buff -> Y+2
 ;	len -> Y+0
@@ -218,19 +214,19 @@
 ;PCODE: $0000007B VOL: 0
 ;PCODE: $0000007C VOL: 0
 ;PCODE: $0000007D VOL: 0
-; 0004 0046 }
+; 0004 0042 }
 ;PCODE: $0000007E VOL: 0
 ;PCODE: $0000007F VOL: 0
 ;PCODE: $00000080 VOL: 0
 ;
 ;
 ;void xbee_receivePacket( uint8_t recvPacket[],uint16_t size){
-; 0004 0049 void xbee_receivePacket( uint8_t recvPacket[],uint16_t size){
+; 0004 0045 void xbee_receivePacket( uint8_t recvPacket[],uint16_t size){
 ;PCODE: $00000081 VOL: 0
 ;PCODE: $00000082 VOL: 0
-; 0004 004A 
-; 0004 004B     int start = 3;
-; 0004 004C     if(size <= 5)
+; 0004 0046 
+; 0004 0047     int start = 3;
+; 0004 0048     if(size <= 5)
 ;PCODE: $00000083 VOL: 0
 ;PCODE: $00000084 VOL: 0
 ;PCODE: $00000085 VOL: 0
@@ -242,14 +238,14 @@
 ;PCODE: $00000088 VOL: 0
 ;PCODE: $00000089 VOL: 0
 ;PCODE: $0000008A VOL: 0
-; 0004 004D         return;
+; 0004 0049         return;
 ;PCODE: $0000008B VOL: 0
 ;PCODE: $0000008C VOL: 0
 ;PCODE: $0000008D VOL: 0
 ;PCODE: $0000008E VOL: 0
 ;PCODE: $0000008F VOL: 0
 ;PCODE: $00000090 VOL: 0
-; 0004 004E     printDebug("\r\n ++++++++++ Recreive Data ++++++++\r\n");
+; 0004 004A     printDebug("\r\n ++++++++++ Recreive Data ++++++++\r\n");
 ;PCODE: $00000091 VOL: 0
 ;PCODE: $00000092 VOL: 0
 ;PCODE: $00000093 VOL: 0
@@ -258,18 +254,18 @@
 ;PCODE: $00000096 VOL: 0
 ;PCODE: $00000097 VOL: 0
 ;PCODE: $00000098 VOL: 0
-; 0004 004F     print_payload(recvPacket, size);
+; 0004 004B     print_payload(recvPacket, size);
 ;PCODE: $00000099 VOL: 0
 ;PCODE: $0000009A VOL: 0
 ;PCODE: $0000009B VOL: 0
 ;PCODE: $0000009C VOL: 0
-; 0004 0050     xbee_processPacket(&recvPacket[start]);
+; 0004 004C     xbee_processPacket(&recvPacket[start]);
 ;PCODE: $0000009D VOL: 0
 ;PCODE: $0000009E VOL: 0
 ;PCODE: $0000009F VOL: 0
 ;PCODE: $000000A0 VOL: 0
-; 0004 0051 
-; 0004 0052 }
+; 0004 004D 
+; 0004 004E }
 ;PCODE: $000000A1 VOL: 0
 ;PCODE: $000000A2 VOL: 0
 ;PCODE: $000000A3 VOL: 0
@@ -279,26 +275,26 @@
 ;PCODE: $000000A7 VOL: 0
 ;
 ;void xbee_processPacket(char *buf) {
-; 0004 0054 void xbee_processPacket(char *buf) {
+; 0004 0050 void xbee_processPacket(char *buf) {
 ;PCODE: $000000A8 VOL: 0
 ;PCODE: $000000A9 VOL: 0
-; 0004 0055       uint8_t frameType;
-; 0004 0056       frameType = buf[0];
+; 0004 0051       uint8_t frameType;
+; 0004 0052       frameType = buf[0];
 ;PCODE: $000000AA VOL: 0
 ;PCODE: $000000AB VOL: 0
 ;	*buf -> Y+1
 ;	frameType -> R17
 ;PCODE: $000000AC VOL: 0
 ;PCODE: $000000AD VOL: 0
-; 0004 0057       switch(frameType) {
+; 0004 0053       switch(frameType) {
 ;PCODE: $000000AE VOL: 0
 ;PCODE: $000000AF VOL: 0
-; 0004 0058 
-; 0004 0059         /*=============== Recive AI ===============*/
-; 0004 005A         case 0x88  :
+; 0004 0054 
+; 0004 0055         /*=============== Recive AI ===============*/
+; 0004 0056         case 0x88  :
 ;PCODE: $000000B0 VOL: 0
 ;PCODE: $000000B1 VOL: 0
-; 0004 005B             if(buf[2] == 0x41 && buf[3] == 0x49){
+; 0004 0057             if(buf[2] == 0x41 && buf[3] == 0x49){
 ;PCODE: $000000B2 VOL: 0
 ;PCODE: $000000B3 VOL: 0
 ;PCODE: $000000B4 VOL: 0
@@ -313,14 +309,14 @@
 ;PCODE: $000000BD VOL: 0
 ;PCODE: $000000BE VOL: 0
 ;PCODE: $000000BF VOL: 0
-; 0004 005C                 flag_state = 1;
+; 0004 0058                 flag_state = 1;
 ;PCODE: $000000C0 VOL: 0
 ;PCODE: $000000C1 VOL: 0
-; 0004 005D             }
-; 0004 005E 
-; 0004 005F         /*=============== Recive SH ===============*/
-; 0004 0060 
-; 0004 0061             else if (buf[2] == 0x53 && buf[3] == 0x48){
+; 0004 0059             }
+; 0004 005A 
+; 0004 005B         /*=============== Recive SH ===============*/
+; 0004 005C 
+; 0004 005D             else if (buf[2] == 0x53 && buf[3] == 0x48){
 ;PCODE: $000000C2 VOL: 0
 ;PCODE: $000000C3 VOL: 0
 ;PCODE: $000000C4 VOL: 0
@@ -337,7 +333,7 @@
 ;PCODE: $000000CF VOL: 0
 ;PCODE: $000000D0 VOL: 0
 ;PCODE: $000000D1 VOL: 0
-; 0004 0062                 memcpy(EndDevice_MacAddress,&buf[5],4);
+; 0004 005E                 memcpy(EndDevice_MacAddress,&buf[5],4);
 ;PCODE: $000000D2 VOL: 0
 ;PCODE: $000000D3 VOL: 0
 ;PCODE: $000000D4 VOL: 0
@@ -346,14 +342,14 @@
 ;PCODE: $000000D7 VOL: 0
 ;PCODE: $000000D8 VOL: 0
 ;PCODE: $000000D9 VOL: 0
-; 0004 0063                 flag_state = 2;
+; 0004 005F                 flag_state = 2;
 ;PCODE: $000000DA VOL: 0
 ;PCODE: $000000DB VOL: 0
-; 0004 0064             }
-; 0004 0065 
-; 0004 0066         /*=============== Recive SL ===============*/
-; 0004 0067 
-; 0004 0068             else if( buf[2] == 0x53 && buf[3] == 0x4C){
+; 0004 0060             }
+; 0004 0061 
+; 0004 0062         /*=============== Recive SL ===============*/
+; 0004 0063 
+; 0004 0064             else if( buf[2] == 0x53 && buf[3] == 0x4C){
 ;PCODE: $000000DC VOL: 0
 ;PCODE: $000000DD VOL: 0
 ;PCODE: $000000DE VOL: 0
@@ -370,7 +366,7 @@
 ;PCODE: $000000E9 VOL: 0
 ;PCODE: $000000EA VOL: 0
 ;PCODE: $000000EB VOL: 0
-; 0004 0069                 memcpy(&EndDevice_MacAddress[4],&buf[5],4);
+; 0004 0065                 memcpy(&EndDevice_MacAddress[4],&buf[5],4);
 ;PCODE: $000000EC VOL: 0
 ;PCODE: $000000ED VOL: 0
 ;PCODE: $000000EE VOL: 0
@@ -380,30 +376,30 @@
 ;PCODE: $000000F2 VOL: 0
 ;PCODE: $000000F3 VOL: 0
 ;PCODE: $000000F4 VOL: 0
-; 0004 006A                 flag_state = 3;
+; 0004 0066                 flag_state = 3;
 ;PCODE: $000000F5 VOL: 0
 ;PCODE: $000000F6 VOL: 0
-; 0004 006B             }
-; 0004 006C 
-; 0004 006D         break;
+; 0004 0067             }
+; 0004 0068 
+; 0004 0069         break;
 ;PCODE: $000000F7 VOL: 0
 ;PCODE: $000000F8 VOL: 0
 ;PCODE: $000000F9 VOL: 0
 ;PCODE: $000000FA VOL: 0
-; 0004 006E 
-; 0004 006F         /*=============== Recive ACK ===============*/
-; 0004 0070         case 0x90  :
+; 0004 006A 
+; 0004 006B         /*=============== Recive ACK ===============*/
+; 0004 006C         case 0x90  :
 ;PCODE: $000000FB VOL: 0
 ;PCODE: $000000FC VOL: 0
 ;PCODE: $000000FD VOL: 0
-; 0004 0071 
-; 0004 0072         if(buf[32] == 0xA2){
+; 0004 006D 
+; 0004 006E         if(buf[32] == 0xA2){
 ;PCODE: $000000FE VOL: 0
 ;PCODE: $000000FF VOL: 0
 ;PCODE: $00000100 VOL: 0
 ;PCODE: $00000101 VOL: 0
 ;PCODE: $00000102 VOL: 0
-; 0004 0073             memcpy(Gateway_MacAddress,&buf[1],8);
+; 0004 006F             memcpy(Gateway_MacAddress,&buf[1],8);
 ;PCODE: $00000103 VOL: 0
 ;PCODE: $00000104 VOL: 0
 ;PCODE: $00000105 VOL: 0
@@ -412,176 +408,177 @@
 ;PCODE: $00000108 VOL: 0
 ;PCODE: $00000109 VOL: 0
 ;PCODE: $0000010A VOL: 0
-; 0004 0074             input[count_input] = 2;
+; 0004 0070             //input[count_input] = 2;
+; 0004 0071             flag_state = 4;
 ;PCODE: $0000010B VOL: 0
 ;PCODE: $0000010C VOL: 0
+; 0004 0072         }
+; 0004 0073         else if(buf[32] == 0xA3){
 ;PCODE: $0000010D VOL: 0
 ;PCODE: $0000010E VOL: 0
 ;PCODE: $0000010F VOL: 0
 ;PCODE: $00000110 VOL: 0
-; 0004 0075         }
-; 0004 0076         else if(buf[32] == 0xA3){
 ;PCODE: $00000111 VOL: 0
 ;PCODE: $00000112 VOL: 0
 ;PCODE: $00000113 VOL: 0
+; 0004 0074             memcpy(Gateway_MacAddress,&buf[1],8);
 ;PCODE: $00000114 VOL: 0
 ;PCODE: $00000115 VOL: 0
 ;PCODE: $00000116 VOL: 0
 ;PCODE: $00000117 VOL: 0
-; 0004 0077             memcpy(Gateway_MacAddress,&buf[1],8);
 ;PCODE: $00000118 VOL: 0
 ;PCODE: $00000119 VOL: 0
 ;PCODE: $0000011A VOL: 0
 ;PCODE: $0000011B VOL: 0
+; 0004 0075             input[count_input] = 3;
 ;PCODE: $0000011C VOL: 0
 ;PCODE: $0000011D VOL: 0
 ;PCODE: $0000011E VOL: 0
 ;PCODE: $0000011F VOL: 0
-; 0004 0078             input[count_input] = 3;
 ;PCODE: $00000120 VOL: 0
 ;PCODE: $00000121 VOL: 0
+; 0004 0076             count_input++;
 ;PCODE: $00000122 VOL: 0
 ;PCODE: $00000123 VOL: 0
 ;PCODE: $00000124 VOL: 0
 ;PCODE: $00000125 VOL: 0
-; 0004 0079             count_input++;
+; 0004 0077         }
+; 0004 0078         else if(buf[32] == 0xA5){
 ;PCODE: $00000126 VOL: 0
 ;PCODE: $00000127 VOL: 0
 ;PCODE: $00000128 VOL: 0
 ;PCODE: $00000129 VOL: 0
-; 0004 007A         }
-; 0004 007B         else if(buf[32] == 0xA5){
 ;PCODE: $0000012A VOL: 0
 ;PCODE: $0000012B VOL: 0
 ;PCODE: $0000012C VOL: 0
+; 0004 0079             memcpy(Gateway_MacAddress,&buf[1],8);
 ;PCODE: $0000012D VOL: 0
 ;PCODE: $0000012E VOL: 0
 ;PCODE: $0000012F VOL: 0
 ;PCODE: $00000130 VOL: 0
-; 0004 007C             memcpy(Gateway_MacAddress,&buf[1],8);
 ;PCODE: $00000131 VOL: 0
 ;PCODE: $00000132 VOL: 0
 ;PCODE: $00000133 VOL: 0
 ;PCODE: $00000134 VOL: 0
+; 0004 007A             if(buf[34] == 0x01)
 ;PCODE: $00000135 VOL: 0
 ;PCODE: $00000136 VOL: 0
 ;PCODE: $00000137 VOL: 0
 ;PCODE: $00000138 VOL: 0
-; 0004 007D             if(buf[34] == 0x01)
 ;PCODE: $00000139 VOL: 0
+; 0004 007B                 input[count_input] = 511;
 ;PCODE: $0000013A VOL: 0
 ;PCODE: $0000013B VOL: 0
 ;PCODE: $0000013C VOL: 0
 ;PCODE: $0000013D VOL: 0
-; 0004 007E                 input[count_input] = 511;
 ;PCODE: $0000013E VOL: 0
 ;PCODE: $0000013F VOL: 0
+; 0004 007C             else if(buf[34] == 0x00)
 ;PCODE: $00000140 VOL: 0
 ;PCODE: $00000141 VOL: 0
 ;PCODE: $00000142 VOL: 0
 ;PCODE: $00000143 VOL: 0
-; 0004 007F             else if(buf[34] == 0x00)
 ;PCODE: $00000144 VOL: 0
 ;PCODE: $00000145 VOL: 0
+; 0004 007D                 input[count_input] = 510;
 ;PCODE: $00000146 VOL: 0
 ;PCODE: $00000147 VOL: 0
 ;PCODE: $00000148 VOL: 0
 ;PCODE: $00000149 VOL: 0
-; 0004 0080                 input[count_input] = 510;
 ;PCODE: $0000014A VOL: 0
 ;PCODE: $0000014B VOL: 0
+; 0004 007E             count_input++;
 ;PCODE: $0000014C VOL: 0
 ;PCODE: $0000014D VOL: 0
 ;PCODE: $0000014E VOL: 0
 ;PCODE: $0000014F VOL: 0
-; 0004 0081             count_input++;
 ;PCODE: $00000150 VOL: 0
 ;PCODE: $00000151 VOL: 0
+; 0004 007F         }
+; 0004 0080         else if(buf[32] == 0xA6){
 ;PCODE: $00000152 VOL: 0
 ;PCODE: $00000153 VOL: 0
 ;PCODE: $00000154 VOL: 0
 ;PCODE: $00000155 VOL: 0
-; 0004 0082         }
-; 0004 0083         else if(buf[32] == 0xA6){
 ;PCODE: $00000156 VOL: 0
 ;PCODE: $00000157 VOL: 0
 ;PCODE: $00000158 VOL: 0
+; 0004 0081             EVENT[0] = buf[33];
 ;PCODE: $00000159 VOL: 0
 ;PCODE: $0000015A VOL: 0
 ;PCODE: $0000015B VOL: 0
+; 0004 0082             EVENT[1] = buf[34];
 ;PCODE: $0000015C VOL: 0
-; 0004 0084             EVENT[0] = buf[33];
 ;PCODE: $0000015D VOL: 0
 ;PCODE: $0000015E VOL: 0
 ;PCODE: $0000015F VOL: 0
-; 0004 0085             EVENT[1] = buf[34];
+; 0004 0083             memcpy(Gateway_MacAddress,&buf[1],8);
 ;PCODE: $00000160 VOL: 0
 ;PCODE: $00000161 VOL: 0
 ;PCODE: $00000162 VOL: 0
 ;PCODE: $00000163 VOL: 0
-; 0004 0086             memcpy(Gateway_MacAddress,&buf[1],8);
 ;PCODE: $00000164 VOL: 0
 ;PCODE: $00000165 VOL: 0
 ;PCODE: $00000166 VOL: 0
 ;PCODE: $00000167 VOL: 0
+; 0004 0084             input[count_input] = 6;
 ;PCODE: $00000168 VOL: 0
 ;PCODE: $00000169 VOL: 0
 ;PCODE: $0000016A VOL: 0
 ;PCODE: $0000016B VOL: 0
-; 0004 0087             input[count_input] = 6;
 ;PCODE: $0000016C VOL: 0
 ;PCODE: $0000016D VOL: 0
+; 0004 0085             count_input++;
 ;PCODE: $0000016E VOL: 0
 ;PCODE: $0000016F VOL: 0
 ;PCODE: $00000170 VOL: 0
 ;PCODE: $00000171 VOL: 0
-; 0004 0088             count_input++;
+; 0004 0086         }
+; 0004 0087         else if(buf[32] == 0xA8){
 ;PCODE: $00000172 VOL: 0
 ;PCODE: $00000173 VOL: 0
 ;PCODE: $00000174 VOL: 0
 ;PCODE: $00000175 VOL: 0
-; 0004 0089         }
-; 0004 008A         else if(buf[32] == 0xA8){
 ;PCODE: $00000176 VOL: 0
 ;PCODE: $00000177 VOL: 0
 ;PCODE: $00000178 VOL: 0
+; 0004 0088             memcpy(Gateway_MacAddress,&buf[1],8);
 ;PCODE: $00000179 VOL: 0
 ;PCODE: $0000017A VOL: 0
 ;PCODE: $0000017B VOL: 0
 ;PCODE: $0000017C VOL: 0
-; 0004 008B             memcpy(Gateway_MacAddress,&buf[1],8);
 ;PCODE: $0000017D VOL: 0
 ;PCODE: $0000017E VOL: 0
 ;PCODE: $0000017F VOL: 0
 ;PCODE: $00000180 VOL: 0
+; 0004 0089             input[count_input] = 8;
 ;PCODE: $00000181 VOL: 0
 ;PCODE: $00000182 VOL: 0
 ;PCODE: $00000183 VOL: 0
 ;PCODE: $00000184 VOL: 0
-; 0004 008C             input[count_input] = 8;
 ;PCODE: $00000185 VOL: 0
 ;PCODE: $00000186 VOL: 0
+; 0004 008A             count_input++;
 ;PCODE: $00000187 VOL: 0
 ;PCODE: $00000188 VOL: 0
 ;PCODE: $00000189 VOL: 0
 ;PCODE: $0000018A VOL: 0
-; 0004 008D             count_input++;
+; 0004 008B         }
+; 0004 008C 
+; 0004 008D         break;
 ;PCODE: $0000018B VOL: 0
 ;PCODE: $0000018C VOL: 0
 ;PCODE: $0000018D VOL: 0
 ;PCODE: $0000018E VOL: 0
-; 0004 008E         }
-; 0004 008F 
-; 0004 0090         break;
 ;PCODE: $0000018F VOL: 0
 ;PCODE: $00000190 VOL: 0
+; 0004 008E       }
 ;PCODE: $00000191 VOL: 0
+; 0004 008F       if(input[count_input-1] != 0) do_event(input[count_input]);
 ;PCODE: $00000192 VOL: 0
 ;PCODE: $00000193 VOL: 0
 ;PCODE: $00000194 VOL: 0
-; 0004 0091       }
 ;PCODE: $00000195 VOL: 0
-; 0004 0092       if(input[count_input-1] != 0) do_something(input[count_input]);
 ;PCODE: $00000196 VOL: 0
 ;PCODE: $00000197 VOL: 0
 ;PCODE: $00000198 VOL: 0
@@ -593,346 +590,145 @@
 ;PCODE: $0000019E VOL: 0
 ;PCODE: $0000019F VOL: 0
 ;PCODE: $000001A0 VOL: 0
+; 0004 0090       if(count_input == 30)  count_input = 0;
 ;PCODE: $000001A1 VOL: 0
 ;PCODE: $000001A2 VOL: 0
 ;PCODE: $000001A3 VOL: 0
 ;PCODE: $000001A4 VOL: 0
-; 0004 0093       if(count_input == 30)  count_input = 0;
 ;PCODE: $000001A5 VOL: 0
 ;PCODE: $000001A6 VOL: 0
+; 0004 0091 }
 ;PCODE: $000001A7 VOL: 0
 ;PCODE: $000001A8 VOL: 0
 ;PCODE: $000001A9 VOL: 0
 ;PCODE: $000001AA VOL: 0
-; 0004 0094 }
 ;PCODE: $000001AB VOL: 0
 ;PCODE: $000001AC VOL: 0
-;PCODE: $000001AD VOL: 0
-;PCODE: $000001AE VOL: 0
-;PCODE: $000001AF VOL: 0
-;PCODE: $000001B0 VOL: 0
 ;
 ;uint16_t xbee_send(uint8_t buff[],uint16_t len){
-; 0004 0096 uint16_t xbee_send(uint8_t buff[],uint16_t len){
+; 0004 0093 uint16_t xbee_send(uint8_t buff[],uint16_t len){
+;PCODE: $000001AD VOL: 0
+;PCODE: $000001AE VOL: 0
+; 0004 0094     uint16_t i;
+; 0004 0095     for(i = 0; i < len; i++) {
+;PCODE: $000001AF VOL: 0
+;PCODE: $000001B0 VOL: 0
 ;PCODE: $000001B1 VOL: 0
-;PCODE: $000001B2 VOL: 0
-; 0004 0097     uint16_t i;
-; 0004 0098     for(i = 0; i < len; i++) {
-;PCODE: $000001B3 VOL: 0
-;PCODE: $000001B4 VOL: 0
-;PCODE: $000001B5 VOL: 0
 ;	buff -> Y+4
 ;	len -> Y+2
 ;	i -> R16,R17
+;PCODE: $000001B2 VOL: 0
+;PCODE: $000001B3 VOL: 0
+;PCODE: $000001B4 VOL: 0
+;PCODE: $000001B5 VOL: 0
 ;PCODE: $000001B6 VOL: 0
 ;PCODE: $000001B7 VOL: 0
 ;PCODE: $000001B8 VOL: 0
 ;PCODE: $000001B9 VOL: 0
 ;PCODE: $000001BA VOL: 0
+; 0004 0096         putchar1(buff[i]);
 ;PCODE: $000001BB VOL: 0
 ;PCODE: $000001BC VOL: 0
 ;PCODE: $000001BD VOL: 0
 ;PCODE: $000001BE VOL: 0
-; 0004 0099         putchar1(buff[i]);
 ;PCODE: $000001BF VOL: 0
+; 0004 0097     }
 ;PCODE: $000001C0 VOL: 0
 ;PCODE: $000001C1 VOL: 0
 ;PCODE: $000001C2 VOL: 0
 ;PCODE: $000001C3 VOL: 0
-; 0004 009A     }
 ;PCODE: $000001C4 VOL: 0
+; 0004 0098     return i;
 ;PCODE: $000001C5 VOL: 0
 ;PCODE: $000001C6 VOL: 0
 ;PCODE: $000001C7 VOL: 0
 ;PCODE: $000001C8 VOL: 0
-; 0004 009B     return i;
 ;PCODE: $000001C9 VOL: 0
 ;PCODE: $000001CA VOL: 0
 ;PCODE: $000001CB VOL: 0
+; 0004 0099 }
 ;PCODE: $000001CC VOL: 0
-;PCODE: $000001CD VOL: 0
-;PCODE: $000001CE VOL: 0
-;PCODE: $000001CF VOL: 0
-; 0004 009C }
-;PCODE: $000001D0 VOL: 0
 ;
 ;void xbee_read() {
-; 0004 009E void xbee_read() {
-;PCODE: $000001D1 VOL: 0
-;PCODE: $000001D2 VOL: 0
-; 0004 009F 
-; 0004 00A0     uint8_t readbuf[256];
-; 0004 00A1     uint8_t data;
-; 0004 00A2     uint16_t len = 0;
-; 0004 00A3     int i = 0;
-; 0004 00A4     delay_ms(100);
-;PCODE: $000001D3 VOL: 0
-;PCODE: $000001D4 VOL: 0
+; 0004 009B void xbee_read() {
+;PCODE: $000001CD VOL: 0
+;PCODE: $000001CE VOL: 0
+; 0004 009C 
+; 0004 009D     uint8_t readbuf[256];
+; 0004 009E     uint8_t data;
+; 0004 009F     uint16_t len = 0;
+; 0004 00A0     int i = 0;
+; 0004 00A1     delay_ms(100);
+;PCODE: $000001CF VOL: 0
+;PCODE: $000001D0 VOL: 0
 ;	readbuf -> Y+6
 ;	data -> R17
 ;	len -> R18,R19
 ;	i -> R20,R21
+;PCODE: $000001D1 VOL: 0
+;PCODE: $000001D2 VOL: 0
+;PCODE: $000001D3 VOL: 0
+;PCODE: $000001D4 VOL: 0
 ;PCODE: $000001D5 VOL: 0
 ;PCODE: $000001D6 VOL: 0
 ;PCODE: $000001D7 VOL: 0
+; 0004 00A2 
+; 0004 00A3     while (rx_counter1>0){
 ;PCODE: $000001D8 VOL: 0
 ;PCODE: $000001D9 VOL: 0
 ;PCODE: $000001DA VOL: 0
 ;PCODE: $000001DB VOL: 0
-; 0004 00A5 
-; 0004 00A6     while (rx_counter1>0){
+; 0004 00A4         data=rx_buffer1[rx_rd_index1++];
 ;PCODE: $000001DC VOL: 0
 ;PCODE: $000001DD VOL: 0
 ;PCODE: $000001DE VOL: 0
 ;PCODE: $000001DF VOL: 0
-; 0004 00A7         data=rx_buffer1[rx_rd_index1++];
 ;PCODE: $000001E0 VOL: 0
 ;PCODE: $000001E1 VOL: 0
 ;PCODE: $000001E2 VOL: 0
+; 0004 00A5         readbuf[i++] = data;
 ;PCODE: $000001E3 VOL: 0
 ;PCODE: $000001E4 VOL: 0
 ;PCODE: $000001E5 VOL: 0
 ;PCODE: $000001E6 VOL: 0
-; 0004 00A8         readbuf[i++] = data;
 ;PCODE: $000001E7 VOL: 0
 ;PCODE: $000001E8 VOL: 0
+; 0004 00A6         len++;
 ;PCODE: $000001E9 VOL: 0
 ;PCODE: $000001EA VOL: 0
+; 0004 00A7         #if RX_BUFFER_SIZE1 != 256
+; 0004 00A8         if (rx_rd_index1 == RX_BUFFER_SIZE1) rx_rd_index1=0;
 ;PCODE: $000001EB VOL: 0
 ;PCODE: $000001EC VOL: 0
-; 0004 00A9         len++;
 ;PCODE: $000001ED VOL: 0
 ;PCODE: $000001EE VOL: 0
-; 0004 00AA         #if RX_BUFFER_SIZE1 != 256
-; 0004 00AB         if (rx_rd_index1 == RX_BUFFER_SIZE1) rx_rd_index1=0;
 ;PCODE: $000001EF VOL: 0
+; 0004 00A9         #endif
+; 0004 00AA         #asm("cli")
 ;PCODE: $000001F0 VOL: 0
 ;PCODE: $000001F1 VOL: 0
+	cli
 ;PCODE: $000001F2 VOL: 0
+; 0004 00AB         --rx_counter1;
 ;PCODE: $000001F3 VOL: 0
-; 0004 00AC         #endif
-; 0004 00AD         #asm("cli")
 ;PCODE: $000001F4 VOL: 0
 ;PCODE: $000001F5 VOL: 0
-	cli
 ;PCODE: $000001F6 VOL: 0
-; 0004 00AE         --rx_counter1;
+; 0004 00AC         #asm("sei")
 ;PCODE: $000001F7 VOL: 0
+	sei
 ;PCODE: $000001F8 VOL: 0
+; 0004 00AD     }
 ;PCODE: $000001F9 VOL: 0
 ;PCODE: $000001FA VOL: 0
-; 0004 00AF         #asm("sei")
+; 0004 00AE 
+; 0004 00AF     xbee_receivePacket(readbuf, len);
 ;PCODE: $000001FB VOL: 0
-	sei
 ;PCODE: $000001FC VOL: 0
-; 0004 00B0     }
 ;PCODE: $000001FD VOL: 0
 ;PCODE: $000001FE VOL: 0
-; 0004 00B1 
-; 0004 00B2     xbee_receivePacket(readbuf, len);
+; 0004 00B0 }
 ;PCODE: $000001FF VOL: 0
 ;PCODE: $00000200 VOL: 0
 ;PCODE: $00000201 VOL: 0
 ;PCODE: $00000202 VOL: 0
-; 0004 00B3 }
-;PCODE: $00000203 VOL: 0
-;PCODE: $00000204 VOL: 0
-;PCODE: $00000205 VOL: 0
-;PCODE: $00000206 VOL: 0
-;
-;void do_something(int _event){
-; 0004 00B5 void do_something(int _event){
-;PCODE: $00000207 VOL: 0
-;PCODE: $00000208 VOL: 0
-; 0004 00B6 
-; 0004 00B7             if(_event == 2){
-;PCODE: $00000209 VOL: 0
-;	_event -> Y+0
-;PCODE: $0000020A VOL: 0
-;PCODE: $0000020B VOL: 0
-;PCODE: $0000020C VOL: 0
-; 0004 00B8                 flag_state = 4;
-;PCODE: $0000020D VOL: 0
-;PCODE: $0000020E VOL: 0
-; 0004 00B9                 printDebug("\r\n-------- JOINT SUCCESS --------\r\n");
-;PCODE: $0000020F VOL: 0
-;PCODE: $00000210 VOL: 0
-;PCODE: $00000211 VOL: 0
-;PCODE: $00000212 VOL: 0
-;PCODE: $00000213 VOL: 0
-;PCODE: $00000214 VOL: 0
-;PCODE: $00000215 VOL: 0
-; 0004 00BA             }
-; 0004 00BB 
-; 0004 00BC         /*=============== Recive ACK ===============*/
-; 0004 00BD             else if(_event == 3){
-;PCODE: $00000216 VOL: 0
-;PCODE: $00000217 VOL: 0
-;PCODE: $00000218 VOL: 0
-;PCODE: $00000219 VOL: 0
-;PCODE: $0000021A VOL: 0
-; 0004 00BE                 printDebug("\r\n-------- RECIVE PING --------\r\n");
-;PCODE: $0000021B VOL: 0
-;PCODE: $0000021C VOL: 0
-;PCODE: $0000021D VOL: 0
-;PCODE: $0000021E VOL: 0
-;PCODE: $0000021F VOL: 0
-;PCODE: $00000220 VOL: 0
-;PCODE: $00000221 VOL: 0
-; 0004 00BF                 send_ping();
-;PCODE: $00000222 VOL: 0
-; 0004 00C0             }
-; 0004 00C1 
-; 0004 00C2         /*=============== Recive EVENT ===============*/
-; 0004 00C3             else if(_event == 510 || _event == 511){
-;PCODE: $00000223 VOL: 0
-;PCODE: $00000224 VOL: 0
-;PCODE: $00000225 VOL: 0
-;PCODE: $00000226 VOL: 0
-;PCODE: $00000227 VOL: 0
-;PCODE: $00000228 VOL: 0
-;PCODE: $00000229 VOL: 0
-;PCODE: $0000022A VOL: 0
-;PCODE: $0000022B VOL: 0
-;PCODE: $0000022C VOL: 0
-; 0004 00C4             printDebug("\r\n ++++++++++ _event == 510 || _event == 511 ++++++++\r\n");
-;PCODE: $0000022D VOL: 0
-;PCODE: $0000022E VOL: 0
-;PCODE: $0000022F VOL: 0
-;PCODE: $00000230 VOL: 0
-;PCODE: $00000231 VOL: 0
-;PCODE: $00000232 VOL: 0
-;PCODE: $00000233 VOL: 0
-; 0004 00C5                 if(_event == 511){
-;PCODE: $00000234 VOL: 0
-;PCODE: $00000235 VOL: 0
-;PCODE: $00000236 VOL: 0
-; 0004 00C6                     EVENT[1] = 1;
-;PCODE: $00000237 VOL: 0
-;PCODE: $00000238 VOL: 0
-;PCODE: $00000239 VOL: 0
-; 0004 00C7                     //flag_state = 5;
-; 0004 00C8                     flag_state = 4;
-;PCODE: $0000023A VOL: 0
-;PCODE: $0000023B VOL: 0
-; 0004 00C9                     STATUS_DEVICE = 1;
-;PCODE: $0000023C VOL: 0
-;PCODE: $0000023D VOL: 0
-; 0004 00CA                     EEPROM_write(Eaddress,STATUS_DEVICE);
-;PCODE: $0000023E VOL: 0
-;PCODE: $0000023F VOL: 0
-;PCODE: $00000240 VOL: 0
-;PCODE: $00000241 VOL: 0
-;PCODE: $00000242 VOL: 0
-; 0004 00CB                     LED_STAT_ON;
-;PCODE: $00000243 VOL: 0
-;PCODE: $00000244 VOL: 0
-; 0004 00CC                     POWER_RELAY_ON;
-;PCODE: $00000245 VOL: 0
-;PCODE: $00000246 VOL: 0
-;PCODE: $00000247 VOL: 0
-; 0004 00CD                     send_event(1,1);
-;PCODE: $00000248 VOL: 0
-;PCODE: $00000249 VOL: 0
-;PCODE: $0000024A VOL: 0
-;PCODE: $0000024B VOL: 0
-; 0004 00CE                 }else if(_event == 510){
-;PCODE: $0000024C VOL: 0
-;PCODE: $0000024D VOL: 0
-;PCODE: $0000024E VOL: 0
-;PCODE: $0000024F VOL: 0
-;PCODE: $00000250 VOL: 0
-; 0004 00CF                     EVENT[1] = 0;
-;PCODE: $00000251 VOL: 0
-;PCODE: $00000252 VOL: 0
-;PCODE: $00000253 VOL: 0
-; 0004 00D0                     //flag_state = 4;
-; 0004 00D1                     flag_state = 3;
-;PCODE: $00000254 VOL: 0
-;PCODE: $00000255 VOL: 0
-; 0004 00D2                     STATUS_DEVICE = 0;
-;PCODE: $00000256 VOL: 0
-;PCODE: $00000257 VOL: 0
-; 0004 00D3                     EEPROM_write(Eaddress,STATUS_DEVICE);
-;PCODE: $00000258 VOL: 0
-;PCODE: $00000259 VOL: 0
-;PCODE: $0000025A VOL: 0
-;PCODE: $0000025B VOL: 0
-;PCODE: $0000025C VOL: 0
-; 0004 00D4                     LED_STAT_OFF;
-;PCODE: $0000025D VOL: 0
-;PCODE: $0000025E VOL: 0
-; 0004 00D5                     POWER_RELAY_OFF;
-;PCODE: $0000025F VOL: 0
-;PCODE: $00000260 VOL: 0
-;PCODE: $00000261 VOL: 0
-; 0004 00D6                     send_event(1,0);
-;PCODE: $00000262 VOL: 0
-;PCODE: $00000263 VOL: 0
-;PCODE: $00000264 VOL: 0
-;PCODE: $00000265 VOL: 0
-; 0004 00D7                 }
-; 0004 00D8                 recive_event(1,EVENT[1]);
-;PCODE: $00000266 VOL: 0
-;PCODE: $00000267 VOL: 0
-;PCODE: $00000268 VOL: 0
-;PCODE: $00000269 VOL: 0
-;PCODE: $0000026A VOL: 0
-;PCODE: $0000026B VOL: 0
-;PCODE: $0000026C VOL: 0
-; 0004 00D9                 printDebug("\r\n-------- RECIVE EVENT --------\r\n");
-;PCODE: $0000026D VOL: 0
-;PCODE: $0000026E VOL: 0
-;PCODE: $0000026F VOL: 0
-;PCODE: $00000270 VOL: 0
-;PCODE: $00000271 VOL: 0
-;PCODE: $00000272 VOL: 0
-;PCODE: $00000273 VOL: 0
-; 0004 00DA             }
-; 0004 00DB 
-; 0004 00DC             /*=============== Send EVENT Success ===============*/
-; 0004 00DD             else if(_event == 6){
-;PCODE: $00000274 VOL: 0
-;PCODE: $00000275 VOL: 0
-;PCODE: $00000276 VOL: 0
-;PCODE: $00000277 VOL: 0
-;PCODE: $00000278 VOL: 0
-; 0004 00DE                 event_state = 0;
-;PCODE: $00000279 VOL: 0
-;PCODE: $0000027A VOL: 0
-; 0004 00DF                 printDebug("\r\n-------- SEND EVENT SUCCESS --------\r\n");
-;PCODE: $0000027B VOL: 0
-;PCODE: $0000027C VOL: 0
-;PCODE: $0000027D VOL: 0
-;PCODE: $0000027E VOL: 0
-;PCODE: $0000027F VOL: 0
-;PCODE: $00000280 VOL: 0
-;PCODE: $00000281 VOL: 0
-; 0004 00E0             }
-; 0004 00E1 
-; 0004 00E2             /*=============== Send REPPORT Success ===============*/
-; 0004 00E3             else if(_event == 8){
-;PCODE: $00000282 VOL: 0
-;PCODE: $00000283 VOL: 0
-;PCODE: $00000284 VOL: 0
-;PCODE: $00000285 VOL: 0
-;PCODE: $00000286 VOL: 0
-; 0004 00E4                 printDebug("\r\n-------- SEND REPORT SUCCESS --------\r\n");
-;PCODE: $00000287 VOL: 0
-;PCODE: $00000288 VOL: 0
-;PCODE: $00000289 VOL: 0
-;PCODE: $0000028A VOL: 0
-;PCODE: $0000028B VOL: 0
-;PCODE: $0000028C VOL: 0
-;PCODE: $0000028D VOL: 0
-; 0004 00E5             }
-; 0004 00E6 
-; 0004 00E7 }
-;PCODE: $0000028E VOL: 0
-;PCODE: $0000028F VOL: 0
-;PCODE: $00000290 VOL: 0
-;PCODE: $00000291 VOL: 0
-;PCODE: $00000292 VOL: 0
-;PCODE: $00000293 VOL: 0
-;PCODE: $00000294 VOL: 0
-;PCODE: $00000295 VOL: 0

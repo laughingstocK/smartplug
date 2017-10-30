@@ -14,14 +14,12 @@ void xbee_sendATCommand(int param);
 int xbee_checksum(char buf[],int len);
 uint16_t xbee_send(uint8_t buff[],uint16_t len);
 void xbee_read();
-void do_something(int _event);
+void do_event(int _event);
 
 extern int flag_state;
 extern char EndDevice_MacAddress[8];
 extern char Gateway_MacAddress[8];
 extern uint8_t STATUS_DEVICE;
-extern int event_state;
-extern int input[30];
-extern int count_input;
-extern int count_event;
-extern int *ptr[30];
+extern uint8_t EVENT[2];
+
+

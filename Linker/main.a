@@ -790,169 +790,149 @@
 ; 0000 00E3                             flag_state = 4;
 ;PCODE: $0000021E VOL: 0
 ;PCODE: $0000021F VOL: 0
-; 0000 00E4                             printDebug("count_input = %d\r\n", count_input);
+; 0000 00E4                             //printDebug("count_input = %d\r\n", count_input);
+; 0000 00E5                             put_event(511);
 ;PCODE: $00000220 VOL: 0
 ;PCODE: $00000221 VOL: 0
+; 0000 00E6                        }else if(STATUS_DEVICE == 1){
 ;PCODE: $00000222 VOL: 0
 ;PCODE: $00000223 VOL: 0
 ;PCODE: $00000224 VOL: 0
 ;PCODE: $00000225 VOL: 0
 ;PCODE: $00000226 VOL: 0
+; 0000 00E7                             POWER_RELAY_OFF;
 ;PCODE: $00000227 VOL: 0
 ;PCODE: $00000228 VOL: 0
 ;PCODE: $00000229 VOL: 0
-; 0000 00E5                             put_event(511);
+; 0000 00E8                             LED_STAT_OFF;
 ;PCODE: $0000022A VOL: 0
 ;PCODE: $0000022B VOL: 0
-; 0000 00E6                        }else if(STATUS_DEVICE == 1){
+; 0000 00E9                             STATUS_DEVICE = 0;
 ;PCODE: $0000022C VOL: 0
 ;PCODE: $0000022D VOL: 0
+; 0000 00EA                             EEPROM_write(Eaddress,STATUS_DEVICE);
 ;PCODE: $0000022E VOL: 0
 ;PCODE: $0000022F VOL: 0
 ;PCODE: $00000230 VOL: 0
-; 0000 00E7                             POWER_RELAY_OFF;
 ;PCODE: $00000231 VOL: 0
 ;PCODE: $00000232 VOL: 0
+; 0000 00EB                             flag_state = 3;
 ;PCODE: $00000233 VOL: 0
-; 0000 00E8                             LED_STAT_OFF;
 ;PCODE: $00000234 VOL: 0
+; 0000 00EC                             //printDebug("count_input = %d\r\n", count_input);
+; 0000 00ED                             put_event(510);
 ;PCODE: $00000235 VOL: 0
-; 0000 00E9                             STATUS_DEVICE = 0;
 ;PCODE: $00000236 VOL: 0
+; 0000 00EE                        }
+; 0000 00EF                 }
 ;PCODE: $00000237 VOL: 0
-; 0000 00EA                             EEPROM_write(Eaddress,STATUS_DEVICE);
 ;PCODE: $00000238 VOL: 0
+; 0000 00F0             break;
 ;PCODE: $00000239 VOL: 0
 ;PCODE: $0000023A VOL: 0
+; 0000 00F1 
+; 0000 00F2             /*=============== Active State ===============*/
+; 0000 00F3             case 4 :
 ;PCODE: $0000023B VOL: 0
 ;PCODE: $0000023C VOL: 0
-; 0000 00EB                             flag_state = 3;
 ;PCODE: $0000023D VOL: 0
+; 0000 00F4             printDebug("\r\n-------- Active --------\r\n");
 ;PCODE: $0000023E VOL: 0
-; 0000 00EC                             printDebug("count_input = %d\r\n", count_input);
 ;PCODE: $0000023F VOL: 0
 ;PCODE: $00000240 VOL: 0
 ;PCODE: $00000241 VOL: 0
 ;PCODE: $00000242 VOL: 0
 ;PCODE: $00000243 VOL: 0
 ;PCODE: $00000244 VOL: 0
+; 0000 00F5                 ReadCurrent();
 ;PCODE: $00000245 VOL: 0
+; 0000 00F6                 ReadVoltage();
 ;PCODE: $00000246 VOL: 0
+; 0000 00F7 
+; 0000 00F8                 counter++;
 ;PCODE: $00000247 VOL: 0
 ;PCODE: $00000248 VOL: 0
-; 0000 00ED                             put_event(510);
 ;PCODE: $00000249 VOL: 0
+; 0000 00F9                 if(counter%10 == 0 ){
 ;PCODE: $0000024A VOL: 0
-; 0000 00EE                        }
-; 0000 00EF                 }
 ;PCODE: $0000024B VOL: 0
 ;PCODE: $0000024C VOL: 0
-; 0000 00F0             break;
 ;PCODE: $0000024D VOL: 0
 ;PCODE: $0000024E VOL: 0
-; 0000 00F1 
-; 0000 00F2             /*=============== Active State ===============*/
-; 0000 00F3             case 4 :
+; 0000 00FA                     printDebug("\r\n-------- GET EVENT --------\r\n");
 ;PCODE: $0000024F VOL: 0
 ;PCODE: $00000250 VOL: 0
 ;PCODE: $00000251 VOL: 0
-; 0000 00F4             printDebug("\r\n-------- Active --------\r\n");
 ;PCODE: $00000252 VOL: 0
 ;PCODE: $00000253 VOL: 0
 ;PCODE: $00000254 VOL: 0
 ;PCODE: $00000255 VOL: 0
-;PCODE: $00000256 VOL: 0
-;PCODE: $00000257 VOL: 0
-;PCODE: $00000258 VOL: 0
-; 0000 00F5                 ReadCurrent();
-;PCODE: $00000259 VOL: 0
-; 0000 00F6                 ReadVoltage();
-;PCODE: $0000025A VOL: 0
-; 0000 00F7 
-; 0000 00F8                 counter++;
-;PCODE: $0000025B VOL: 0
-;PCODE: $0000025C VOL: 0
-;PCODE: $0000025D VOL: 0
-; 0000 00F9                 if(counter%10 == 0 ){
-;PCODE: $0000025E VOL: 0
-;PCODE: $0000025F VOL: 0
-;PCODE: $00000260 VOL: 0
-;PCODE: $00000261 VOL: 0
-;PCODE: $00000262 VOL: 0
-; 0000 00FA                     printDebug("\r\n-------- GET EVENT --------\r\n");
-;PCODE: $00000263 VOL: 0
-;PCODE: $00000264 VOL: 0
-;PCODE: $00000265 VOL: 0
-;PCODE: $00000266 VOL: 0
-;PCODE: $00000267 VOL: 0
-;PCODE: $00000268 VOL: 0
-;PCODE: $00000269 VOL: 0
 ; 0000 00FB                     get_event();
-;PCODE: $0000026A VOL: 0
+;PCODE: $00000256 VOL: 0
 ; 0000 00FC                 }
 ; 0000 00FD 
 ; 0000 00FE 
 ; 0000 00FF                 if(number == 1000){
+;PCODE: $00000257 VOL: 0
+;PCODE: $00000258 VOL: 0
+;PCODE: $00000259 VOL: 0
+;PCODE: $0000025A VOL: 0
+; 0000 0100                     SendStatusReport();
+;PCODE: $0000025B VOL: 0
+; 0000 0101                 }
+; 0000 0102 
+; 0000 0103                 if(SWITCH_PRESSED){
+;PCODE: $0000025C VOL: 0
+;PCODE: $0000025D VOL: 0
+;PCODE: $0000025E VOL: 0
+;PCODE: $0000025F VOL: 0
+; 0000 0104                     delay_ms(200);
+;PCODE: $00000260 VOL: 0
+;PCODE: $00000261 VOL: 0
+;PCODE: $00000262 VOL: 0
+; 0000 0105                     POWER_RELAY_OFF;
+;PCODE: $00000263 VOL: 0
+;PCODE: $00000264 VOL: 0
+;PCODE: $00000265 VOL: 0
+; 0000 0106                     LED_STAT_OFF;
+;PCODE: $00000266 VOL: 0
+;PCODE: $00000267 VOL: 0
+; 0000 0107                     STATUS_DEVICE = 0;
+;PCODE: $00000268 VOL: 0
+;PCODE: $00000269 VOL: 0
+; 0000 0108                     EEPROM_write(Eaddress,STATUS_DEVICE);
+;PCODE: $0000026A VOL: 0
 ;PCODE: $0000026B VOL: 0
 ;PCODE: $0000026C VOL: 0
 ;PCODE: $0000026D VOL: 0
 ;PCODE: $0000026E VOL: 0
-; 0000 0100                     SendStatusReport();
+; 0000 0109                     flag_state = 3;
 ;PCODE: $0000026F VOL: 0
-; 0000 0101                 }
-; 0000 0102 
-; 0000 0103                 if(SWITCH_PRESSED){
 ;PCODE: $00000270 VOL: 0
+; 0000 010A                     printDebug("count_input = %d\r\n", count_input);
 ;PCODE: $00000271 VOL: 0
 ;PCODE: $00000272 VOL: 0
 ;PCODE: $00000273 VOL: 0
-; 0000 0104                     delay_ms(200);
 ;PCODE: $00000274 VOL: 0
 ;PCODE: $00000275 VOL: 0
 ;PCODE: $00000276 VOL: 0
-; 0000 0105                     POWER_RELAY_OFF;
 ;PCODE: $00000277 VOL: 0
 ;PCODE: $00000278 VOL: 0
 ;PCODE: $00000279 VOL: 0
-; 0000 0106                     LED_STAT_OFF;
 ;PCODE: $0000027A VOL: 0
-;PCODE: $0000027B VOL: 0
-; 0000 0107                     STATUS_DEVICE = 0;
-;PCODE: $0000027C VOL: 0
-;PCODE: $0000027D VOL: 0
-; 0000 0108                     EEPROM_write(Eaddress,STATUS_DEVICE);
-;PCODE: $0000027E VOL: 0
-;PCODE: $0000027F VOL: 0
-;PCODE: $00000280 VOL: 0
-;PCODE: $00000281 VOL: 0
-;PCODE: $00000282 VOL: 0
-; 0000 0109                     flag_state = 3;
-;PCODE: $00000283 VOL: 0
-;PCODE: $00000284 VOL: 0
-; 0000 010A                     printDebug("count_input = %d\r\n", count_input);
-;PCODE: $00000285 VOL: 0
-;PCODE: $00000286 VOL: 0
-;PCODE: $00000287 VOL: 0
-;PCODE: $00000288 VOL: 0
-;PCODE: $00000289 VOL: 0
-;PCODE: $0000028A VOL: 0
-;PCODE: $0000028B VOL: 0
-;PCODE: $0000028C VOL: 0
-;PCODE: $0000028D VOL: 0
-;PCODE: $0000028E VOL: 0
 ; 0000 010B                     put_event(510);
-;PCODE: $0000028F VOL: 0
-;PCODE: $00000290 VOL: 0
+;PCODE: $0000027B VOL: 0
+;PCODE: $0000027C VOL: 0
 ; 0000 010C                 }
 ; 0000 010D             break;
-;PCODE: $00000291 VOL: 0
-;PCODE: $00000292 VOL: 0
+;PCODE: $0000027D VOL: 0
+;PCODE: $0000027E VOL: 0
 ; 0000 010E         }
-;PCODE: $00000293 VOL: 0
+;PCODE: $0000027F VOL: 0
 ; 0000 010F     }
-;PCODE: $00000294 VOL: 0
-;PCODE: $00000295 VOL: 0
+;PCODE: $00000280 VOL: 0
+;PCODE: $00000281 VOL: 0
 ; 0000 0110 }
-;PCODE: $00000296 VOL: 0
-;PCODE: $00000297 VOL: 0
-;PCODE: $00000298 VOL: 0
+;PCODE: $00000282 VOL: 0
+;PCODE: $00000283 VOL: 0
+;PCODE: $00000284 VOL: 0

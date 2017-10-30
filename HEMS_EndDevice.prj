@@ -1886,6 +1886,8 @@ Blocks=0
 Blocks=0
 [FoldedCode15]
 Blocks=0
+[FoldedCode20]
+Blocks=0
 [HeadersList]
 Files=10
 F1=C:\Users\NextCrop\Downloads\Smart plug lastversion\Smart plug lastversion\HEMS.-SmartPlug by koon\main.c
@@ -2063,5 +2065,3 @@ F11=debug.h
 F12=adc.h
 F13=C:\cvavr2\inc\math.h
 F14=initial_system.h
-[FoldedCode20]
-Blocks=0

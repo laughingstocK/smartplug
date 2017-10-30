@@ -194,76 +194,75 @@
 ;PCODE: $0000007E VOL: 0
 ;PCODE: $0000007F VOL: 0
 ;PCODE: $00000080 VOL: 0
-; 000A 0031                     //flag_state = 5;
-; 000A 0032                     flag_state = 4;
+; 000A 0031                     flag_state = 5;
 ;PCODE: $00000081 VOL: 0
 ;PCODE: $00000082 VOL: 0
-; 000A 0033                     STATUS_DEVICE = 1;
+; 000A 0032                     STATUS_DEVICE = 1;
 ;PCODE: $00000083 VOL: 0
 ;PCODE: $00000084 VOL: 0
-; 000A 0034                     EEPROM_write(Eaddress,STATUS_DEVICE);
+; 000A 0033                     EEPROM_write(Eaddress,STATUS_DEVICE);
 ;PCODE: $00000085 VOL: 0
 ;PCODE: $00000086 VOL: 0
 ;PCODE: $00000087 VOL: 0
 ;PCODE: $00000088 VOL: 0
 ;PCODE: $00000089 VOL: 0
-; 000A 0035                     LED_STAT_ON;
+; 000A 0034                     LED_STAT_ON;
 ;PCODE: $0000008A VOL: 0
 ;PCODE: $0000008B VOL: 0
-; 000A 0036                     POWER_RELAY_ON;
+; 000A 0035                     POWER_RELAY_ON;
 ;PCODE: $0000008C VOL: 0
 ;PCODE: $0000008D VOL: 0
 ;PCODE: $0000008E VOL: 0
-; 000A 0037                     send_event(1,1);
+; 000A 0036                 }else if(event == 510){
 ;PCODE: $0000008F VOL: 0
 ;PCODE: $00000090 VOL: 0
 ;PCODE: $00000091 VOL: 0
 ;PCODE: $00000092 VOL: 0
-; 000A 0038                 }else if(event == 510){
 ;PCODE: $00000093 VOL: 0
+; 000A 0037                     EVENT[1] = 0;
 ;PCODE: $00000094 VOL: 0
 ;PCODE: $00000095 VOL: 0
 ;PCODE: $00000096 VOL: 0
+; 000A 0038                     flag_state = 4;
 ;PCODE: $00000097 VOL: 0
-; 000A 0039                     EVENT[1] = 0;
 ;PCODE: $00000098 VOL: 0
+; 000A 0039                     STATUS_DEVICE = 0;
 ;PCODE: $00000099 VOL: 0
 ;PCODE: $0000009A VOL: 0
-; 000A 003A                     //flag_state = 4;
-; 000A 003B                     flag_state = 3;
+; 000A 003A                     EEPROM_write(Eaddress,STATUS_DEVICE);
 ;PCODE: $0000009B VOL: 0
 ;PCODE: $0000009C VOL: 0
-; 000A 003C                     STATUS_DEVICE = 0;
 ;PCODE: $0000009D VOL: 0
 ;PCODE: $0000009E VOL: 0
-; 000A 003D                     EEPROM_write(Eaddress,STATUS_DEVICE);
 ;PCODE: $0000009F VOL: 0
+; 000A 003B                     LED_STAT_OFF;
 ;PCODE: $000000A0 VOL: 0
 ;PCODE: $000000A1 VOL: 0
+; 000A 003C                     POWER_RELAY_OFF;
 ;PCODE: $000000A2 VOL: 0
 ;PCODE: $000000A3 VOL: 0
-; 000A 003E                     LED_STAT_OFF;
 ;PCODE: $000000A4 VOL: 0
+; 000A 003D                 }
+; 000A 003E                 recive_event(1,EVENT[1]);
 ;PCODE: $000000A5 VOL: 0
-; 000A 003F                     POWER_RELAY_OFF;
 ;PCODE: $000000A6 VOL: 0
 ;PCODE: $000000A7 VOL: 0
 ;PCODE: $000000A8 VOL: 0
-; 000A 0040                     send_event(1,0);
 ;PCODE: $000000A9 VOL: 0
 ;PCODE: $000000AA VOL: 0
 ;PCODE: $000000AB VOL: 0
+; 000A 003F                 printDebug("\r\n-------- RECIVE EVENT --------\r\n");
 ;PCODE: $000000AC VOL: 0
-; 000A 0041                 }
-; 000A 0042                 recive_event(1,EVENT[1]);
 ;PCODE: $000000AD VOL: 0
 ;PCODE: $000000AE VOL: 0
 ;PCODE: $000000AF VOL: 0
 ;PCODE: $000000B0 VOL: 0
 ;PCODE: $000000B1 VOL: 0
 ;PCODE: $000000B2 VOL: 0
+; 000A 0040             }
+; 000A 0041 
+; 000A 0042             else if(event == 5100 || event == 5110){
 ;PCODE: $000000B3 VOL: 0
-; 000A 0043                 printDebug("\r\n-------- RECIVE EVENT --------\r\n");
 ;PCODE: $000000B4 VOL: 0
 ;PCODE: $000000B5 VOL: 0
 ;PCODE: $000000B6 VOL: 0
@@ -271,50 +270,130 @@
 ;PCODE: $000000B8 VOL: 0
 ;PCODE: $000000B9 VOL: 0
 ;PCODE: $000000BA VOL: 0
-; 000A 0044             }
-; 000A 0045 
-; 000A 0046             /*=============== Send EVENT Success ===============*/
-; 000A 0047             else if(event == 6){
 ;PCODE: $000000BB VOL: 0
 ;PCODE: $000000BC VOL: 0
+; 000A 0043             printDebug("\r\n ++++++++++ _event == 5100 || _event == 5110 ++++++++\r\n");
 ;PCODE: $000000BD VOL: 0
 ;PCODE: $000000BE VOL: 0
 ;PCODE: $000000BF VOL: 0
-; 000A 0048                 printDebug("\r\n-------- SEND EVENT SUCCESS --------\r\n");
 ;PCODE: $000000C0 VOL: 0
 ;PCODE: $000000C1 VOL: 0
 ;PCODE: $000000C2 VOL: 0
 ;PCODE: $000000C3 VOL: 0
+; 000A 0044                 if(event == 5110){
 ;PCODE: $000000C4 VOL: 0
 ;PCODE: $000000C5 VOL: 0
 ;PCODE: $000000C6 VOL: 0
-; 000A 0049             }
-; 000A 004A 
-; 000A 004B             /*=============== Send REPPORT Success ===============*/
-; 000A 004C             else if(event == 8){
+; 000A 0045                     EVENT[1] = 1;
 ;PCODE: $000000C7 VOL: 0
 ;PCODE: $000000C8 VOL: 0
 ;PCODE: $000000C9 VOL: 0
+; 000A 0046                     flag_state = 5;
 ;PCODE: $000000CA VOL: 0
 ;PCODE: $000000CB VOL: 0
-; 000A 004D                 printDebug("\r\n-------- SEND REPORT SUCCESS --------\r\n");
+; 000A 0047                     STATUS_DEVICE = 1;
 ;PCODE: $000000CC VOL: 0
 ;PCODE: $000000CD VOL: 0
+; 000A 0048                     EEPROM_write(Eaddress,STATUS_DEVICE);
 ;PCODE: $000000CE VOL: 0
 ;PCODE: $000000CF VOL: 0
 ;PCODE: $000000D0 VOL: 0
 ;PCODE: $000000D1 VOL: 0
 ;PCODE: $000000D2 VOL: 0
-; 000A 004E             }
-; 000A 004F }
+; 000A 0049                     LED_STAT_ON;
 ;PCODE: $000000D3 VOL: 0
 ;PCODE: $000000D4 VOL: 0
+; 000A 004A                     POWER_RELAY_ON;
 ;PCODE: $000000D5 VOL: 0
 ;PCODE: $000000D6 VOL: 0
 ;PCODE: $000000D7 VOL: 0
+; 000A 004B                     send_event(1,1);
 ;PCODE: $000000D8 VOL: 0
 ;PCODE: $000000D9 VOL: 0
 ;PCODE: $000000DA VOL: 0
+;PCODE: $000000DB VOL: 0
+; 000A 004C                 }else if(event == 5100){
+;PCODE: $000000DC VOL: 0
+;PCODE: $000000DD VOL: 0
+;PCODE: $000000DE VOL: 0
+;PCODE: $000000DF VOL: 0
+;PCODE: $000000E0 VOL: 0
+; 000A 004D                     EVENT[1] = 0;
+;PCODE: $000000E1 VOL: 0
+;PCODE: $000000E2 VOL: 0
+;PCODE: $000000E3 VOL: 0
+; 000A 004E                     flag_state = 4;
+;PCODE: $000000E4 VOL: 0
+;PCODE: $000000E5 VOL: 0
+; 000A 004F                     STATUS_DEVICE = 0;
+;PCODE: $000000E6 VOL: 0
+;PCODE: $000000E7 VOL: 0
+; 000A 0050                     EEPROM_write(Eaddress,STATUS_DEVICE);
+;PCODE: $000000E8 VOL: 0
+;PCODE: $000000E9 VOL: 0
+;PCODE: $000000EA VOL: 0
+;PCODE: $000000EB VOL: 0
+;PCODE: $000000EC VOL: 0
+; 000A 0051                     LED_STAT_OFF;
+;PCODE: $000000ED VOL: 0
+;PCODE: $000000EE VOL: 0
+; 000A 0052                     POWER_RELAY_OFF;
+;PCODE: $000000EF VOL: 0
+;PCODE: $000000F0 VOL: 0
+;PCODE: $000000F1 VOL: 0
+; 000A 0053                     send_event(1,0);
+;PCODE: $000000F2 VOL: 0
+;PCODE: $000000F3 VOL: 0
+;PCODE: $000000F4 VOL: 0
+;PCODE: $000000F5 VOL: 0
+; 000A 0054                 }
+; 000A 0055             }
+;PCODE: $000000F6 VOL: 0
+;PCODE: $000000F7 VOL: 0
+; 000A 0056 
+; 000A 0057             /*=============== Send EVENT Success ===============*/
+; 000A 0058             else if(event == 6){
+;PCODE: $000000F8 VOL: 0
+;PCODE: $000000F9 VOL: 0
+;PCODE: $000000FA VOL: 0
+;PCODE: $000000FB VOL: 0
+;PCODE: $000000FC VOL: 0
+; 000A 0059                 printDebug("\r\n-------- SEND EVENT SUCCESS --------\r\n");
+;PCODE: $000000FD VOL: 0
+;PCODE: $000000FE VOL: 0
+;PCODE: $000000FF VOL: 0
+;PCODE: $00000100 VOL: 0
+;PCODE: $00000101 VOL: 0
+;PCODE: $00000102 VOL: 0
+;PCODE: $00000103 VOL: 0
+; 000A 005A             }
+; 000A 005B 
+; 000A 005C             /*=============== Send REPPORT Success ===============*/
+; 000A 005D             else if(event == 8){
+;PCODE: $00000104 VOL: 0
+;PCODE: $00000105 VOL: 0
+;PCODE: $00000106 VOL: 0
+;PCODE: $00000107 VOL: 0
+;PCODE: $00000108 VOL: 0
+; 000A 005E                 printDebug("\r\n-------- SEND REPORT SUCCESS --------\r\n");
+;PCODE: $00000109 VOL: 0
+;PCODE: $0000010A VOL: 0
+;PCODE: $0000010B VOL: 0
+;PCODE: $0000010C VOL: 0
+;PCODE: $0000010D VOL: 0
+;PCODE: $0000010E VOL: 0
+;PCODE: $0000010F VOL: 0
+; 000A 005F             }
+; 000A 0060 }
+;PCODE: $00000110 VOL: 0
+;PCODE: $00000111 VOL: 0
+;PCODE: $00000112 VOL: 0
+;PCODE: $00000113 VOL: 0
+;PCODE: $00000114 VOL: 0
+;PCODE: $00000115 VOL: 0
+;PCODE: $00000116 VOL: 0
+;PCODE: $00000117 VOL: 0
+;PCODE: $00000118 VOL: 0
 ;
 ;
 ;

@@ -1,11 +1,11 @@
 /*****************************************************
-Project         : HEMS - Smart_Plug
-Date            : 13/06/2013
-Author          : Tawan Srisang, Sirichakorn
-Company         : Intelenics Co.,Ltd.
+Project         : Smart_Plug
+Date            : 9/2017
+Author          : Krerkkiat Hemadhulin
+Company         : NextCrop Co.,Ltd.
 Comments        : 
 Version Format  :
-Chip type       : ATmega128
+Chip type       : ATmega128a
 Program type    : Application
 Frequency       : 11.059200 MHz
 *****************************************************/
@@ -176,20 +176,14 @@ void main(void) {
                 if(SWITCH_PRESSED){
                     delay_ms(100);
                     if(STATUS_DEVICE == 0){
-                        POWER_RELAY_ON;
-                        LED_STAT_ON; 
-                        STATUS_DEVICE = 1;
                         device_state(1);      //on        
                         EEPROM_write(Eaddress,STATUS_DEVICE);
-                        push_event(511);      
+                        push_event(5110);      
        
                     }else if(STATUS_DEVICE == 1){
-                        LED_STAT_OFF;
-                        POWER_RELAY_OFF; 
-                        STATUS_DEVICE = 0;
                         device_state(0);      //off       
                         EEPROM_write(Eaddress,STATUS_DEVICE);
-                        push_event(510);      
+                        push_event(5100);      
         
                     }
                 }
@@ -217,23 +211,17 @@ void main(void) {
                 if(SWITCH_PRESSED){
                     delay_ms(200);
                        if(STATUS_DEVICE == 0){
-//                            POWER_RELAY_ON; 
-//                            LED_STAT_ON;
-//                            STATUS_DEVICE = 1;
                             device_state(1);      //on                            
                             EEPROM_write(Eaddress,STATUS_DEVICE);
                             flag_state = 5;
                             //printDebug("count_input = %d\r\n", count_input);
-                            push_event(511);       
+                            push_event(5110);       
                        }else if(STATUS_DEVICE == 1){
-//                            POWER_RELAY_OFF; 
-//                            LED_STAT_OFF;
-//                            STATUS_DEVICE = 0;
                             device_state(0);     //off 
                             EEPROM_write(Eaddress,STATUS_DEVICE);
                             flag_state = 4;
                             //printDebug("count_input = %d\r\n", count_input);
-                            push_event(510);      
+                            push_event(5100);      
                        }
                 }              
             break;
@@ -257,14 +245,11 @@ void main(void) {
                  
                 if(SWITCH_PRESSED){
                     delay_ms(200);
-//                    POWER_RELAY_OFF;
-//                    LED_STAT_OFF;
-//                    STATUS_DEVICE = 0;
                     device_state(0); // off
                     EEPROM_write(Eaddress,STATUS_DEVICE);
                     flag_state = 4;
 //                    printDebug("count_input = %d\r\n", count_input);
-                    push_event(510);
+                    push_event(5100);
                 }
             break;                                      
         }

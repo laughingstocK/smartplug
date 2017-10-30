@@ -46,25 +46,42 @@ void do_event(int event){
             printDebug("\r\n ++++++++++ _event == 510 || _event == 511 ++++++++\r\n");
                 if(event == 511){
                     EVENT[1] = 1;    
-                    //flag_state = 5;
+                    flag_state = 5;
+                    STATUS_DEVICE = 1;
+                    EEPROM_write(Eaddress,STATUS_DEVICE); 
+                    LED_STAT_ON;
+                    POWER_RELAY_ON;
+                }else if(event == 510){
+                    EVENT[1] = 0;
                     flag_state = 4;
+                    STATUS_DEVICE = 0;
+                    EEPROM_write(Eaddress,STATUS_DEVICE); 
+                    LED_STAT_OFF;
+                    POWER_RELAY_OFF;
+                } 
+                recive_event(1,EVENT[1]);
+                printDebug("\r\n-------- RECIVE EVENT --------\r\n");      
+            }
+            
+            else if(event == 5100 || event == 5110){ 
+            printDebug("\r\n ++++++++++ _event == 5100 || _event == 5110 ++++++++\r\n");
+                if(event == 5110){
+                    EVENT[1] = 1;    
+                    flag_state = 5;
                     STATUS_DEVICE = 1;
                     EEPROM_write(Eaddress,STATUS_DEVICE); 
                     LED_STAT_ON;
                     POWER_RELAY_ON;
                     send_event(1,1);
-                }else if(event == 510){
+                }else if(event == 5100){
                     EVENT[1] = 0;
-                    //flag_state = 4;
-                    flag_state = 3;
+                    flag_state = 4;
                     STATUS_DEVICE = 0;
                     EEPROM_write(Eaddress,STATUS_DEVICE); 
                     LED_STAT_OFF;
                     POWER_RELAY_OFF;
                     send_event(1,0);
-                } 
-                recive_event(1,EVENT[1]);
-                printDebug("\r\n-------- RECIVE EVENT --------\r\n");      
+                }    
             }
             
             /*=============== Send EVENT Success ===============*/   

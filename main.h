@@ -1,18 +1,10 @@
-#ifndef UART_H
-#define UART_H
+#ifndef MAIN_H
+#define MAIN_H
 
 #include <mega128a.h> 
 
-
-
 void ReadCurrent(void);
 void ReadVoltage(void);
-
-
-typedef struct {
-    char dataID;
-    char dataType;
-    float value;
-}DATASET;
+void device_state(int state);
 
 #endif

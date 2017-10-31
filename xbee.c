@@ -10,12 +10,10 @@
 #include <int_protocol.h>
 #include <eeprom.h>
 
-
 #define XBEE_RESET PORTE.2
 
 char EndDevice_MacAddress[8];
 char Gateway_MacAddress[8];
-
 
 uint8_t AI_COMMAND[]            = {0x7E,0x00,0x04,0x08,0x01,0x41,0x49,0x6C};
 uint8_t SL_COMMAND[]            = {0x7E,0x00,0x04,0x08,0x01,0x53,0x4C,0x57};
@@ -45,7 +43,6 @@ void xbee_sendATCommand(int param){
             printDebug("\r\n ++++++++++ Send SL ++++++++\r\n");
             print_payload(SL_COMMAND,8);
             xbee_send(SL_COMMAND,8);
-          
         break; 
      }
 }

@@ -9,7 +9,8 @@ Chip type       : ATmega128a
 Program type    : Application
 Frequency       : 11.059200 MHz
 *****************************************************/
-#include <mega128a.h> 
+#include <mega128a.h>
+#include <main.h>  
 #include <stdlib.h> 
 #include <stdio.h>
 #include <stdint.h>
@@ -49,8 +50,8 @@ void device_state(int state){
         LED_STAT_ON;
         STATUS_DEVICE = 1;
     }
-}
 
+}
 void main(void) {
 
     start_event = 0;
@@ -151,7 +152,7 @@ void main(void) {
                     device_state(1);   //on
                     EEPROM_write(Eaddress,STATUS_DEVICE); 
                     start_event = 1;
-                    push_event(511);
+                    push_event(5110);
                 }
             break;
            
@@ -179,7 +180,7 @@ void main(void) {
                         device_state(1);      //on        
                         EEPROM_write(Eaddress,STATUS_DEVICE);
                         push_event(5110);      
-       
+
                     }else if(STATUS_DEVICE == 1){
                         device_state(0);      //off       
                         EEPROM_write(Eaddress,STATUS_DEVICE);
@@ -248,7 +249,7 @@ void main(void) {
                     device_state(0); // off
                     EEPROM_write(Eaddress,STATUS_DEVICE);
                     flag_state = 4;
-//                    printDebug("count_input = %d\r\n", count_input);
+//                  printDebug("count_input = %d\r\n", count_input);
                     push_event(5100);
                 }
             break;                                      

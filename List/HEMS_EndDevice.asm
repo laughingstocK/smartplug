@@ -1357,35 +1357,20 @@ _0x140000:
 	.DB  0x45,0x43,0x49,0x56,0x45,0x20,0x50,0x49
 	.DB  0x4E,0x47,0x20,0x2D,0x2D,0x2D,0x2D,0x2D
 	.DB  0x2D,0x2D,0x2D,0xD,0xA,0x0,0xD,0xA
-	.DB  0x20,0x2B,0x2B,0x2B,0x2B,0x2B,0x2B,0x2B
-	.DB  0x2B,0x2B,0x2B,0x20,0x5F,0x65,0x76,0x65
-	.DB  0x6E,0x74,0x20,0x3D,0x3D,0x20,0x35,0x31
-	.DB  0x30,0x20,0x7C,0x7C,0x20,0x5F,0x65,0x76
-	.DB  0x65,0x6E,0x74,0x20,0x3D,0x3D,0x20,0x35
-	.DB  0x31,0x31,0x20,0x2B,0x2B,0x2B,0x2B,0x2B
-	.DB  0x2B,0x2B,0x2B,0xD,0xA,0x0,0xD,0xA
 	.DB  0x2D,0x2D,0x2D,0x2D,0x2D,0x2D,0x2D,0x2D
 	.DB  0x20,0x52,0x45,0x43,0x49,0x56,0x45,0x20
 	.DB  0x45,0x56,0x45,0x4E,0x54,0x20,0x2D,0x2D
 	.DB  0x2D,0x2D,0x2D,0x2D,0x2D,0x2D,0xD,0xA
-	.DB  0x0,0xD,0xA,0x20,0x2B,0x2B,0x2B,0x2B
-	.DB  0x2B,0x2B,0x2B,0x2B,0x2B,0x2B,0x20,0x5F
-	.DB  0x65,0x76,0x65,0x6E,0x74,0x20,0x3D,0x3D
-	.DB  0x20,0x35,0x31,0x30,0x30,0x20,0x7C,0x7C
-	.DB  0x20,0x5F,0x65,0x76,0x65,0x6E,0x74,0x20
-	.DB  0x3D,0x3D,0x20,0x35,0x31,0x31,0x30,0x20
-	.DB  0x2B,0x2B,0x2B,0x2B,0x2B,0x2B,0x2B,0x2B
-	.DB  0xD,0xA,0x0,0xD,0xA,0x2D,0x2D,0x2D
-	.DB  0x2D,0x2D,0x2D,0x2D,0x2D,0x20,0x53,0x45
-	.DB  0x4E,0x44,0x20,0x45,0x56,0x45,0x4E,0x54
+	.DB  0x0,0xD,0xA,0x2D,0x2D,0x2D,0x2D,0x2D
+	.DB  0x2D,0x2D,0x2D,0x20,0x53,0x45,0x4E,0x44
+	.DB  0x20,0x45,0x56,0x45,0x4E,0x54,0x20,0x2D
+	.DB  0x2D,0x2D,0x2D,0x2D,0x2D,0x2D,0x2D,0xD
+	.DB  0xA,0x0,0xD,0xA,0x2D,0x2D,0x2D,0x2D
+	.DB  0x2D,0x2D,0x2D,0x2D,0x20,0x53,0x45,0x4E
+	.DB  0x44,0x20,0x52,0x45,0x50,0x4F,0x52,0x54
 	.DB  0x20,0x53,0x55,0x43,0x43,0x45,0x53,0x53
 	.DB  0x20,0x2D,0x2D,0x2D,0x2D,0x2D,0x2D,0x2D
-	.DB  0x2D,0xD,0xA,0x0,0xD,0xA,0x2D,0x2D
-	.DB  0x2D,0x2D,0x2D,0x2D,0x2D,0x2D,0x20,0x53
-	.DB  0x45,0x4E,0x44,0x20,0x52,0x45,0x50,0x4F
-	.DB  0x52,0x54,0x20,0x53,0x55,0x43,0x43,0x45
-	.DB  0x53,0x53,0x20,0x2D,0x2D,0x2D,0x2D,0x2D
-	.DB  0x2D,0x2D,0x2D,0xD,0xA,0x0
+	.DB  0x2D,0xD,0xA,0x0
 _0x2000060:
 	.DB  0x1
 _0x2000000:
@@ -1561,6 +1546,7 @@ __GLOBAL_INI_END:
 	.EQU __sm_adc_noise_red=0x08
 	.SET power_ctrl_reg=mcucr
 	#endif
+;#include <main.h>
 ;#include <stdlib.h>
 ;#include <stdio.h>
 ;#include <stdint.h>
@@ -1593,87 +1579,86 @@ __GLOBAL_INI_END:
 ;//uint8_t SEND_EVENT_TEST[38];
 ;
 ;void device_state(int state){
-; 0000 002A void device_state(int state){
+; 0000 002B void device_state(int state){
 
 	.CSEG
 _device_state:
-; 0000 002B     if(state == 0){
+; 0000 002C     if(state == 0){
 	CALL SUBOPT_0x0
 ;	state -> Y+0
 	BRNE _0x4
-; 0000 002C         POWER_RELAY_OFF;
+; 0000 002D         POWER_RELAY_OFF;
 	CALL SUBOPT_0x1
-; 0000 002D         LED_STAT_OFF;
+; 0000 002E         LED_STAT_OFF;
 	SBI  0x15,7
-; 0000 002E         STATUS_DEVICE = 0;
+; 0000 002F         STATUS_DEVICE = 0;
 	LDI  R30,LOW(0)
 	RJMP _0x44
-; 0000 002F     }else if(state == 1){
+; 0000 0030     }else if(state == 1){
 _0x4:
 	LD   R26,Y
 	LDD  R27,Y+1
 	SBIW R26,1
 	BRNE _0x8
-; 0000 0030         POWER_RELAY_ON;
+; 0000 0031         POWER_RELAY_ON;
 	LDS  R30,101
 	ORI  R30,4
 	STS  101,R30
-; 0000 0031         LED_STAT_ON;
+; 0000 0032         LED_STAT_ON;
 	CBI  0x15,7
-; 0000 0032         STATUS_DEVICE = 1;
+; 0000 0033         STATUS_DEVICE = 1;
 	LDI  R30,LOW(1)
 _0x44:
 	STS  _STATUS_DEVICE,R30
-; 0000 0033     }
-; 0000 0034 }
+; 0000 0034     }
+; 0000 0035 
+; 0000 0036 }
 _0x8:
-	ADIW R28,2
-	RET
-;
+	JMP  _0x20C0010
 ;void main(void) {
-; 0000 0036 void main(void) {
+; 0000 0037 void main(void) {
 _main:
-; 0000 0037 
-; 0000 0038     start_event = 0;
+; 0000 0038 
+; 0000 0039     start_event = 0;
 	CLR  R6
 	CLR  R7
-; 0000 0039     STATUS_DEVICE = EEPROM_read(Eaddress);
+; 0000 003A     STATUS_DEVICE = EEPROM_read(Eaddress);
 	CALL SUBOPT_0x2
-; 0000 003A     if(STATUS_DEVICE == 0xFF){
+; 0000 003B     if(STATUS_DEVICE == 0xFF){
 	LDS  R26,_STATUS_DEVICE
 	CPI  R26,LOW(0xFF)
 	BRNE _0xB
-; 0000 003B         EEPROM_write(Eaddress,0);
+; 0000 003C         EEPROM_write(Eaddress,0);
 	CALL SUBOPT_0x3
 	LDI  R26,LOW(0)
 	CALL _EEPROM_write
-; 0000 003C         STATUS_DEVICE = EEPROM_read(Eaddress);
+; 0000 003D         STATUS_DEVICE = EEPROM_read(Eaddress);
 	CALL SUBOPT_0x2
-; 0000 003D     }
-; 0000 003E 
-; 0000 003F     /*=============== System Initialize ===============*/
-; 0000 0040     do{ error = initial_system(); }while(error);
+; 0000 003E     }
+; 0000 003F 
+; 0000 0040     /*=============== System Initialize ===============*/
+; 0000 0041     do{ error = initial_system(); }while(error);
 _0xB:
 _0xD:
 	CALL _initial_system
 	MOV  R5,R30
 	TST  R5
 	BRNE _0xD
-; 0000 0041 
-; 0000 0042     /*=============== Select Device Type ===============*/
-; 0000 0043 
-; 0000 0044     do {
+; 0000 0042 
+; 0000 0043     /*=============== Select Device Type ===============*/
+; 0000 0044 
+; 0000 0045     do {
 _0x10:
-; 0000 0045         read_D_SW = read_dSwitch();
+; 0000 0046         read_D_SW = read_dSwitch();
 	CALL _read_dSwitch
 	MOV  R4,R30
-; 0000 0046         if(read_D_SW == 0x0F) {
+; 0000 0047         if(read_D_SW == 0x0F) {
 	LDI  R30,LOW(15)
 	CP   R30,R4
 	BRNE _0x12
-; 0000 0047             SENSOR_SENSITIVE = SENSOR5A;
+; 0000 0048             SENSOR_SENSITIVE = SENSOR5A;
 	CALL SUBOPT_0x4
-; 0000 0048             if((ADJ0_SENSOR5A > 0.0) && (ADJ0_SENSOR5A < 0.12)) {
+; 0000 0049             if((ADJ0_SENSOR5A > 0.0) && (ADJ0_SENSOR5A < 0.12)) {
 	CALL SUBOPT_0x5
 	BRGE _0x14
 	MOVW R26,R30
@@ -1684,12 +1669,12 @@ _0x10:
 _0x14:
 	RJMP _0x13
 _0x15:
-; 0000 0049                 AMP_ADJ_ZERO = ADJ0_SENSOR5A;
+; 0000 004A                 AMP_ADJ_ZERO = ADJ0_SENSOR5A;
 	LDI  R26,LOW(_ADJ0_SENSOR5A)
 	LDI  R27,HIGH(_ADJ0_SENSOR5A)
 	CALL __EEPROMRDD
 	RJMP _0x45
-; 0000 004A             }else {AMP_ADJ_ZERO = 0.09;}
+; 0000 004B             }else {AMP_ADJ_ZERO = 0.09;}
 _0x13:
 	__GETD1N 0x3DB851EC
 _0x45:
@@ -1697,23 +1682,23 @@ _0x45:
 	STS  _AMP_ADJ_ZERO+1,R31
 	STS  _AMP_ADJ_ZERO+2,R22
 	STS  _AMP_ADJ_ZERO+3,R23
-; 0000 004B             specData[8] = TYPE_SMART_SWITCH;                             // Device Type
+; 0000 004C             specData[8] = TYPE_SMART_SWITCH;                             // Device Type
 	LDI  R30,LOW(18)
 	__PUTB1MN _specData,8
-; 0000 004C             printDebug("\r\n++++++++++ Smart Switch ++++++++++\r\n");
+; 0000 004D             printDebug("\r\n++++++++++ Smart Switch ++++++++++\r\n");
 	__POINTW1FN _0x0,0
 	RJMP _0x46
-; 0000 004D             printDebug("\r\nFirmware Version : %0.1f\r\n", FIRMWARE_VERSION);
-; 0000 004E             printDebug("Current Sensor   : ACS712ELCTR-05B-T (%0.1f mV/Amp.)\r\n", SENSOR_SENSITIVE);
-; 0000 004F         }else if(read_D_SW == 0x0E) {
+; 0000 004E             printDebug("\r\nFirmware Version : %0.1f\r\n", FIRMWARE_VERSION);
+; 0000 004F             printDebug("Current Sensor   : ACS712ELCTR-05B-T (%0.1f mV/Amp.)\r\n", SENSOR_SENSITIVE);
+; 0000 0050         }else if(read_D_SW == 0x0E) {
 _0x12:
 	LDI  R30,LOW(14)
 	CP   R30,R4
 	BRNE _0x18
-; 0000 0050             SENSOR_SENSITIVE = SENSOR20A;
+; 0000 0051             SENSOR_SENSITIVE = SENSOR20A;
 	__GETD1N 0x42C80000
 	CALL SUBOPT_0x6
-; 0000 0051             if((ADJ0_SENSOR20A > 0.0) && (ADJ0_SENSOR20A < 0.14)) {
+; 0000 0052             if((ADJ0_SENSOR20A > 0.0) && (ADJ0_SENSOR20A < 0.14)) {
 	LDI  R26,LOW(_ADJ0_SENSOR20A)
 	LDI  R27,HIGH(_ADJ0_SENSOR20A)
 	CALL __EEPROMRDD
@@ -1727,12 +1712,12 @@ _0x12:
 _0x1A:
 	RJMP _0x19
 _0x1B:
-; 0000 0052                 AMP_ADJ_ZERO = ADJ0_SENSOR20A;
+; 0000 0053                 AMP_ADJ_ZERO = ADJ0_SENSOR20A;
 	LDI  R26,LOW(_ADJ0_SENSOR20A)
 	LDI  R27,HIGH(_ADJ0_SENSOR20A)
 	CALL __EEPROMRDD
 	RJMP _0x47
-; 0000 0053             }else {AMP_ADJ_ZERO = 0.11;}
+; 0000 0054             }else {AMP_ADJ_ZERO = 0.11;}
 _0x19:
 	__GETD1N 0x3DE147AE
 _0x47:
@@ -1740,25 +1725,25 @@ _0x47:
 	STS  _AMP_ADJ_ZERO+1,R31
 	STS  _AMP_ADJ_ZERO+2,R22
 	STS  _AMP_ADJ_ZERO+3,R23
-; 0000 0054             specData[8] = TYPE_SMART_PLUG;                               // Device Type
+; 0000 0055             specData[8] = TYPE_SMART_PLUG;                               // Device Type
 	LDI  R30,LOW(17)
 	__PUTB1MN _specData,8
-; 0000 0055             printDebug("\r\n++++++++++ Smart Plug ++++++++++\r\n");
+; 0000 0056             printDebug("\r\n++++++++++ Smart Plug ++++++++++\r\n");
 	__POINTW1FN _0x0,123
 	CALL SUBOPT_0x7
-; 0000 0056             printDebug("\r\nFirmware Version : %0.1f\r\n", FIRMWARE_VERSION);
-; 0000 0057             printDebug("Current Sensor   : ACS712ELCTR-20A-T (%0.1f mV/Amp.)\r\n", SENSOR_SENSITIVE);
+; 0000 0057             printDebug("\r\nFirmware Version : %0.1f\r\n", FIRMWARE_VERSION);
+; 0000 0058             printDebug("Current Sensor   : ACS712ELCTR-20A-T (%0.1f mV/Amp.)\r\n", SENSOR_SENSITIVE);
 	__POINTW1FN _0x0,160
 	RJMP _0x48
-; 0000 0058         }else if(read_D_SW == 0x0D) {
+; 0000 0059         }else if(read_D_SW == 0x0D) {
 _0x18:
 	LDI  R30,LOW(13)
 	CP   R30,R4
 	BRNE _0x1E
-; 0000 0059             SENSOR_SENSITIVE = SENSOR30A;
+; 0000 005A             SENSOR_SENSITIVE = SENSOR30A;
 	__GETD1N 0x42840000
 	CALL SUBOPT_0x6
-; 0000 005A             if((ADJ0_SENSOR30A > 0.0) && (ADJ0_SENSOR30A < 0.15)) {
+; 0000 005B             if((ADJ0_SENSOR30A > 0.0) && (ADJ0_SENSOR30A < 0.15)) {
 	LDI  R26,LOW(_ADJ0_SENSOR30A)
 	LDI  R27,HIGH(_ADJ0_SENSOR30A)
 	CALL __EEPROMRDD
@@ -1772,12 +1757,12 @@ _0x18:
 _0x20:
 	RJMP _0x1F
 _0x21:
-; 0000 005B                 AMP_ADJ_ZERO = ADJ0_SENSOR30A;
+; 0000 005C                 AMP_ADJ_ZERO = ADJ0_SENSOR30A;
 	LDI  R26,LOW(_ADJ0_SENSOR30A)
 	LDI  R27,HIGH(_ADJ0_SENSOR30A)
 	CALL __EEPROMRDD
 	RJMP _0x49
-; 0000 005C             }else {AMP_ADJ_ZERO = 0.12;}
+; 0000 005D             }else {AMP_ADJ_ZERO = 0.12;}
 _0x1F:
 	__GETD1N 0x3DF5C28F
 _0x49:
@@ -1785,38 +1770,38 @@ _0x49:
 	STS  _AMP_ADJ_ZERO+1,R31
 	STS  _AMP_ADJ_ZERO+2,R22
 	STS  _AMP_ADJ_ZERO+3,R23
-; 0000 005D             specData[8] = TYPE_SMART_BREAKER;                            // Device Type
+; 0000 005E             specData[8] = TYPE_SMART_BREAKER;                            // Device Type
 	LDI  R30,LOW(19)
 	__PUTB1MN _specData,8
-; 0000 005E             printDebug("\r\n++++++++++ Smart Breaker ++++++++++\r\n");
+; 0000 005F             printDebug("\r\n++++++++++ Smart Breaker ++++++++++\r\n");
 	__POINTW1FN _0x0,215
 	CALL SUBOPT_0x7
-; 0000 005F             printDebug("\r\nFirmware Version : %0.1f\r\n", FIRMWARE_VERSION);
-; 0000 0060             printDebug("Current Sensor   : ACS712ELCTR-30A-T (%0.1f mV/Amp.)\r\n", SENSOR_SENSITIVE);
+; 0000 0060             printDebug("\r\nFirmware Version : %0.1f\r\n", FIRMWARE_VERSION);
+; 0000 0061             printDebug("Current Sensor   : ACS712ELCTR-30A-T (%0.1f mV/Amp.)\r\n", SENSOR_SENSITIVE);
 	__POINTW1FN _0x0,255
 	RJMP _0x48
-; 0000 0061         }else if(read_D_SW < 0) {
+; 0000 0062         }else if(read_D_SW < 0) {
 _0x1E:
 	LDI  R30,LOW(0)
 	CP   R4,R30
 	BRGE _0x24
-; 0000 0062             printDebug("Read Dip-Switch ERROR!\r\n");
+; 0000 0063             printDebug("Read Dip-Switch ERROR!\r\n");
 	__POINTW1FN _0x0,310
 	CALL SUBOPT_0x8
-; 0000 0063         }else {
+; 0000 0064         }else {
 	RJMP _0x25
 _0x24:
-; 0000 0064             SENSOR_SENSITIVE = SENSOR5A;
+; 0000 0065             SENSOR_SENSITIVE = SENSOR5A;
 	CALL SUBOPT_0x4
-; 0000 0065             AMP_ADJ_ZERO = ADJ0_SENSOR5A;
+; 0000 0066             AMP_ADJ_ZERO = ADJ0_SENSOR5A;
 	STS  _AMP_ADJ_ZERO,R30
 	STS  _AMP_ADJ_ZERO+1,R31
 	STS  _AMP_ADJ_ZERO+2,R22
 	STS  _AMP_ADJ_ZERO+3,R23
-; 0000 0066             specData[8] = TYPE_SMART_SWITCH;
+; 0000 0067             specData[8] = TYPE_SMART_SWITCH;
 	LDI  R30,LOW(18)
 	__PUTB1MN _specData,8
-; 0000 0067             printDebug("\r\n++++++++++ Default Type : Smart Switch ++++++++++\r\n");
+; 0000 0068             printDebug("\r\n++++++++++ Default Type : Smart Switch ++++++++++\r\n");
 	__POINTW1FN _0x0,335
 _0x46:
 	ST   -Y,R31
@@ -1824,328 +1809,330 @@ _0x46:
 	LDI  R24,0
 	RCALL _printDebug
 	ADIW R28,2
-; 0000 0068             printDebug("\r\nFirmware Version : %0.1f\r\n", FIRMWARE_VERSION);
+; 0000 0069             printDebug("\r\nFirmware Version : %0.1f\r\n", FIRMWARE_VERSION);
 	__POINTW1FN _0x0,39
 	ST   -Y,R31
 	ST   -Y,R30
 	CALL SUBOPT_0x9
 	CALL SUBOPT_0xA
-; 0000 0069             printDebug("Current Sensor   : ACS712ELCTR-05B-T (%0.1f mV/Amp.)\r\n", SENSOR_SENSITIVE);
+; 0000 006A             printDebug("Current Sensor   : ACS712ELCTR-05B-T (%0.1f mV/Amp.)\r\n", SENSOR_SENSITIVE);
 	__POINTW1FN _0x0,68
 _0x48:
 	ST   -Y,R31
 	ST   -Y,R30
 	CALL SUBOPT_0xB
 	CALL SUBOPT_0xA
-; 0000 006A         }
+; 0000 006B         }
 _0x25:
-; 0000 006B     }while(read_D_SW < 0);
+; 0000 006C     }while(read_D_SW < 0);
 	LDI  R30,LOW(0)
 	CP   R4,R30
 	BRGE _0x11
 	RJMP _0x10
 _0x11:
-; 0000 006C 
-; 0000 006D     /*=============== Current Measurement ===============*/
-; 0000 006E     printDebug("Current Measure  : > %0.2f Amp.\r\n", AMP_ADJ_ZERO);
+; 0000 006D 
+; 0000 006E     /*=============== Current Measurement ===============*/
+; 0000 006F     printDebug("Current Measure  : > %0.2f Amp.\r\n", AMP_ADJ_ZERO);
 	__POINTW1FN _0x0,389
 	ST   -Y,R31
 	ST   -Y,R30
 	CALL SUBOPT_0xC
 	CALL SUBOPT_0xA
-; 0000 006F 
 ; 0000 0070 
-; 0000 0071     #asm("sei")    // Global enable interrupts
+; 0000 0071 
+; 0000 0072     #asm("sei")    // Global enable interrupts
 	sei
-; 0000 0072 
-; 0000 0073     printDebug("\r\n-------- Initial Complete --------\r\n");
+; 0000 0073 
+; 0000 0074     printDebug("\r\n-------- Initial Complete --------\r\n");
 	__POINTW1FN _0x0,423
 	CALL SUBOPT_0x8
-; 0000 0074     delay_ms(5000);
+; 0000 0075     delay_ms(5000);
 	LDI  R26,LOW(5000)
 	LDI  R27,HIGH(5000)
 	CALL _delay_ms
-; 0000 0075 
-; 0000 0076     printDebug("\r\n-------- Start Program --------\r\n");
+; 0000 0076 
+; 0000 0077     printDebug("\r\n-------- Start Program --------\r\n");
 	__POINTW1FN _0x0,462
 	CALL SUBOPT_0x8
-; 0000 0077     while(1) {
+; 0000 0078     while(1) {
 _0x26:
-; 0000 0078         xbee_read();
+; 0000 0079         xbee_read();
 	CALL _xbee_read
-; 0000 0079 
-; 0000 007A //        if(counter%111 == 0 && counter >= 111){
-; 0000 007B //        if(e%2 == 0){
-; 0000 007C //            SEND_EVENT_TEST[2] = 0x90;
-; 0000 007D //            SEND_EVENT_TEST[3] = 0x90;
-; 0000 007E //            SEND_EVENT_TEST[35] = 0xA5;
-; 0000 007F //            SEND_EVENT_TEST[36] = 0x01;
-; 0000 0080 //            SEND_EVENT_TEST[37] = 0x01;
-; 0000 0081 //            xbee_receivePacket(SEND_EVENT_TEST,38);
-; 0000 0082 //        }else{
-; 0000 0083 //            SEND_EVENT_TEST[2] = 0x90;
-; 0000 0084 //            SEND_EVENT_TEST[3] = 0x90;
-; 0000 0085 //            SEND_EVENT_TEST[35] = 0xA5;
-; 0000 0086 //            SEND_EVENT_TEST[36] = 0x01;
-; 0000 0087 //            SEND_EVENT_TEST[37] = 0x00;
-; 0000 0088 //            xbee_receivePacket(SEND_EVENT_TEST,38);
-; 0000 0089 //       }
-; 0000 008A //       e++;
-; 0000 008B //}
-; 0000 008C         switch (flag_state) {
+; 0000 007A 
+; 0000 007B //        if(counter%111 == 0 && counter >= 111){
+; 0000 007C //        if(e%2 == 0){
+; 0000 007D //            SEND_EVENT_TEST[2] = 0x90;
+; 0000 007E //            SEND_EVENT_TEST[3] = 0x90;
+; 0000 007F //            SEND_EVENT_TEST[35] = 0xA5;
+; 0000 0080 //            SEND_EVENT_TEST[36] = 0x01;
+; 0000 0081 //            SEND_EVENT_TEST[37] = 0x01;
+; 0000 0082 //            xbee_receivePacket(SEND_EVENT_TEST,38);
+; 0000 0083 //        }else{
+; 0000 0084 //            SEND_EVENT_TEST[2] = 0x90;
+; 0000 0085 //            SEND_EVENT_TEST[3] = 0x90;
+; 0000 0086 //            SEND_EVENT_TEST[35] = 0xA5;
+; 0000 0087 //            SEND_EVENT_TEST[36] = 0x01;
+; 0000 0088 //            SEND_EVENT_TEST[37] = 0x00;
+; 0000 0089 //            xbee_receivePacket(SEND_EVENT_TEST,38);
+; 0000 008A //       }
+; 0000 008B //       e++;
+; 0000 008C //}
+; 0000 008D         switch (flag_state) {
 	LDS  R30,_flag_state
 	LDS  R31,_flag_state+1
-; 0000 008D 
-; 0000 008E             /*=============== Send AI ===============*/
-; 0000 008F             case 0 :
+; 0000 008E 
+; 0000 008F             /*=============== Send AI ===============*/
+; 0000 0090             case 0 :
 	SBIW R30,0
 	BRNE _0x2C
-; 0000 0090                 xbee_sendATCommand(AI);
+; 0000 0091                 xbee_sendATCommand(AI);
 	CALL SUBOPT_0xD
 	CALL SUBOPT_0xE
-; 0000 0091                 delay_ms(100);
-; 0000 0092 
-; 0000 0093                 /*=============== Check last state from eeprom ===============*/
-; 0000 0094 
-; 0000 0095                 if(STATUS_DEVICE == 1){
+; 0000 0092                 delay_ms(100);
+; 0000 0093 
+; 0000 0094                 /*=============== Check last state from eeprom ===============*/
+; 0000 0095 
+; 0000 0096                 if(STATUS_DEVICE == 1){
 	LDS  R26,_STATUS_DEVICE
 	CPI  R26,LOW(0x1)
 	BRNE _0x2D
-; 0000 0096                     delay_ms(100);
+; 0000 0097                     delay_ms(100);
 	CALL SUBOPT_0xF
-; 0000 0097                     device_state(1);   //on
+; 0000 0098                     device_state(1);   //on
 	CALL SUBOPT_0x10
 	CALL SUBOPT_0x11
-; 0000 0098                     EEPROM_write(Eaddress,STATUS_DEVICE);
+; 0000 0099                     EEPROM_write(Eaddress,STATUS_DEVICE);
 	CALL SUBOPT_0x12
-; 0000 0099                     start_event = 1;
+; 0000 009A                     start_event = 1;
 	LDI  R30,LOW(1)
 	LDI  R31,HIGH(1)
 	MOVW R6,R30
-; 0000 009A                     push_event(511);
-	LDI  R26,LOW(511)
-	LDI  R27,HIGH(511)
+; 0000 009B                     push_event(5110);
+	LDI  R26,LOW(5110)
+	LDI  R27,HIGH(5110)
 	CALL _push_event
-; 0000 009B                 }
-; 0000 009C             break;
+; 0000 009C                 }
+; 0000 009D             break;
 _0x2D:
 	RJMP _0x2B
-; 0000 009D 
-; 0000 009E             /*=============== Send SH( High Bits MacAddress) ===============*/
-; 0000 009F             case 1 :
+; 0000 009E 
+; 0000 009F             /*=============== Send SH( High Bits MacAddress) ===============*/
+; 0000 00A0             case 1 :
 _0x2C:
 	CPI  R30,LOW(0x1)
 	LDI  R26,HIGH(0x1)
 	CPC  R31,R26
 	BRNE _0x2E
-; 0000 00A0                 xbee_sendATCommand(SH);
+; 0000 00A1                 xbee_sendATCommand(SH);
 	CALL SUBOPT_0x10
 	CALL SUBOPT_0xE
-; 0000 00A1                 delay_ms(100);
-; 0000 00A2             break;
+; 0000 00A2                 delay_ms(100);
+; 0000 00A3             break;
 	RJMP _0x2B
-; 0000 00A3 
-; 0000 00A4             /*=============== Send SL( LOW Bits MacAddress) ===============*/
-; 0000 00A5             case 2 :
+; 0000 00A4 
+; 0000 00A5             /*=============== Send SL( LOW Bits MacAddress) ===============*/
+; 0000 00A6             case 2 :
 _0x2E:
 	CPI  R30,LOW(0x2)
 	LDI  R26,HIGH(0x2)
 	CPC  R31,R26
 	BRNE _0x2F
-; 0000 00A6                 xbee_sendATCommand(SL);
+; 0000 00A7                 xbee_sendATCommand(SL);
 	CALL SUBOPT_0x13
 	CALL SUBOPT_0xE
-; 0000 00A7                 delay_ms(100);
-; 0000 00A8             break;
+; 0000 00A8                 delay_ms(100);
+; 0000 00A9             break;
 	RJMP _0x2B
-; 0000 00A9 
-; 0000 00AA             /*=============== Send Join ===============*/
-; 0000 00AB             case 3 :
+; 0000 00AA 
+; 0000 00AB             /*=============== Send Join ===============*/
+; 0000 00AC             case 3 :
 _0x2F:
 	CPI  R30,LOW(0x3)
 	LDI  R26,HIGH(0x3)
 	CPC  R31,R26
 	BRNE _0x30
-; 0000 00AC                 delay_ms(2000);
+; 0000 00AD                 delay_ms(2000);
 	LDI  R26,LOW(2000)
 	LDI  R27,HIGH(2000)
 	CALL _delay_ms
-; 0000 00AD                 send_join();
+; 0000 00AE                 send_join();
 	CALL _send_join
-; 0000 00AE                 delay_ms(100);
+; 0000 00AF                 delay_ms(100);
 	CALL SUBOPT_0xF
-; 0000 00AF 
-; 0000 00B0                 if(SWITCH_PRESSED){
+; 0000 00B0 
+; 0000 00B1                 if(SWITCH_PRESSED){
 	SBIC 0x13,0
 	RJMP _0x31
-; 0000 00B1                     delay_ms(100);
+; 0000 00B2                     delay_ms(100);
 	CALL SUBOPT_0xF
-; 0000 00B2                     if(STATUS_DEVICE == 0){
+; 0000 00B3                     if(STATUS_DEVICE == 0){
 	LDS  R30,_STATUS_DEVICE
 	CPI  R30,0
 	BRNE _0x32
-; 0000 00B3                         device_state(1);      //on
+; 0000 00B4                         device_state(1);      //on
 	CALL SUBOPT_0x10
 	CALL SUBOPT_0x11
-; 0000 00B4                         EEPROM_write(Eaddress,STATUS_DEVICE);
+; 0000 00B5                         EEPROM_write(Eaddress,STATUS_DEVICE);
 	CALL SUBOPT_0x12
-; 0000 00B5                         push_event(5110);
+; 0000 00B6                         push_event(5110);
 	LDI  R26,LOW(5110)
 	LDI  R27,HIGH(5110)
 	RJMP _0x4A
-; 0000 00B6 
-; 0000 00B7                     }else if(STATUS_DEVICE == 1){
+; 0000 00B7 
+; 0000 00B8                     }else if(STATUS_DEVICE == 1){
 _0x32:
 	LDS  R26,_STATUS_DEVICE
 	CPI  R26,LOW(0x1)
 	BRNE _0x34
-; 0000 00B8                         device_state(0);      //off
+; 0000 00B9                         device_state(0);      //off
 	CALL SUBOPT_0xD
 	CALL SUBOPT_0x11
-; 0000 00B9                         EEPROM_write(Eaddress,STATUS_DEVICE);
+; 0000 00BA                         EEPROM_write(Eaddress,STATUS_DEVICE);
 	CALL SUBOPT_0x12
-; 0000 00BA                         push_event(5100);
+; 0000 00BB                         push_event(5100);
 	LDI  R26,LOW(5100)
 	LDI  R27,HIGH(5100)
 _0x4A:
 	CALL _push_event
-; 0000 00BB 
-; 0000 00BC                     }
-; 0000 00BD                 }
+; 0000 00BC 
+; 0000 00BD                     }
+; 0000 00BE                 }
 _0x34:
-; 0000 00BE             break;
+; 0000 00BF             break;
 _0x31:
 	RJMP _0x2B
-; 0000 00BF 
-; 0000 00C0             /*=============== Idle State ===============*/
-; 0000 00C1             case 4 :
+; 0000 00C0 
+; 0000 00C1             /*=============== Idle State ===============*/
+; 0000 00C2             case 4 :
 _0x30:
 	CPI  R30,LOW(0x4)
 	LDI  R26,HIGH(0x4)
 	CPC  R31,R26
 	BREQ PC+3
 	JMP _0x35
-; 0000 00C2                 printDebug("\r\n-------- Idle --------\r\n");
+; 0000 00C3                 printDebug("\r\n-------- Idle --------\r\n");
 	__POINTW1FN _0x0,498
 	CALL SUBOPT_0x8
-; 0000 00C3                 counter++;
+; 0000 00C4                 counter++;
 	CALL SUBOPT_0x14
-; 0000 00C4                 if(counter%10 == 0 ){
+; 0000 00C5                 if(counter%10 == 0 ){
 	BRNE _0x36
-; 0000 00C5                     pop_event();
+; 0000 00C6                     pop_event();
 	CALL _pop_event
-; 0000 00C6                     printDebug("\r\n-------- POP EVENT --------\r\n");
+; 0000 00C7                     printDebug("\r\n-------- POP EVENT --------\r\n");
 	__POINTW1FN _0x0,525
 	CALL SUBOPT_0x8
-; 0000 00C7                 }
-; 0000 00C8 
-; 0000 00C9                 if(start_event == 1){
+; 0000 00C8                 }
+; 0000 00C9 
+; 0000 00CA                 if(start_event == 1){
 _0x36:
 	LDI  R30,LOW(1)
 	LDI  R31,HIGH(1)
 	CP   R30,R6
 	CPC  R31,R7
 	BRNE _0x37
-; 0000 00CA                     if(STATUS_DEVICE == 1){
+; 0000 00CB                     if(STATUS_DEVICE == 1){
 	LDS  R26,_STATUS_DEVICE
 	CPI  R26,LOW(0x1)
 	BRNE _0x38
-; 0000 00CB                         flag_state = 5;
+; 0000 00CC                         flag_state = 5;
 	LDI  R30,LOW(5)
 	LDI  R31,HIGH(5)
 	RJMP _0x4B
-; 0000 00CC                     }else if(STATUS_DEVICE == 0){
+; 0000 00CD                     }else if(STATUS_DEVICE == 0){
 _0x38:
 	LDS  R30,_STATUS_DEVICE
 	CPI  R30,0
 	BRNE _0x3A
-; 0000 00CD                         flag_state = 4;
+; 0000 00CE                         flag_state = 4;
 	LDI  R30,LOW(4)
 	LDI  R31,HIGH(4)
 _0x4B:
 	STS  _flag_state,R30
 	STS  _flag_state+1,R31
-; 0000 00CE                     }
-; 0000 00CF                     start_event = 0;
+; 0000 00CF                     }
+; 0000 00D0                     start_event = 0;
 _0x3A:
 	CLR  R6
 	CLR  R7
-; 0000 00D0                 }
-; 0000 00D1 
+; 0000 00D1                 }
 ; 0000 00D2 
-; 0000 00D3                 if(SWITCH_PRESSED){
+; 0000 00D3 
+; 0000 00D4                 if(SWITCH_PRESSED){
 _0x37:
 	SBIC 0x13,0
 	RJMP _0x3B
-; 0000 00D4                     delay_ms(200);
+; 0000 00D5                     delay_ms(200);
 	CALL SUBOPT_0x15
-; 0000 00D5                        if(STATUS_DEVICE == 0){
+; 0000 00D6                        if(STATUS_DEVICE == 0){
 	LDS  R30,_STATUS_DEVICE
 	CPI  R30,0
 	BRNE _0x3C
-; 0000 00D6                             device_state(1);      //on
+; 0000 00D7                             device_state(1);      //on
 	CALL SUBOPT_0x10
 	CALL SUBOPT_0x11
-; 0000 00D7                             EEPROM_write(Eaddress,STATUS_DEVICE);
+; 0000 00D8                             EEPROM_write(Eaddress,STATUS_DEVICE);
 	CALL SUBOPT_0x12
-; 0000 00D8                             flag_state = 5;
+; 0000 00D9                             flag_state = 5;
+	LDI  R30,LOW(5)
+	LDI  R31,HIGH(5)
 	CALL SUBOPT_0x16
-; 0000 00D9                             //printDebug("count_input = %d\r\n", count_input);
-; 0000 00DA                             push_event(5110);
+; 0000 00DA                             //printDebug("count_input = %d\r\n", count_input);
+; 0000 00DB                             push_event(5110);
 	LDI  R26,LOW(5110)
 	LDI  R27,HIGH(5110)
 	RJMP _0x4C
-; 0000 00DB                        }else if(STATUS_DEVICE == 1){
+; 0000 00DC                        }else if(STATUS_DEVICE == 1){
 _0x3C:
 	LDS  R26,_STATUS_DEVICE
 	CPI  R26,LOW(0x1)
 	BRNE _0x3E
-; 0000 00DC                             device_state(0);     //off
+; 0000 00DD                             device_state(0);     //off
 	CALL SUBOPT_0xD
 	CALL SUBOPT_0x11
-; 0000 00DD                             EEPROM_write(Eaddress,STATUS_DEVICE);
+; 0000 00DE                             EEPROM_write(Eaddress,STATUS_DEVICE);
 	CALL SUBOPT_0x12
-; 0000 00DE                             flag_state = 4;
+; 0000 00DF                             flag_state = 4;
 	CALL SUBOPT_0x17
-; 0000 00DF                             //printDebug("count_input = %d\r\n", count_input);
-; 0000 00E0                             push_event(5100);
+; 0000 00E0                             //printDebug("count_input = %d\r\n", count_input);
+; 0000 00E1                             push_event(5100);
 _0x4C:
 	CALL _push_event
-; 0000 00E1                        }
-; 0000 00E2                 }
+; 0000 00E2                        }
+; 0000 00E3                 }
 _0x3E:
-; 0000 00E3             break;
+; 0000 00E4             break;
 _0x3B:
 	RJMP _0x2B
-; 0000 00E4 
-; 0000 00E5             /*=============== Active State ===============*/
-; 0000 00E6             case 5 :
+; 0000 00E5 
+; 0000 00E6             /*=============== Active State ===============*/
+; 0000 00E7             case 5 :
 _0x35:
 	CPI  R30,LOW(0x5)
 	LDI  R26,HIGH(0x5)
 	CPC  R31,R26
 	BRNE _0x2B
-; 0000 00E7             printDebug("\r\n-------- Active --------\r\n");
+; 0000 00E8             printDebug("\r\n-------- Active --------\r\n");
 	__POINTW1FN _0x0,557
 	CALL SUBOPT_0x8
-; 0000 00E8                 ReadCurrent();
+; 0000 00E9                 ReadCurrent();
 	CALL _ReadCurrent
-; 0000 00E9                 ReadVoltage();
+; 0000 00EA                 ReadVoltage();
 	CALL _ReadVoltage
-; 0000 00EA 
-; 0000 00EB                 counter++;
+; 0000 00EB 
+; 0000 00EC                 counter++;
 	CALL SUBOPT_0x14
-; 0000 00EC                 if(counter%10 == 0 ){
+; 0000 00ED                 if(counter%10 == 0 ){
 	BRNE _0x40
-; 0000 00ED                     printDebug("\r\n-------- POP EVENT --------\r\n");
+; 0000 00EE                     printDebug("\r\n-------- POP EVENT --------\r\n");
 	__POINTW1FN _0x0,525
 	CALL SUBOPT_0x8
-; 0000 00EE                     pop_event();
+; 0000 00EF                     pop_event();
 	CALL _pop_event
-; 0000 00EF                 }
-; 0000 00F0 
+; 0000 00F0                 }
 ; 0000 00F1 
-; 0000 00F2                 if(number == 1000){
+; 0000 00F2 
+; 0000 00F3                 if(number == 1000){
 _0x40:
 	LDS  R26,_number
 	LDS  R27,_number+1
@@ -2153,34 +2140,34 @@ _0x40:
 	LDI  R30,HIGH(0x3E8)
 	CPC  R27,R30
 	BRNE _0x41
-; 0000 00F3                     SendStatusReport();
+; 0000 00F4                     SendStatusReport();
 	CALL _SendStatusReport
-; 0000 00F4                 }
-; 0000 00F5 
-; 0000 00F6                 if(SWITCH_PRESSED){
+; 0000 00F5                 }
+; 0000 00F6 
+; 0000 00F7                 if(SWITCH_PRESSED){
 _0x41:
 	SBIC 0x13,0
 	RJMP _0x42
-; 0000 00F7                     delay_ms(200);
+; 0000 00F8                     delay_ms(200);
 	CALL SUBOPT_0x15
-; 0000 00F8                     device_state(0); // off
+; 0000 00F9                     device_state(0); // off
 	CALL SUBOPT_0xD
 	CALL SUBOPT_0x11
-; 0000 00F9                     EEPROM_write(Eaddress,STATUS_DEVICE);
+; 0000 00FA                     EEPROM_write(Eaddress,STATUS_DEVICE);
 	CALL SUBOPT_0x12
-; 0000 00FA                     flag_state = 4;
+; 0000 00FB                     flag_state = 4;
 	CALL SUBOPT_0x17
-; 0000 00FB //                    printDebug("count_input = %d\r\n", count_input);
-; 0000 00FC                     push_event(5100);
+; 0000 00FC //                  printDebug("count_input = %d\r\n", count_input);
+; 0000 00FD                     push_event(5100);
 	CALL _push_event
-; 0000 00FD                 }
-; 0000 00FE             break;
+; 0000 00FE                 }
+; 0000 00FF             break;
 _0x42:
-; 0000 00FF         }
+; 0000 0100         }
 _0x2B:
-; 0000 0100     }
+; 0000 0101     }
 	RJMP _0x26
-; 0000 0101 }
+; 0000 0102 }
 _0x43:
 	RJMP _0x43
 ;#include <stdio.h>
@@ -2896,7 +2883,7 @@ _0x4000F:
 ; 0002 00C8     #asm("sei")
 	sei
 ; 0002 00C9 }
-	JMP  _0x20C000C
+	JMP  _0x20C0010
 ;
 ;#include <mega128a.h>
 	#ifndef __SLEEP_DEFINED__
@@ -3210,7 +3197,7 @@ _0x6001E:
 _0x60016:
 ; 0003 0083 }
 	LDD  R17,Y+0
-	RJMP _0x20C0010
+	RJMP _0x20C000F
 ;
 ;
 ;void init_uart(uint8_t channel, uint32_t baud) {
@@ -3425,12 +3412,10 @@ _0x60021:
 ;#include <int_protocol.h>
 ;#include <eeprom.h>
 ;
-;
 ;#define XBEE_RESET PORTE.2
 ;
 ;char EndDevice_MacAddress[8];
 ;char Gateway_MacAddress[8];
-;
 ;
 ;uint8_t AI_COMMAND[]            = {0x7E,0x00,0x04,0x08,0x01,0x41,0x49,0x6C};
 
@@ -3443,63 +3428,63 @@ _0x60021:
 ;
 ;
 ;void xbee_sendATCommand(int param){
-; 0004 001C void xbee_sendATCommand(int param){
+; 0004 001A void xbee_sendATCommand(int param){
 
 	.CSEG
 _xbee_sendATCommand:
-; 0004 001D      switch(param) {
+; 0004 001B      switch(param) {
 	CALL SUBOPT_0x0
 ;	param -> Y+0
-; 0004 001E         case 0  :
+; 0004 001C         case 0  :
 	BRNE _0x80009
-; 0004 001F             printDebug("\r\n ++++++++++ Send AI ++++++++\r\n");
+; 0004 001D             printDebug("\r\n ++++++++++ Send AI ++++++++\r\n");
 	__POINTW1FN _0x80000,0
 	CALL SUBOPT_0x8
-; 0004 0020             print_payload(AI_COMMAND,8);
+; 0004 001E             print_payload(AI_COMMAND,8);
 	LDI  R30,LOW(_AI_COMMAND)
 	LDI  R31,HIGH(_AI_COMMAND)
 	CALL SUBOPT_0x2B
-; 0004 0021             xbee_send(AI_COMMAND,8);
+; 0004 001F             xbee_send(AI_COMMAND,8);
 	LDI  R30,LOW(_AI_COMMAND)
 	LDI  R31,HIGH(_AI_COMMAND)
 	RJMP _0x80035
+; 0004 0020 
+; 0004 0021         break;
 ; 0004 0022 
-; 0004 0023         break;
-; 0004 0024 
-; 0004 0025         case 1  :
+; 0004 0023         case 1  :
 _0x80009:
 	CPI  R30,LOW(0x1)
 	LDI  R26,HIGH(0x1)
 	CPC  R31,R26
 	BRNE _0x8000A
-; 0004 0026             printDebug("\r\n ++++++++++ Send SH ++++++++\r\n");
+; 0004 0024             printDebug("\r\n ++++++++++ Send SH ++++++++\r\n");
 	__POINTW1FN _0x80000,33
 	CALL SUBOPT_0x8
-; 0004 0027             print_payload(SH_COMMAND,8);
+; 0004 0025             print_payload(SH_COMMAND,8);
 	LDI  R30,LOW(_SH_COMMAND)
 	LDI  R31,HIGH(_SH_COMMAND)
 	CALL SUBOPT_0x2B
-; 0004 0028             xbee_send(SH_COMMAND,8);
+; 0004 0026             xbee_send(SH_COMMAND,8);
 	LDI  R30,LOW(_SH_COMMAND)
 	LDI  R31,HIGH(_SH_COMMAND)
 	RJMP _0x80035
+; 0004 0027 
+; 0004 0028         break;
 ; 0004 0029 
-; 0004 002A         break;
-; 0004 002B 
-; 0004 002C         case 2  :
+; 0004 002A         case 2  :
 _0x8000A:
 	CPI  R30,LOW(0x2)
 	LDI  R26,HIGH(0x2)
 	CPC  R31,R26
 	BRNE _0x80008
-; 0004 002D             printDebug("\r\n ++++++++++ Send SL ++++++++\r\n");
+; 0004 002B             printDebug("\r\n ++++++++++ Send SL ++++++++\r\n");
 	__POINTW1FN _0x80000,66
 	CALL SUBOPT_0x8
-; 0004 002E             print_payload(SL_COMMAND,8);
+; 0004 002C             print_payload(SL_COMMAND,8);
 	LDI  R30,LOW(_SL_COMMAND)
 	LDI  R31,HIGH(_SL_COMMAND)
 	CALL SUBOPT_0x2B
-; 0004 002F             xbee_send(SL_COMMAND,8);
+; 0004 002D             xbee_send(SL_COMMAND,8);
 	LDI  R30,LOW(_SL_COMMAND)
 	LDI  R31,HIGH(_SL_COMMAND)
 _0x80035:
@@ -3507,20 +3492,21 @@ _0x80035:
 	ST   -Y,R30
 	CALL SUBOPT_0x2C
 	RCALL _xbee_send
-; 0004 0030 
-; 0004 0031         break;
-; 0004 0032      }
+; 0004 002E         break;
+; 0004 002F      }
 _0x80008:
-; 0004 0033 }
-	JMP  _0x20C000C
+; 0004 0030 }
+_0x20C0010:
+	ADIW R28,2
+	RET
 ;
 ;int xbee_checksum(char buf[],int len) {
-; 0004 0035 int xbee_checksum(char buf[],int len) {
+; 0004 0032 int xbee_checksum(char buf[],int len) {
 _xbee_checksum:
-; 0004 0036 
-; 0004 0037     int i;
-; 0004 0038     char sum = 0;
-; 0004 0039     for (i = 0; i < len; i++) {
+; 0004 0033 
+; 0004 0034     int i;
+; 0004 0035     char sum = 0;
+; 0004 0036     for (i = 0; i < len; i++) {
 	ST   -Y,R27
 	ST   -Y,R26
 	CALL __SAVELOCR4
@@ -3536,7 +3522,7 @@ _0x8000D:
 	CP   R16,R30
 	CPC  R17,R31
 	BRGE _0x8000E
-; 0004 003A         sum += buf[i];
+; 0004 0037         sum += buf[i];
 	MOVW R30,R16
 	LDD  R26,Y+6
 	LDD  R27,Y+6+1
@@ -3544,11 +3530,11 @@ _0x8000D:
 	ADC  R27,R31
 	LD   R30,X
 	ADD  R19,R30
-; 0004 003B     }
+; 0004 0038     }
 	__ADDWRN 16,17,1
 	RJMP _0x8000D
 _0x8000E:
-; 0004 003C     return (0xFF - (sum & 0xFF));
+; 0004 0039     return (0xFF - (sum & 0xFF));
 	MOV  R30,R19
 	LDI  R31,0
 	ANDI R31,HIGH(0xFF)
@@ -3558,14 +3544,14 @@ _0x8000E:
 	SUB  R30,R26
 	SBC  R31,R27
 	CALL __LOADLOCR4
-	JMP  _0x20C000D
-; 0004 003D }
+	JMP  _0x20C000C
+; 0004 003A }
 ;
 ;
 ;void xbee_sendAPI(uint8_t buff[],uint16_t len){
-; 0004 0040 void xbee_sendAPI(uint8_t buff[],uint16_t len){
+; 0004 003D void xbee_sendAPI(uint8_t buff[],uint16_t len){
 _xbee_sendAPI:
-; 0004 0041     xbee_send(buff,len);
+; 0004 003E     xbee_send(buff,len);
 	ST   -Y,R27
 	ST   -Y,R26
 ;	buff -> Y+2
@@ -3577,18 +3563,18 @@ _xbee_sendAPI:
 	LDD  R26,Y+2
 	LDD  R27,Y+2+1
 	RCALL _xbee_send
-; 0004 0042 }
-_0x20C0010:
+; 0004 003F }
+_0x20C000F:
 	ADIW R28,4
 	RET
 ;
 ;
 ;void xbee_receivePacket( uint8_t recvPacket[],uint16_t size){
-; 0004 0045 void xbee_receivePacket( uint8_t recvPacket[],uint16_t size){
+; 0004 0042 void xbee_receivePacket( uint8_t recvPacket[],uint16_t size){
 _xbee_receivePacket:
-; 0004 0046 
-; 0004 0047     int start = 3;
-; 0004 0048     if(size <= 5)
+; 0004 0043 
+; 0004 0044     int start = 3;
+; 0004 0045     if(size <= 5)
 	CALL SUBOPT_0x2D
 ;	recvPacket -> Y+4
 ;	size -> Y+2
@@ -3598,13 +3584,13 @@ _xbee_receivePacket:
 	LDD  R27,Y+2+1
 	SBIW R26,6
 	BRSH _0x8000F
-; 0004 0049         return;
-	RJMP _0x20C000F
-; 0004 004A     printDebug("\r\n ++++++++++ Recreive Data ++++++++\r\n");
+; 0004 0046         return;
+	RJMP _0x20C000E
+; 0004 0047     printDebug("\r\n ++++++++++ Recreive Data ++++++++\r\n");
 _0x8000F:
 	__POINTW1FN _0x80000,99
 	CALL SUBOPT_0x8
-; 0004 004B     print_payload(recvPacket, size);
+; 0004 0048     print_payload(recvPacket, size);
 	LDD  R30,Y+4
 	LDD  R31,Y+4+1
 	ST   -Y,R31
@@ -3612,18 +3598,18 @@ _0x8000F:
 	LDD  R26,Y+4
 	LDD  R27,Y+4+1
 	CALL _print_payload
-; 0004 004C     xbee_processPacket(&recvPacket[start]);
+; 0004 0049     xbee_processPacket(&recvPacket[start]);
 	CALL SUBOPT_0x2E
 	RCALL _xbee_processPacket
-; 0004 004D 
-; 0004 004E }
-	RJMP _0x20C000F
+; 0004 004A 
+; 0004 004B }
+	RJMP _0x20C000E
 ;
 ;void xbee_processPacket(char *buf) {
-; 0004 0050 void xbee_processPacket(char *buf) {
+; 0004 004D void xbee_processPacket(char *buf) {
 _xbee_processPacket:
-; 0004 0051       uint8_t frameType;
-; 0004 0052       frameType = buf[0];
+; 0004 004E       uint8_t frameType;
+; 0004 004F       frameType = buf[0];
 	ST   -Y,R27
 	ST   -Y,R26
 	ST   -Y,R17
@@ -3632,17 +3618,17 @@ _xbee_processPacket:
 	LDD  R26,Y+1
 	LDD  R27,Y+1+1
 	LD   R17,X
-; 0004 0053       switch(frameType) {
+; 0004 0050       switch(frameType) {
 	MOV  R30,R17
 	LDI  R31,0
-; 0004 0054 
-; 0004 0055         /*=============== Recive AI ===============*/
-; 0004 0056         case 0x88  :
+; 0004 0051 
+; 0004 0052         /*=============== Recive AI ===============*/
+; 0004 0053         case 0x88  :
 	CPI  R30,LOW(0x88)
 	LDI  R26,HIGH(0x88)
 	CPC  R31,R26
 	BRNE _0x80013
-; 0004 0057             if(buf[2] == 0x41 && buf[3] == 0x49){
+; 0004 0054             if(buf[2] == 0x41 && buf[3] == 0x49){
 	CALL SUBOPT_0x2F
 	CPI  R26,LOW(0x41)
 	BRNE _0x80015
@@ -3652,15 +3638,15 @@ _xbee_processPacket:
 _0x80015:
 	RJMP _0x80014
 _0x80016:
-; 0004 0058                 flag_state = 1;
+; 0004 0055                 flag_state = 1;
 	LDI  R30,LOW(1)
 	LDI  R31,HIGH(1)
 	RJMP _0x80036
-; 0004 0059             }
-; 0004 005A 
-; 0004 005B         /*=============== Recive SH ===============*/
-; 0004 005C 
-; 0004 005D             else if (buf[2] == 0x53 && buf[3] == 0x48){
+; 0004 0056             }
+; 0004 0057 
+; 0004 0058         /*=============== Recive SH ===============*/
+; 0004 0059 
+; 0004 005A             else if (buf[2] == 0x53 && buf[3] == 0x48){
 _0x80014:
 	CALL SUBOPT_0x2F
 	CPI  R26,LOW(0x53)
@@ -3671,18 +3657,18 @@ _0x80014:
 _0x80019:
 	RJMP _0x80018
 _0x8001A:
-; 0004 005E                 memcpy(EndDevice_MacAddress,&buf[5],4);
+; 0004 005B                 memcpy(EndDevice_MacAddress,&buf[5],4);
 	CALL SUBOPT_0x31
 	CALL SUBOPT_0x32
-; 0004 005F                 flag_state = 2;
+; 0004 005C                 flag_state = 2;
 	LDI  R30,LOW(2)
 	LDI  R31,HIGH(2)
 	RJMP _0x80036
-; 0004 0060             }
-; 0004 0061 
-; 0004 0062         /*=============== Recive SL ===============*/
-; 0004 0063 
-; 0004 0064             else if( buf[2] == 0x53 && buf[3] == 0x4C){
+; 0004 005D             }
+; 0004 005E 
+; 0004 005F         /*=============== Recive SL ===============*/
+; 0004 0060 
+; 0004 0061             else if( buf[2] == 0x53 && buf[3] == 0x4C){
 _0x80018:
 	CALL SUBOPT_0x2F
 	CPI  R26,LOW(0x53)
@@ -3693,161 +3679,163 @@ _0x80018:
 _0x8001D:
 	RJMP _0x8001C
 _0x8001E:
-; 0004 0065                 memcpy(&EndDevice_MacAddress[4],&buf[5],4);
+; 0004 0062                 memcpy(&EndDevice_MacAddress[4],&buf[5],4);
 	__POINTW1MN _EndDevice_MacAddress,4
 	ST   -Y,R31
 	ST   -Y,R30
 	CALL SUBOPT_0x32
-; 0004 0066                 flag_state = 3;
+; 0004 0063                 flag_state = 3;
 	LDI  R30,LOW(3)
 	LDI  R31,HIGH(3)
 _0x80036:
 	STS  _flag_state,R30
 	STS  _flag_state+1,R31
-; 0004 0067             }
-; 0004 0068 
-; 0004 0069         break;
+; 0004 0064             }
+; 0004 0065 
+; 0004 0066         break;
 _0x8001C:
 	RJMP _0x80012
-; 0004 006A 
-; 0004 006B         /*=============== Recive ACK ===============*/
-; 0004 006C         case 0x90  :
+; 0004 0067 
+; 0004 0068         /*=============== Recive ACK ===============*/
+; 0004 0069         case 0x90  :
 _0x80013:
 	CPI  R30,LOW(0x90)
 	LDI  R26,HIGH(0x90)
 	CPC  R31,R26
 	BREQ PC+3
 	JMP _0x80012
-; 0004 006D 
-; 0004 006E         if(buf[32] == 0xA2){
+; 0004 006A 
+; 0004 006B         if(buf[32] == 0xA2){
 	CALL SUBOPT_0x33
 	CPI  R26,LOW(0xA2)
 	BRNE _0x80020
-; 0004 006F             memcpy(Gateway_MacAddress,&buf[1],8);
+; 0004 006C             memcpy(Gateway_MacAddress,&buf[1],8);
 	CALL SUBOPT_0x34
 	CALL _memcpy
-; 0004 0070             //input[count_input] = 2;
-; 0004 0071             flag_state = 4;
-	CALL SUBOPT_0x35
-; 0004 0072         }
-; 0004 0073         else if(buf[32] == 0xA3){
+; 0004 006D             //input[count_input] = 2;
+; 0004 006E             flag_state = 4;
+	LDI  R30,LOW(4)
+	LDI  R31,HIGH(4)
+	CALL SUBOPT_0x16
+; 0004 006F         }
+; 0004 0070         else if(buf[32] == 0xA3){
 	RJMP _0x80021
 _0x80020:
 	CALL SUBOPT_0x33
 	CPI  R26,LOW(0xA3)
 	BRNE _0x80022
-; 0004 0074             memcpy(Gateway_MacAddress,&buf[1],8);
+; 0004 0071             memcpy(Gateway_MacAddress,&buf[1],8);
 	CALL SUBOPT_0x34
-	CALL SUBOPT_0x36
-; 0004 0075             input[count_input] = 3;
+	CALL SUBOPT_0x35
+; 0004 0072             input[count_input] = 3;
 	LDI  R30,LOW(3)
 	LDI  R31,HIGH(3)
 	RJMP _0x80037
-; 0004 0076             count_input++;
-; 0004 0077         }
-; 0004 0078         else if(buf[32] == 0xA5){
+; 0004 0073             count_input++;
+; 0004 0074         }
+; 0004 0075         else if(buf[32] == 0xA5){
 _0x80022:
 	CALL SUBOPT_0x33
 	CPI  R26,LOW(0xA5)
 	BRNE _0x80024
-; 0004 0079             memcpy(Gateway_MacAddress,&buf[1],8);
+; 0004 0076             memcpy(Gateway_MacAddress,&buf[1],8);
 	CALL SUBOPT_0x34
 	CALL _memcpy
-; 0004 007A             if(buf[34] == 0x01)
+; 0004 0077             if(buf[34] == 0x01)
 	LDD  R26,Y+1
 	LDD  R27,Y+1+1
 	ADIW R26,34
 	LD   R26,X
 	CPI  R26,LOW(0x1)
 	BRNE _0x80025
-; 0004 007B                 input[count_input] = 511;
-	CALL SUBOPT_0x37
+; 0004 0078                 input[count_input] = 511;
+	CALL SUBOPT_0x36
 	LDI  R30,LOW(511)
 	LDI  R31,HIGH(511)
 	RJMP _0x80038
-; 0004 007C             else if(buf[34] == 0x00)
+; 0004 0079             else if(buf[34] == 0x00)
 _0x80025:
 	LDD  R30,Y+1
 	LDD  R31,Y+1+1
 	LDD  R30,Z+34
 	CPI  R30,0
 	BRNE _0x80027
-; 0004 007D                 input[count_input] = 510;
-	CALL SUBOPT_0x37
+; 0004 007A                 input[count_input] = 510;
+	CALL SUBOPT_0x36
 	LDI  R30,LOW(510)
 	LDI  R31,HIGH(510)
 _0x80038:
 	ST   X+,R30
 	ST   X,R31
-; 0004 007E             count_input++;
+; 0004 007B             count_input++;
 _0x80027:
 	RJMP _0x80039
-; 0004 007F         }
-; 0004 0080         else if(buf[32] == 0xA6){
+; 0004 007C         }
+; 0004 007D         else if(buf[32] == 0xA6){
 _0x80024:
 	CALL SUBOPT_0x33
 	CPI  R26,LOW(0xA6)
 	BRNE _0x80029
-; 0004 0081             EVENT[0] = buf[33];
+; 0004 007E             EVENT[0] = buf[33];
 	LDD  R30,Y+1
 	LDD  R31,Y+1+1
 	LDD  R30,Z+33
 	STS  _EVENT,R30
-; 0004 0082             EVENT[1] = buf[34];
+; 0004 007F             EVENT[1] = buf[34];
 	LDD  R30,Y+1
 	LDD  R31,Y+1+1
 	LDD  R30,Z+34
 	__PUTB1MN _EVENT,1
-; 0004 0083             memcpy(Gateway_MacAddress,&buf[1],8);
+; 0004 0080             memcpy(Gateway_MacAddress,&buf[1],8);
 	CALL SUBOPT_0x34
-	CALL SUBOPT_0x36
-; 0004 0084             input[count_input] = 6;
+	CALL SUBOPT_0x35
+; 0004 0081             input[count_input] = 6;
 	LDI  R30,LOW(6)
 	LDI  R31,HIGH(6)
 	RJMP _0x80037
-; 0004 0085             count_input++;
-; 0004 0086         }
-; 0004 0087         else if(buf[32] == 0xA8){
+; 0004 0082             count_input++;
+; 0004 0083         }
+; 0004 0084         else if(buf[32] == 0xA8){
 _0x80029:
 	CALL SUBOPT_0x33
 	CPI  R26,LOW(0xA8)
 	BRNE _0x8002B
-; 0004 0088             memcpy(Gateway_MacAddress,&buf[1],8);
+; 0004 0085             memcpy(Gateway_MacAddress,&buf[1],8);
 	CALL SUBOPT_0x34
-	CALL SUBOPT_0x36
-; 0004 0089             input[count_input] = 8;
+	CALL SUBOPT_0x35
+; 0004 0086             input[count_input] = 8;
 	LDI  R30,LOW(8)
 	LDI  R31,HIGH(8)
 _0x80037:
 	ST   X+,R30
 	ST   X,R31
-; 0004 008A             count_input++;
+; 0004 0087             count_input++;
 _0x80039:
 	LDI  R26,LOW(_count_input)
 	LDI  R27,HIGH(_count_input)
 	CALL SUBOPT_0x21
-; 0004 008B         }
-; 0004 008C 
-; 0004 008D         break;
+; 0004 0088         }
+; 0004 0089 
+; 0004 008A         break;
 _0x8002B:
 _0x80021:
-; 0004 008E       }
+; 0004 008B       }
 _0x80012:
-; 0004 008F       if(input[count_input-1] != 0) do_event(input[count_input]);
+; 0004 008C       if(input[count_input-1] != 0) do_event(input[count_input]);
 	LDS  R30,_count_input
 	LDS  R31,_count_input+1
 	SBIW R30,1
-	CALL SUBOPT_0x38
+	CALL SUBOPT_0x37
 	ADD  R26,R30
 	ADC  R27,R31
 	CALL __GETW1P
 	SBIW R30,0
 	BREQ _0x8002C
-	CALL SUBOPT_0x37
+	CALL SUBOPT_0x36
 	CALL __GETW1P
 	MOVW R26,R30
 	CALL _do_event
-; 0004 0090       if(count_input == 30)  count_input = 0;
+; 0004 008D       if(count_input == 30)  count_input = 0;
 _0x8002C:
 	LDS  R26,_count_input
 	LDS  R27,_count_input+1
@@ -3856,16 +3844,16 @@ _0x8002C:
 	LDI  R30,LOW(0)
 	STS  _count_input,R30
 	STS  _count_input+1,R30
-; 0004 0091 }
+; 0004 008E }
 _0x8002D:
 	LDD  R17,Y+0
 	JMP  _0x20C000A
 ;
 ;uint16_t xbee_send(uint8_t buff[],uint16_t len){
-; 0004 0093 uint16_t xbee_send(uint8_t buff[],uint16_t len){
+; 0004 0090 uint16_t xbee_send(uint8_t buff[],uint16_t len){
 _xbee_send:
-; 0004 0094     uint16_t i;
-; 0004 0095     for(i = 0; i < len; i++) {
+; 0004 0091     uint16_t i;
+; 0004 0092     for(i = 0; i < len; i++) {
 	CALL SUBOPT_0x2D
 ;	buff -> Y+4
 ;	len -> Y+2
@@ -3877,32 +3865,32 @@ _0x8002F:
 	CP   R16,R30
 	CPC  R17,R31
 	BRSH _0x80030
-; 0004 0096         putchar1(buff[i]);
+; 0004 0093         putchar1(buff[i]);
 	CALL SUBOPT_0x2E
 	LD   R26,X
 	RCALL _putchar1
-; 0004 0097     }
+; 0004 0094     }
 	__ADDWRN 16,17,1
 	RJMP _0x8002F
 _0x80030:
-; 0004 0098     return i;
+; 0004 0095     return i;
 	MOVW R30,R16
-_0x20C000F:
+_0x20C000E:
 	LDD  R17,Y+1
 	LDD  R16,Y+0
 	ADIW R28,6
 	RET
-; 0004 0099 }
+; 0004 0096 }
 ;
 ;void xbee_read() {
-; 0004 009B void xbee_read() {
+; 0004 0098 void xbee_read() {
 _xbee_read:
-; 0004 009C 
-; 0004 009D     uint8_t readbuf[256];
-; 0004 009E     uint8_t data;
-; 0004 009F     uint16_t len = 0;
-; 0004 00A0     int i = 0;
-; 0004 00A1     delay_ms(100);
+; 0004 0099 
+; 0004 009A     uint8_t readbuf[256];
+; 0004 009B     uint8_t data;
+; 0004 009C     uint16_t len = 0;
+; 0004 009D     int i = 0;
+; 0004 009E     delay_ms(100);
 	SUBI R29,1
 	CALL __SAVELOCR6
 ;	readbuf -> Y+6
@@ -3912,14 +3900,14 @@ _xbee_read:
 	__GETWRN 18,19,0
 	__GETWRN 20,21,0
 	CALL SUBOPT_0xF
-; 0004 00A2 
-; 0004 00A3     while (rx_counter1>0){
+; 0004 009F 
+; 0004 00A0     while (rx_counter1>0){
 _0x80031:
 	LDS  R26,_rx_counter1
 	LDS  R27,_rx_counter1+1
 	CALL __CPW02
 	BRSH _0x80033
-; 0004 00A4         data=rx_buffer1[rx_rd_index1++];
+; 0004 00A1         data=rx_buffer1[rx_rd_index1++];
 	LDI  R26,LOW(_rx_rd_index1)
 	LDI  R27,HIGH(_rx_rd_index1)
 	CALL SUBOPT_0x21
@@ -3927,7 +3915,7 @@ _0x80031:
 	SUBI R30,LOW(-_rx_buffer1)
 	SBCI R31,HIGH(-_rx_buffer1)
 	LD   R17,Z
-; 0004 00A5         readbuf[i++] = data;
+; 0004 00A2         readbuf[i++] = data;
 	MOVW R30,R20
 	__ADDWRN 20,21,1
 	MOVW R26,R28
@@ -3935,10 +3923,10 @@ _0x80031:
 	ADD  R30,R26
 	ADC  R31,R27
 	ST   Z,R17
-; 0004 00A6         len++;
+; 0004 00A3         len++;
 	__ADDWRN 18,19,1
-; 0004 00A7         #if RX_BUFFER_SIZE1 != 256
-; 0004 00A8         if (rx_rd_index1 == RX_BUFFER_SIZE1) rx_rd_index1=0;
+; 0004 00A4         #if RX_BUFFER_SIZE1 != 256
+; 0004 00A5         if (rx_rd_index1 == RX_BUFFER_SIZE1) rx_rd_index1=0;
 	LDS  R26,_rx_rd_index1
 	LDS  R27,_rx_rd_index1+1
 	CPI  R26,LOW(0x200)
@@ -3948,11 +3936,11 @@ _0x80031:
 	LDI  R30,LOW(0)
 	STS  _rx_rd_index1,R30
 	STS  _rx_rd_index1+1,R30
-; 0004 00A9         #endif
-; 0004 00AA         #asm("cli")
+; 0004 00A6         #endif
+; 0004 00A7         #asm("cli")
 _0x80034:
 	cli
-; 0004 00AB         --rx_counter1;
+; 0004 00A8         --rx_counter1;
 	LDI  R26,LOW(_rx_counter1)
 	LDI  R27,HIGH(_rx_counter1)
 	LD   R30,X+
@@ -3960,20 +3948,20 @@ _0x80034:
 	SBIW R30,1
 	ST   -X,R31
 	ST   -X,R30
-; 0004 00AC         #asm("sei")
+; 0004 00A9         #asm("sei")
 	sei
-; 0004 00AD     }
+; 0004 00AA     }
 	RJMP _0x80031
 _0x80033:
-; 0004 00AE 
-; 0004 00AF     xbee_receivePacket(readbuf, len);
+; 0004 00AB 
+; 0004 00AC     xbee_receivePacket(readbuf, len);
 	MOVW R30,R28
 	ADIW R30,6
 	ST   -Y,R31
 	ST   -Y,R30
 	MOVW R26,R18
 	RCALL _xbee_receivePacket
-; 0004 00B0 }
+; 0004 00AD }
 	CALL __LOADLOCR6
 	ADIW R28,6
 	SUBI R29,-1
@@ -4015,10 +4003,10 @@ _initial_system:
 ; 0005 0013     //============ Uart Initial ============//
 ; 0005 0014     init_uart(0, 38400);     // uart0 for printDebug
 	LDI  R30,LOW(0)
-	CALL SUBOPT_0x39
+	CALL SUBOPT_0x38
 ; 0005 0015     init_uart(1, 38400);    // uart1 for xbee
 	LDI  R30,LOW(1)
-	CALL SUBOPT_0x39
+	CALL SUBOPT_0x38
 ; 0005 0016 
 ; 0005 0017     //============ Timer Initial ============//
 ; 0005 0018     init_timer();
@@ -4105,26 +4093,26 @@ _read_dSwitch:
 	ST   -Y,R16
 ;	read1 -> R17
 ;	read2 -> R16
-	CALL SUBOPT_0x3A
+	CALL SUBOPT_0x39
 	MOV  R17,R30
 ; 0005 0042     delay_ms(100);
 	CALL SUBOPT_0xF
 ; 0005 0043     read2 = D_SW1_PIN | (D_SW2_PIN<<1) | (D_SW3_PIN<<2) | (D_SW4_PIN<<3);
-	CALL SUBOPT_0x3A
+	CALL SUBOPT_0x39
 	MOV  R16,R30
 ; 0005 0044     if(read1 == read2) {
 	CP   R16,R17
 	BRNE _0xA0017
 ; 0005 0045         return read1;
 	MOV  R30,R17
-	RJMP _0x20C000E
+	RJMP _0x20C000D
 ; 0005 0046     }else {
 _0xA0017:
 ; 0005 0047         return -1;
 	LDI  R30,LOW(255)
 ; 0005 0048     }
 ; 0005 0049 }
-_0x20C000E:
+_0x20C000D:
 	LD   R16,Y+
 	LD   R17,Y+
 	RET
@@ -4304,7 +4292,7 @@ _0xC000F:
 	MOVW R30,R16
 	LDD  R17,Y+1
 	LDD  R16,Y+0
-_0x20C000D:
+_0x20C000C:
 	ADIW R28,8
 	RET
 ; 0006 0034 }
@@ -4331,14 +4319,14 @@ __ftoa:
 ;	ipart -> R16,R17
 ;	fpart -> Y+4
 ;	i -> R18,R19
-	CALL SUBOPT_0x3B
+	CALL SUBOPT_0x3A
 	CALL __CFD1
 	MOVW R16,R30
 	MOVW R30,R16
+	CALL SUBOPT_0x3B
 	CALL SUBOPT_0x3C
 	CALL SUBOPT_0x3D
 	CALL SUBOPT_0x3E
-	CALL SUBOPT_0x3F
 	ST   -Y,R17
 	ST   -Y,R16
 	LDD  R30,Y+12
@@ -4382,19 +4370,19 @@ _0xC0010:
 ; 0006 0048         // of points after dot. The third parameter is needed
 ; 0006 0049         // to handle cases like 233.007
 ; 0006 004A         fpart = fpart * pow(10, afterpoint);
-	CALL SUBOPT_0x40
+	CALL SUBOPT_0x3F
 	CALL __PUTPARD1
 	LDD  R30,Y+12
 	LDD  R31,Y+12+1
-	CALL SUBOPT_0x3C
+	CALL SUBOPT_0x3B
 	MOVW R26,R30
 	MOVW R24,R22
 	CALL _pow
+	CALL SUBOPT_0x40
 	CALL SUBOPT_0x41
-	CALL SUBOPT_0x42
 ; 0006 004B 
 ; 0006 004C         intToStr((int)fpart, res + i + 1, afterpoint);
-	CALL SUBOPT_0x43
+	CALL SUBOPT_0x42
 	CALL __CFD1
 	ST   -Y,R31
 	ST   -Y,R30
@@ -4422,37 +4410,35 @@ _0xC0011:
 _send_event:
 ; 0006 0052 
 ; 0006 0053     memcpy(&SEND_EVENT_[5],Gateway_MacAddress,8);
-	CALL SUBOPT_0x44
+	CALL SUBOPT_0x43
 ;	led -> Y+1
 ;	state -> Y+0
-	CALL SUBOPT_0x45
+	CALL SUBOPT_0x44
 ; 0006 0054     memcpy(&SEND_EVENT_[18],EndDevice_MacAddress,8);
 	CALL SUBOPT_0x2C
-	CALL SUBOPT_0x46
+	CALL SUBOPT_0x45
 ; 0006 0055     memcpy(&SEND_EVENT_[26],Gateway_MacAddress,8);
-	CALL SUBOPT_0x47
+	CALL SUBOPT_0x46
 ; 0006 0056     memcpy(&SEND_EVENT_[39],&state,1);
 	CALL SUBOPT_0x10
 	CALL _memcpy
 ; 0006 0057     SEND_EVENT_[37] = 0xA5;
 	LDI  R30,LOW(165)
-	CALL SUBOPT_0x48
+	CALL SUBOPT_0x47
 ; 0006 0058     SEND_EVENT_[38] = led;
 ; 0006 0059     SEND_EVENT_[40] = xbee_checksum(&SEND_EVENT_[3],SEND_EVENT_[2]);
 ; 0006 005A     printDebug("\r\n ++++++++++ Send LED ++++++++\r\n");
 	__POINTW1FN _0xC0000,0
 	CALL SUBOPT_0x8
 ; 0006 005B     print_payload(SEND_EVENT_,41);
-	CALL SUBOPT_0x49
+	CALL SUBOPT_0x48
 	CALL _print_payload
 ; 0006 005C     xbee_sendAPI(SEND_EVENT_,41);
-	CALL SUBOPT_0x49
+	CALL SUBOPT_0x48
 	CALL _xbee_sendAPI
 ; 0006 005D 
 ; 0006 005E }
-_0x20C000C:
-	ADIW R28,2
-	RET
+	JMP  _0x20C0008
 ;
 ;void send_join(){
 ; 0006 0060 void send_join(){
@@ -4460,7 +4446,7 @@ _send_join:
 ; 0006 0061 
 ; 0006 0062     memcpy(&JOIN_A1[18],EndDevice_MacAddress,8);
 	__POINTW1MN _JOIN_A1,18
-	CALL SUBOPT_0x4A
+	CALL SUBOPT_0x49
 	CALL SUBOPT_0x2C
 	CALL _memcpy
 ; 0006 0063     JOIN_A1[38] = xbee_checksum(&JOIN_A1[3],JOIN_A1[2]);
@@ -4468,7 +4454,7 @@ _send_join:
 	ST   -Y,R31
 	ST   -Y,R30
 	__GETB2MN _JOIN_A1,2
-	CALL SUBOPT_0x4B
+	CALL SUBOPT_0x4A
 	__PUTB1MN _JOIN_A1,38
 ; 0006 0064     printDebug("\r\n ++++++++++ Send Join ++++++++\r\n");
 	__POINTW1FN _0xC0000,34
@@ -4476,7 +4462,7 @@ _send_join:
 ; 0006 0065     print_payload(JOIN_A1, 39);
 	LDI  R30,LOW(_JOIN_A1)
 	LDI  R31,HIGH(_JOIN_A1)
-	CALL SUBOPT_0x4C
+	CALL SUBOPT_0x4B
 ; 0006 0066     xbee_sendAPI(JOIN_A1,39);
 	LDI  R30,LOW(_JOIN_A1)
 	LDI  R31,HIGH(_JOIN_A1)
@@ -4490,23 +4476,23 @@ _send_ping:
 ; 0006 006B 
 ; 0006 006C     memcpy(&PING_A4[5],Gateway_MacAddress,8);
 	__POINTW1MN _PING_A4,5
-	CALL SUBOPT_0x4D
+	CALL SUBOPT_0x4C
 	CALL _memcpy
 ; 0006 006D     memcpy(&PING_A4[18],EndDevice_MacAddress,8);
 	__POINTW1MN _PING_A4,18
-	CALL SUBOPT_0x4A
+	CALL SUBOPT_0x49
 	CALL SUBOPT_0x2C
 	CALL _memcpy
 ; 0006 006E     memcpy(&PING_A4[26],Gateway_MacAddress,8);
 	__POINTW1MN _PING_A4,26
-	CALL SUBOPT_0x4D
+	CALL SUBOPT_0x4C
 	CALL _memcpy
 ; 0006 006F     PING_A4[38] = xbee_checksum(&PING_A4[3],PING_A4[2]);
 	__POINTW1MN _PING_A4,3
 	ST   -Y,R31
 	ST   -Y,R30
 	__GETB2MN _PING_A4,2
-	CALL SUBOPT_0x4B
+	CALL SUBOPT_0x4A
 	__PUTB1MN _PING_A4,38
 ; 0006 0070     printDebug("\r\n ++++++++++ Send Ping ++++++++\r\n");
 	__POINTW1FN _0xC0000,69
@@ -4514,7 +4500,7 @@ _send_ping:
 ; 0006 0071     print_payload(PING_A4, 39);
 	LDI  R30,LOW(_PING_A4)
 	LDI  R31,HIGH(_PING_A4)
-	CALL SUBOPT_0x4C
+	CALL SUBOPT_0x4B
 ; 0006 0072     xbee_sendAPI(PING_A4,39);
 	LDI  R30,LOW(_PING_A4)
 	LDI  R31,HIGH(_PING_A4)
@@ -4533,31 +4519,31 @@ _0x20C000B:
 _recive_event:
 ; 0006 0077 
 ; 0006 0078     memcpy(&SEND_EVENT_[5],Gateway_MacAddress,8);
-	CALL SUBOPT_0x44
+	CALL SUBOPT_0x43
 ;	led -> Y+1
 ;	state -> Y+0
-	CALL SUBOPT_0x45
+	CALL SUBOPT_0x44
 ; 0006 0079     memcpy(&SEND_EVENT_[18],EndDevice_MacAddress,8);
 	CALL SUBOPT_0x2C
-	CALL SUBOPT_0x46
+	CALL SUBOPT_0x45
 ; 0006 007A     memcpy(&SEND_EVENT_[26],Gateway_MacAddress,8);
-	CALL SUBOPT_0x47
+	CALL SUBOPT_0x46
 ; 0006 007B     memcpy(&SEND_EVENT_[39],&state,1);
 	CALL SUBOPT_0x10
 	CALL _memcpy
 ; 0006 007C     SEND_EVENT_[37] = 0xA6;
 	LDI  R30,LOW(166)
-	CALL SUBOPT_0x48
+	CALL SUBOPT_0x47
 ; 0006 007D     SEND_EVENT_[38] = led;
 ; 0006 007E     SEND_EVENT_[40] = xbee_checksum(&SEND_EVENT_[3],SEND_EVENT_[2]);
 ; 0006 007F     printDebug("\r\n ++++++++++ Send EVENT RECIVE ++++++++\r\n");
 	__POINTW1FN _0xC0000,104
 	CALL SUBOPT_0x8
 ; 0006 0080     print_payload(SEND_EVENT_,41);
-	CALL SUBOPT_0x49
+	CALL SUBOPT_0x48
 	CALL _print_payload
 ; 0006 0081     xbee_sendAPI(SEND_EVENT_,41);
-	CALL SUBOPT_0x49
+	CALL SUBOPT_0x48
 	CALL _xbee_sendAPI
 ; 0006 0082 
 ; 0006 0083 }
@@ -4575,46 +4561,46 @@ _send_report:
 ;	Pavg -> Y+4
 ;	WHsum -> Y+0
 	__POINTW1MN _SEND_REPORT_,5
-	CALL SUBOPT_0x4D
+	CALL SUBOPT_0x4C
 	CALL _memcpy
 ; 0006 0088     memcpy(&SEND_REPORT_[18],EndDevice_MacAddress,8);
 	__POINTW1MN _SEND_REPORT_,18
-	CALL SUBOPT_0x4A
+	CALL SUBOPT_0x49
 	CALL SUBOPT_0x2C
 	CALL _memcpy
 ; 0006 0089     memcpy(&SEND_REPORT_[26],Gateway_MacAddress,8);
 	__POINTW1MN _SEND_REPORT_,26
-	CALL SUBOPT_0x4D
+	CALL SUBOPT_0x4C
 	CALL _memcpy
 ; 0006 008A 
 ; 0006 008B     /*=============== Convert Data from float to ASCII ===============*/
 ; 0006 008C     _ftoa(Vavg, _voltage,2);
-	CALL SUBOPT_0x3B
+	CALL SUBOPT_0x3A
 	CALL __PUTPARD1
 	LDI  R30,LOW(__voltage)
 	LDI  R31,HIGH(__voltage)
-	CALL SUBOPT_0x4E
+	CALL SUBOPT_0x4D
 	RCALL __ftoa
 ; 0006 008D     _ftoa(Iavg, _amp,2);
-	CALL SUBOPT_0x4F
+	CALL SUBOPT_0x4E
 	CALL __PUTPARD1
 	LDI  R30,LOW(__amp)
 	LDI  R31,HIGH(__amp)
-	CALL SUBOPT_0x4E
+	CALL SUBOPT_0x4D
 	RCALL __ftoa
 ; 0006 008E     _ftoa(Pavg, _power,2);
-	CALL SUBOPT_0x43
+	CALL SUBOPT_0x42
 	CALL __PUTPARD1
 	LDI  R30,LOW(__power)
 	LDI  R31,HIGH(__power)
-	CALL SUBOPT_0x4E
+	CALL SUBOPT_0x4D
 	RCALL __ftoa
 ; 0006 008F     _ftoa(WHsum, _watt,2);
-	CALL SUBOPT_0x50
+	CALL SUBOPT_0x4F
 	CALL __PUTPARD1
 	LDI  R30,LOW(__watt)
 	LDI  R31,HIGH(__watt)
-	CALL SUBOPT_0x4E
+	CALL SUBOPT_0x4D
 	RCALL __ftoa
 ; 0006 0090 
 ; 0006 0091     SEND_REPORT_[37] = 0xA7;
@@ -4629,7 +4615,7 @@ _send_report:
 	ST   -Y,R30
 	LDI  R30,LOW(__voltage)
 	LDI  R31,HIGH(__voltage)
-	CALL SUBOPT_0x51
+	CALL SUBOPT_0x50
 	CALL _memcpy
 ; 0006 0094     memcpy(&SEND_REPORT_[49],_amp,8);
 	__POINTW1MN _SEND_REPORT_,49
@@ -4637,7 +4623,7 @@ _send_report:
 	ST   -Y,R30
 	LDI  R30,LOW(__amp)
 	LDI  R31,HIGH(__amp)
-	CALL SUBOPT_0x51
+	CALL SUBOPT_0x50
 	CALL _memcpy
 ; 0006 0095     memcpy(&SEND_REPORT_[58],_power,8);
 	__POINTW1MN _SEND_REPORT_,58
@@ -4645,7 +4631,7 @@ _send_report:
 	ST   -Y,R30
 	LDI  R30,LOW(__power)
 	LDI  R31,HIGH(__power)
-	CALL SUBOPT_0x51
+	CALL SUBOPT_0x50
 	CALL _memcpy
 ; 0006 0096     memcpy(&SEND_REPORT_[67],_watt,8);
 	__POINTW1MN _SEND_REPORT_,67
@@ -4653,7 +4639,7 @@ _send_report:
 	ST   -Y,R30
 	LDI  R30,LOW(__watt)
 	LDI  R31,HIGH(__watt)
-	CALL SUBOPT_0x51
+	CALL SUBOPT_0x50
 	CALL _memcpy
 ; 0006 0097 
 ; 0006 0098     SEND_REPORT_[75] = xbee_checksum(&SEND_REPORT_[3],SEND_REPORT_[2]);
@@ -4661,16 +4647,16 @@ _send_report:
 	ST   -Y,R31
 	ST   -Y,R30
 	__GETB2MN _SEND_REPORT_,2
-	CALL SUBOPT_0x4B
+	CALL SUBOPT_0x4A
 	__PUTB1MN _SEND_REPORT_,75
 ; 0006 0099     printDebug("\r\n ++++++++++ Send REPORT ++++++++\r\n");
 	__POINTW1FN _0xC0000,147
 	CALL SUBOPT_0x8
 ; 0006 009A     print_payload(SEND_REPORT_,76);
-	CALL SUBOPT_0x52
+	CALL SUBOPT_0x51
 	CALL _print_payload
 ; 0006 009B     xbee_sendAPI(SEND_REPORT_,76);
-	CALL SUBOPT_0x52
+	CALL SUBOPT_0x51
 	CALL _xbee_sendAPI
 ; 0006 009C 
 ; 0006 009D }
@@ -4682,35 +4668,35 @@ _send_report:
 _SendStatusReport:
 ; 0006 00A0 
 ; 0006 00A1     Vavg = Vsum/number;      // Voltage
+	CALL SUBOPT_0x52
 	CALL SUBOPT_0x53
 	CALL SUBOPT_0x54
-	CALL SUBOPT_0x55
 	STS  _Vavg,R30
 	STS  _Vavg+1,R31
 	STS  _Vavg+2,R22
 	STS  _Vavg+3,R23
 ; 0006 00A2     Iavg = Isum/number;      // Current
-	CALL SUBOPT_0x53
+	CALL SUBOPT_0x52
+	CALL SUBOPT_0x55
+	CALL SUBOPT_0x54
 	CALL SUBOPT_0x56
-	CALL SUBOPT_0x55
-	CALL SUBOPT_0x57
 ; 0006 00A3     Pavg = Psum/number;      // Power
-	CALL SUBOPT_0x53
-	CALL SUBOPT_0x58
-	CALL SUBOPT_0x55
+	CALL SUBOPT_0x52
+	CALL SUBOPT_0x57
+	CALL SUBOPT_0x54
 	STS  _Pavg,R30
 	STS  _Pavg+1,R31
 	STS  _Pavg+2,R22
 	STS  _Pavg+3,R23
 ; 0006 00A4 
 ; 0006 00A5     CURRENT_VOLT = Vavg;
-	CALL SUBOPT_0x59
+	CALL SUBOPT_0x58
 	STS  _CURRENT_VOLT,R30
 	STS  _CURRENT_VOLT+1,R31
 	STS  _CURRENT_VOLT+2,R22
 	STS  _CURRENT_VOLT+3,R23
 ; 0006 00A6     CURRENT_AMP = Iavg;
-	CALL SUBOPT_0x5A
+	CALL SUBOPT_0x59
 	STS  _CURRENT_AMP,R30
 	STS  _CURRENT_AMP+1,R31
 	STS  _CURRENT_AMP+2,R22
@@ -4748,17 +4734,17 @@ _SendStatusReport:
 	__POINTW1FN _0xC0000,288
 	ST   -Y,R31
 	ST   -Y,R30
-	CALL SUBOPT_0x59
+	CALL SUBOPT_0x58
 	CALL SUBOPT_0xA
 	__POINTW1FN _0xC0000,304
 	ST   -Y,R31
 	ST   -Y,R30
-	CALL SUBOPT_0x5A
+	CALL SUBOPT_0x59
 	CALL SUBOPT_0xA
 	__POINTW1FN _0xC0000,320
 	ST   -Y,R31
 	ST   -Y,R30
-	CALL SUBOPT_0x5B
+	CALL SUBOPT_0x5A
 	CALL SUBOPT_0xA
 ; 0006 00AB     printDebug("Watt-Hour Sum = %0.4f\r\n", WHsum);
 	__POINTW1FN _0xC0000,335
@@ -4773,37 +4759,37 @@ _SendStatusReport:
 	__POINTW1FN _0xC0000,359
 	ST   -Y,R31
 	ST   -Y,R30
-	CALL SUBOPT_0x53
+	CALL SUBOPT_0x52
 	CALL SUBOPT_0x22
 ; 0006 00AD     printDebug("======================================================\r\n\r\n");
 	__POINTW1FN _0xC0000,382
 	CALL SUBOPT_0x8
 ; 0006 00AE 
 ; 0006 00AF     Iavg *= 1000.0;
-	CALL SUBOPT_0x5C
+	CALL SUBOPT_0x5B
 	CALL __MULF12
-	CALL SUBOPT_0x57
+	CALL SUBOPT_0x56
 ; 0006 00B0     send_report(01,Vavg,Iavg,Pavg,WHsum);
 	LDI  R30,LOW(1)
 	ST   -Y,R30
+	CALL SUBOPT_0x58
+	CALL __PUTPARD1
 	CALL SUBOPT_0x59
 	CALL __PUTPARD1
 	CALL SUBOPT_0x5A
 	CALL __PUTPARD1
-	CALL SUBOPT_0x5B
-	CALL __PUTPARD1
-	CALL SUBOPT_0x5D
+	CALL SUBOPT_0x5C
 	RCALL _send_report
 ; 0006 00B1     Iavg /= 1000.0;
-	CALL SUBOPT_0x5C
+	CALL SUBOPT_0x5B
 	CALL __DIVF21
-	CALL SUBOPT_0x57
+	CALL SUBOPT_0x56
 ; 0006 00B2     /* Safety Current Sensor */
 ; 0006 00B3     if((SENSOR_SENSITIVE == SENSOR5A) && (Iavg > 4.9)) {
-	CALL SUBOPT_0x5E
+	CALL SUBOPT_0x5D
 	__CPD2N 0x43390000
 	BRNE _0xC0013
-	CALL SUBOPT_0x5F
+	CALL SUBOPT_0x5E
 	__GETD1N 0x409CCCCD
 	CALL __CMPF12
 	BREQ PC+2
@@ -4822,10 +4808,10 @@ _0xC0014:
 ; 0006 00B9         printDebug("Current Exceed --SWITCH OFF!\r\n");
 ; 0006 00BA     }else if((SENSOR_SENSITIVE == SENSOR20A) && (Iavg > 19.9)) {
 _0xC0012:
-	CALL SUBOPT_0x5E
+	CALL SUBOPT_0x5D
 	__CPD2N 0x42C80000
 	BRNE _0xC0019
-	CALL SUBOPT_0x5F
+	CALL SUBOPT_0x5E
 	__GETD1N 0x419F3333
 	CALL __CMPF12
 	BREQ PC+2
@@ -4844,10 +4830,10 @@ _0xC001A:
 ; 0006 00C0         printDebug("Current Exceed --SWITCH OFF!\r\n");
 ; 0006 00C1     }else if((SENSOR_SENSITIVE == SENSOR30A) && (Iavg > 29.9)) {
 _0xC0018:
-	CALL SUBOPT_0x5E
+	CALL SUBOPT_0x5D
 	__CPD2N 0x42840000
 	BRNE _0xC001F
-	CALL SUBOPT_0x5F
+	CALL SUBOPT_0x5E
 	__GETD1N 0x41EF3333
 	CALL __CMPF12
 	BREQ PC+2
@@ -5155,15 +5141,15 @@ _0x100007:
 _ReadCurrent:
 ; 0009 002A     adcValue = read_adc(ADC1);
 	LDI  R26,LOW(1)
-	CALL SUBOPT_0x60
+	CALL SUBOPT_0x5F
 ; 0009 002B     printDebug("ADC = %d\r\n", adcValue);
 	__POINTW1FN _0x120000,0
 	ST   -Y,R31
 	ST   -Y,R30
-	CALL SUBOPT_0x61
+	CALL SUBOPT_0x60
 	CALL SUBOPT_0x22
 ; 0009 002C     value = adcValue * (5000.0 / 1023.0);
-	CALL SUBOPT_0x62
+	CALL SUBOPT_0x61
 	__GETD2N 0x409C671A
 	CALL __MULF12
 	STS  _value,R30
@@ -5174,11 +5160,11 @@ _ReadCurrent:
 ; 0009 002E     // Keep track of the moving average
 ; 0009 002F     // See more : http://jeelabs.org/2011/09/15/power-measurement-acs-code/
 ; 0009 0030     avg = (499.0*avg + value) / 500.0;
-	CALL SUBOPT_0x63
+	CALL SUBOPT_0x62
 	__GETD2N 0x43F98000
 	CALL __MULF12
+	CALL SUBOPT_0x63
 	CALL SUBOPT_0x64
-	CALL SUBOPT_0x65
 	__GETD1N 0x43FA0000
 	CALL __DIVF21
 	STS  _avg,R30
@@ -5187,7 +5173,7 @@ _ReadCurrent:
 	STS  _avg+3,R23
 ; 0009 0031 
 ; 0009 0032     if(value > avg){
-	CALL SUBOPT_0x66
+	CALL SUBOPT_0x65
 	BREQ PC+2
 	BRCC PC+3
 	JMP  _0x120004
@@ -5204,11 +5190,11 @@ _ReadCurrent:
 ; 0009 0034         total += (Vdif*Vdif);
 ; 0009 0035     }else if(value < avg) {
 _0x120004:
-	CALL SUBOPT_0x66
+	CALL SUBOPT_0x65
 	BRSH _0x120006
 ; 0009 0036         Vdif = avg - value;
-	CALL SUBOPT_0x64
 	CALL SUBOPT_0x63
+	CALL SUBOPT_0x62
 _0x12000B:
 	CALL __SUBF12
 	STS  _Vdif,R30
@@ -5221,7 +5207,7 @@ _0x12000B:
 	LDS  R24,_Vdif+2
 	LDS  R25,_Vdif+3
 	CALL __MULF12
-	CALL SUBOPT_0x67
+	CALL SUBOPT_0x66
 	CALL __ADDF12
 	STS  _total,R30
 	STS  _total+1,R31
@@ -5241,11 +5227,11 @@ _ReadVoltage:
 ; 0009 003D    /*---------- Voltage ----------*/
 ; 0009 003E     adcValue = read_adc(ADC0);
 	LDI  R26,LOW(0)
-	CALL SUBOPT_0x60
+	CALL SUBOPT_0x5F
 ; 0009 003F     volt = (((adcValue*5.0)/1023.0)/0.01);
-	CALL SUBOPT_0x62
+	CALL SUBOPT_0x61
 	__GETD2N 0x40A00000
-	CALL SUBOPT_0x68
+	CALL SUBOPT_0x67
 	__GETD1N 0x447FC000
 	CALL __DIVF21
 	MOVW R26,R30
@@ -5257,25 +5243,25 @@ _ReadVoltage:
 	STS  _volt+2,R22
 	STS  _volt+3,R23
 ; 0009 0040     if(volt < 223.0) {
-	CALL SUBOPT_0x69
+	CALL SUBOPT_0x68
 	__GETD1N 0x435F0000
 	CALL __CMPF12
 	BRSH _0x120007
 ; 0009 0041         volt += 9.0;
-	CALL SUBOPT_0x6A
+	CALL SUBOPT_0x69
 	__GETD2N 0x41100000
 	CALL __ADDF12
 	RJMP _0x12000C
 ; 0009 0042     }else if(volt > 233.0) {
 _0x120007:
-	CALL SUBOPT_0x69
+	CALL SUBOPT_0x68
 	__GETD1N 0x43690000
 	CALL __CMPF12
 	BREQ PC+2
 	BRCC PC+3
 	JMP  _0x120009
 ; 0009 0043         volt -= 4.0;
-	CALL SUBOPT_0x6A
+	CALL SUBOPT_0x69
 	__GETD2N 0x40800000
 	CALL __SUBF12
 _0x12000C:
@@ -5289,11 +5275,11 @@ _0x120009:
 	__POINTW1FN _0x120000,11
 	ST   -Y,R31
 	ST   -Y,R30
-	CALL SUBOPT_0x6A
+	CALL SUBOPT_0x69
 	CALL SUBOPT_0xA
 ; 0009 0046     Vsum += volt;
-	CALL SUBOPT_0x6A
-	CALL SUBOPT_0x54
+	CALL SUBOPT_0x69
+	CALL SUBOPT_0x53
 	CALL __ADDF12
 	STS  _Vsum,R30
 	STS  _Vsum+1,R31
@@ -5306,8 +5292,8 @@ _0x120009:
 ; 0009 004B     Vsq_avg = total / countSampling;
 	LDS  R30,_countSampling
 	LDS  R31,_countSampling+1
-	CALL SUBOPT_0x67
-	CALL SUBOPT_0x55
+	CALL SUBOPT_0x66
+	CALL SUBOPT_0x54
 	STS  _Vsq_avg,R30
 	STS  _Vsq_avg+1,R31
 	STS  _Vsq_avg+2,R22
@@ -5362,8 +5348,8 @@ _0x12000A:
 	STS  _countSampling,R30
 	STS  _countSampling+1,R30
 ; 0009 0056     Isum += amp;
-	CALL SUBOPT_0x6B
-	CALL SUBOPT_0x56
+	CALL SUBOPT_0x6A
+	CALL SUBOPT_0x55
 	CALL __ADDF12
 	STS  _Isum,R30
 	STS  _Isum+1,R31
@@ -5372,15 +5358,15 @@ _0x12000A:
 ; 0009 0057 
 ; 0009 0058     /*---------- Power ----------*/
 ; 0009 0059     power = volt*amp;
-	CALL SUBOPT_0x6B
-	CALL SUBOPT_0x69
+	CALL SUBOPT_0x6A
+	CALL SUBOPT_0x68
 	CALL __MULF12
 	STS  _power,R30
 	STS  _power+1,R31
 	STS  _power+2,R22
 	STS  _power+3,R23
 ; 0009 005A     Psum += power;
-	CALL SUBOPT_0x58
+	CALL SUBOPT_0x57
 	CALL __ADDF12
 	STS  _Psum,R30
 	STS  _Psum+1,R31
@@ -5400,7 +5386,7 @@ _0x12000A:
 	STS  _whour+2,R22
 	STS  _whour+3,R23
 ; 0009 005E     WHsum += whour;
-	CALL SUBOPT_0x5D
+	CALL SUBOPT_0x5C
 	CALL __ADDF12
 	STS  _WHsum,R30
 	STS  _WHsum+1,R31
@@ -5429,6 +5415,7 @@ _0x20C0009:
 	.EQU __sm_adc_noise_red=0x08
 	.SET power_ctrl_reg=mcucr
 	#endif
+;#include <main.h>
 ;#include <queue.h>
 ;#include <stdio.h>
 ;#include <stdlib.h>
@@ -5444,60 +5431,60 @@ _0x20C0009:
 ;int count_event = 0;
 ;
 ;void push_event(int event){
-; 000A 0010 void push_event(int event){
+; 000A 0011 void push_event(int event){
 
 	.CSEG
 _push_event:
-; 000A 0011     input[count_input] = event;
+; 000A 0012     input[count_input] = event;
 	ST   -Y,R27
 	ST   -Y,R26
 ;	event -> Y+0
 	LDS  R30,_count_input
 	LDS  R31,_count_input+1
-	CALL SUBOPT_0x38
+	CALL SUBOPT_0x37
 	ADD  R30,R26
 	ADC  R31,R27
 	LD   R26,Y
 	LDD  R27,Y+1
 	STD  Z+0,R26
 	STD  Z+1,R27
-; 000A 0012     count_input++;
+; 000A 0013     count_input++;
 	LDI  R26,LOW(_count_input)
 	LDI  R27,HIGH(_count_input)
 	CALL SUBOPT_0x21
-; 000A 0013 }
+; 000A 0014 }
 	RJMP _0x20C0008
 ;
 ;void pop_event(){
-; 000A 0015 void pop_event(){
+; 000A 0016 void pop_event(){
 _pop_event:
-; 000A 0016     int event = 0;
-; 000A 0017     event = input[count_event];
+; 000A 0017     int event = 0;
+; 000A 0018     event = input[count_event];
 	ST   -Y,R17
 	ST   -Y,R16
 ;	event -> R16,R17
 	__GETWRN 16,17,0
 	LDS  R30,_count_event
 	LDS  R31,_count_event+1
-	CALL SUBOPT_0x38
+	CALL SUBOPT_0x37
 	ADD  R26,R30
 	ADC  R27,R31
 	LD   R16,X+
 	LD   R17,X
-; 000A 0018     printDebug("EVENT = %d\r\n", event);
+; 000A 0019     printDebug("EVENT = %d\r\n", event);
 	__POINTW1FN _0x140000,0
 	ST   -Y,R31
 	ST   -Y,R30
 	MOVW R30,R16
 	CALL SUBOPT_0x1D
-; 000A 0019     if (event != 0) count_event++;
+; 000A 001A     if (event != 0) count_event++;
 	MOV  R0,R16
 	OR   R0,R17
 	BREQ _0x140003
 	LDI  R26,LOW(_count_event)
 	LDI  R27,HIGH(_count_event)
 	CALL SUBOPT_0x21
-; 000A 001A     printDebug("count_event = %d\r\n", count_event);
+; 000A 001B     printDebug("count_event = %d\r\n", count_event);
 _0x140003:
 	__POINTW1FN _0x140000,13
 	ST   -Y,R31
@@ -5505,7 +5492,7 @@ _0x140003:
 	LDS  R30,_count_event
 	LDS  R31,_count_event+1
 	CALL SUBOPT_0x1D
-; 000A 001B     if(count_event == 30 ) count_event = 0;
+; 000A 001C     if(count_event == 30 ) count_event = 0;
 	LDS  R26,_count_event
 	LDS  R27,_count_event+1
 	SBIW R26,30
@@ -5513,20 +5500,20 @@ _0x140003:
 	LDI  R30,LOW(0)
 	STS  _count_event,R30
 	STS  _count_event+1,R30
-; 000A 001C     do_event(event);
+; 000A 001D     do_event(event);
 _0x140004:
 	MOVW R26,R16
 	RCALL _do_event
-; 000A 001D }
+; 000A 001E }
 	LD   R16,Y+
 	LD   R17,Y+
 	RET
 ;
 ;void do_event(int event){
-; 000A 001F void do_event(int event){
+; 000A 0020 void do_event(int event){
 _do_event:
-; 000A 0020 
-; 000A 0021             if(event == 2){
+; 000A 0021 
+; 000A 0022             if(event == 2){
 	ST   -Y,R27
 	ST   -Y,R26
 ;	event -> Y+0
@@ -5534,29 +5521,31 @@ _do_event:
 	LDD  R27,Y+1
 	SBIW R26,2
 	BRNE _0x140005
-; 000A 0022                 flag_state = 4;
-	CALL SUBOPT_0x35
-; 000A 0023                 printDebug("\r\n-------- JOINT SUCCESS --------\r\n");
+; 000A 0023                 flag_state = 4;
+	LDI  R30,LOW(4)
+	LDI  R31,HIGH(4)
+	CALL SUBOPT_0x16
+; 000A 0024                 printDebug("\r\n-------- JOINT SUCCESS --------\r\n");
 	__POINTW1FN _0x140000,32
-	RJMP _0x140022
-; 000A 0024             }
-; 000A 0025 
-; 000A 0026         /*=============== Recive ACK ===============*/
-; 000A 0027             else if(event == 3){
+	RJMP _0x140018
+; 000A 0025             }
+; 000A 0026 
+; 000A 0027         /*=============== Recive ACK ===============*/
+; 000A 0028             else if(event == 3){
 _0x140005:
 	LD   R26,Y
 	LDD  R27,Y+1
 	SBIW R26,3
 	BRNE _0x140007
-; 000A 0028                 printDebug("\r\n-------- RECIVE PING --------\r\n");
+; 000A 0029                 printDebug("\r\n-------- RECIVE PING --------\r\n");
 	__POINTW1FN _0x140000,68
 	CALL SUBOPT_0x8
-; 000A 0029                 send_ping();
+; 000A 002A                 send_ping();
 	CALL _send_ping
-; 000A 002A             }
-; 000A 002B 
-; 000A 002C         /*=============== Recive EVENT ===============*/
-; 000A 002D             else if(event == 510 || event == 511){
+; 000A 002B             }
+; 000A 002C 
+; 000A 002D         /*=============== Recive EVENT from Gate Way ===============*/
+; 000A 002E             else if(event == 510 || event == 511){
 	RJMP _0x140008
 _0x140007:
 	LD   R26,Y
@@ -5570,9 +5559,6 @@ _0x140007:
 	CPC  R27,R30
 	BRNE _0x140009
 _0x14000A:
-; 000A 002E             printDebug("\r\n ++++++++++ _event == 510 || _event == 511 ++++++++\r\n");
-	__POINTW1FN _0x140000,102
-	CALL SUBOPT_0x8
 ; 000A 002F                 if(event == 511){
 	LD   R26,Y
 	LDD  R27,Y+1
@@ -5580,167 +5566,125 @@ _0x14000A:
 	LDI  R30,HIGH(0x1FF)
 	CPC  R27,R30
 	BRNE _0x14000C
-; 000A 0030                     EVENT[1] = 1;
-	LDI  R30,LOW(1)
-	__PUTB1MN _EVENT,1
-; 000A 0031                     flag_state = 5;
-	CALL SUBOPT_0x16
-; 000A 0032                     STATUS_DEVICE = 1;
-	LDI  R30,LOW(1)
-	CALL SUBOPT_0x6C
+; 000A 0030                     device_state(1); // on
+	CALL SUBOPT_0x10
+	CALL SUBOPT_0x6B
+; 000A 0031                     EVENT[1] = 1;
+; 000A 0032                     flag_state = 5;
+	RJMP _0x140019
 ; 000A 0033                     EEPROM_write(Eaddress,STATUS_DEVICE);
-	CALL SUBOPT_0x12
-; 000A 0034                     LED_STAT_ON;
-	CBI  0x15,7
-; 000A 0035                     POWER_RELAY_ON;
-	LDS  R30,101
-	ORI  R30,4
-	RJMP _0x140023
-; 000A 0036                 }else if(event == 510){
+; 000A 0034                 }else if(event == 510){
 _0x14000C:
 	LD   R26,Y
 	LDD  R27,Y+1
 	CPI  R26,LOW(0x1FE)
 	LDI  R30,HIGH(0x1FE)
 	CPC  R27,R30
-	BRNE _0x140010
-; 000A 0037                     EVENT[1] = 0;
-	LDI  R30,LOW(0)
-	__PUTB1MN _EVENT,1
-; 000A 0038                     flag_state = 4;
-	CALL SUBOPT_0x35
-; 000A 0039                     STATUS_DEVICE = 0;
-	LDI  R30,LOW(0)
+	BRNE _0x14000E
+; 000A 0035                     device_state(0); // off
+	CALL SUBOPT_0xD
 	CALL SUBOPT_0x6C
-; 000A 003A                     EEPROM_write(Eaddress,STATUS_DEVICE);
+; 000A 0036                     EVENT[1] = 0;
+; 000A 0037                     flag_state = 4;
+_0x140019:
+	STS  _flag_state,R30
+	STS  _flag_state+1,R31
+; 000A 0038                     EEPROM_write(Eaddress,STATUS_DEVICE);
+	CALL SUBOPT_0x3
 	CALL SUBOPT_0x12
-; 000A 003B                     LED_STAT_OFF;
-	SBI  0x15,7
-; 000A 003C                     POWER_RELAY_OFF;
-	LDS  R30,101
-	ANDI R30,0xFB
-_0x140023:
-	STS  101,R30
-; 000A 003D                 }
-; 000A 003E                 recive_event(1,EVENT[1]);
-_0x140010:
+; 000A 0039                 }
+; 000A 003A                 recive_event(1,EVENT[1]);
+_0x14000E:
 	LDI  R30,LOW(1)
 	ST   -Y,R30
 	__GETB2MN _EVENT,1
 	CALL _recive_event
-; 000A 003F                 printDebug("\r\n-------- RECIVE EVENT --------\r\n");
-	__POINTW1FN _0x140000,158
-	RJMP _0x140022
-; 000A 0040             }
-; 000A 0041 
-; 000A 0042             else if(event == 5100 || event == 5110){
+; 000A 003B                 printDebug("\r\n-------- RECIVE EVENT --------\r\n");
+	__POINTW1FN _0x140000,102
+	RJMP _0x140018
+; 000A 003C             }
+; 000A 003D 
+; 000A 003E             /*=============== Send EVENT from Smart Plug ===============*/
+; 000A 003F 
+; 000A 0040             else if(event == 5100 || event == 5110){
 _0x140009:
 	LD   R26,Y
 	LDD  R27,Y+1
 	CPI  R26,LOW(0x13EC)
 	LDI  R30,HIGH(0x13EC)
 	CPC  R27,R30
-	BREQ _0x140015
+	BREQ _0x140011
 	CPI  R26,LOW(0x13F6)
 	LDI  R30,HIGH(0x13F6)
 	CPC  R27,R30
-	BRNE _0x140014
-_0x140015:
-; 000A 0043             printDebug("\r\n ++++++++++ _event == 5100 || _event == 5110 ++++++++\r\n");
-	__POINTW1FN _0x140000,193
+	BRNE _0x140010
+_0x140011:
+; 000A 0041             printDebug("\r\n-------- SEND EVENT --------\r\n");
+	__POINTW1FN _0x140000,137
 	CALL SUBOPT_0x8
-; 000A 0044                 if(event == 5110){
+; 000A 0042                 if(event == 5110){
 	LD   R26,Y
 	LDD  R27,Y+1
 	CPI  R26,LOW(0x13F6)
 	LDI  R30,HIGH(0x13F6)
 	CPC  R27,R30
-	BRNE _0x140017
-; 000A 0045                     EVENT[1] = 1;
-	LDI  R30,LOW(1)
-	__PUTB1MN _EVENT,1
-; 000A 0046                     flag_state = 5;
-	CALL SUBOPT_0x16
-; 000A 0047                     STATUS_DEVICE = 1;
-	LDI  R30,LOW(1)
-	CALL SUBOPT_0x6C
-; 000A 0048                     EEPROM_write(Eaddress,STATUS_DEVICE);
-	CALL SUBOPT_0x12
-; 000A 0049                     LED_STAT_ON;
-	CBI  0x15,7
-; 000A 004A                     POWER_RELAY_ON;
-	LDS  R30,101
-	ORI  R30,4
-	STS  101,R30
-; 000A 004B                     send_event(1,1);
-	LDI  R30,LOW(1)
-	ST   -Y,R30
-	LDI  R26,LOW(1)
-	RJMP _0x140024
-; 000A 004C                 }else if(event == 5100){
-_0x140017:
+	BRNE _0x140013
+; 000A 0043                     device_state(1); // on
+	CALL SUBOPT_0x10
+	CALL SUBOPT_0x6B
+; 000A 0044                     EVENT[1] = 1;
+; 000A 0045                     flag_state = 5;
+	RJMP _0x14001A
+; 000A 0046                     EEPROM_write(Eaddress,STATUS_DEVICE);
+; 000A 0047                     send_event(1,EVENT[1]);
+; 000A 0048                 }else if(event == 5100){
+_0x140013:
 	LD   R26,Y
 	LDD  R27,Y+1
 	CPI  R26,LOW(0x13EC)
 	LDI  R30,HIGH(0x13EC)
 	CPC  R27,R30
-	BRNE _0x14001B
-; 000A 004D                     EVENT[1] = 0;
-	LDI  R30,LOW(0)
-	__PUTB1MN _EVENT,1
-; 000A 004E                     flag_state = 4;
-	CALL SUBOPT_0x35
-; 000A 004F                     STATUS_DEVICE = 0;
-	LDI  R30,LOW(0)
+	BRNE _0x140015
+; 000A 0049                     device_state(0); // off
+	CALL SUBOPT_0xD
 	CALL SUBOPT_0x6C
-; 000A 0050                     EEPROM_write(Eaddress,STATUS_DEVICE);
+; 000A 004A                     EVENT[1] = 0;
+; 000A 004B                     flag_state = 4;
+_0x14001A:
+	STS  _flag_state,R30
+	STS  _flag_state+1,R31
+; 000A 004C                     EEPROM_write(Eaddress,STATUS_DEVICE);
+	CALL SUBOPT_0x3
 	CALL SUBOPT_0x12
-; 000A 0051                     LED_STAT_OFF;
-	SBI  0x15,7
-; 000A 0052                     POWER_RELAY_OFF;
-	CALL SUBOPT_0x1
-; 000A 0053                     send_event(1,0);
+; 000A 004D                     send_event(1,EVENT[1]);
 	LDI  R30,LOW(1)
 	ST   -Y,R30
-	LDI  R26,LOW(0)
-_0x140024:
+	__GETB2MN _EVENT,1
 	CALL _send_event
-; 000A 0054                 }
-; 000A 0055             }
-_0x14001B:
-; 000A 0056 
-; 000A 0057             /*=============== Send EVENT Success ===============*/
-; 000A 0058             else if(event == 6){
-	RJMP _0x14001E
-_0x140014:
-	LD   R26,Y
-	LDD  R27,Y+1
-	SBIW R26,6
-	BRNE _0x14001F
-; 000A 0059                 printDebug("\r\n-------- SEND EVENT SUCCESS --------\r\n");
-	__POINTW1FN _0x140000,251
-	RJMP _0x140022
-; 000A 005A             }
-; 000A 005B 
-; 000A 005C             /*=============== Send REPPORT Success ===============*/
-; 000A 005D             else if(event == 8){
-_0x14001F:
+; 000A 004E                 }
+; 000A 004F             }
+_0x140015:
+; 000A 0050 
+; 000A 0051             /*=============== Send REPPORT Success ===============*/
+; 000A 0052             else if(event == 8){
+	RJMP _0x140016
+_0x140010:
 	LD   R26,Y
 	LDD  R27,Y+1
 	SBIW R26,8
-	BRNE _0x140021
-; 000A 005E                 printDebug("\r\n-------- SEND REPORT SUCCESS --------\r\n");
-	__POINTW1FN _0x140000,292
-_0x140022:
+	BRNE _0x140017
+; 000A 0053                 printDebug("\r\n-------- SEND REPORT SUCCESS --------\r\n");
+	__POINTW1FN _0x140000,170
+_0x140018:
 	ST   -Y,R31
 	ST   -Y,R30
 	LDI  R24,0
 	CALL _printDebug
 	ADIW R28,2
-; 000A 005F             }
-; 000A 0060 }
-_0x140021:
-_0x14001E:
+; 000A 0054             }
+; 000A 0055 }
+_0x140017:
+_0x140016:
 _0x140008:
 _0x20C0008:
 	ADIW R28,2
@@ -5845,7 +5789,7 @@ _0x200001A:
 	CALL SUBOPT_0x6F
 	CALL SUBOPT_0x70
 	CALL SUBOPT_0x74
-	CALL SUBOPT_0x65
+	CALL SUBOPT_0x64
 	CALL _floor
 	CALL SUBOPT_0x71
 	CALL SUBOPT_0x72
@@ -5855,10 +5799,10 @@ _0x200001A:
 	CALL SUBOPT_0x6E
 	CALL SUBOPT_0x75
 	CALL SUBOPT_0x6F
-	CALL SUBOPT_0x3C
+	CALL SUBOPT_0x3B
 	CALL __MULF12
 	CALL SUBOPT_0x76
-	CALL SUBOPT_0x3E
+	CALL SUBOPT_0x3D
 	CALL SUBOPT_0x6D
 	RJMP _0x200001A
 _0x200001C:
@@ -5884,8 +5828,8 @@ _0x200001E:
 	CALL SUBOPT_0x6E
 	CALL SUBOPT_0x75
 	CALL SUBOPT_0x76
-	CALL SUBOPT_0x3C
-	CALL SUBOPT_0x3E
+	CALL SUBOPT_0x3B
+	CALL SUBOPT_0x3D
 	CALL SUBOPT_0x6D
 	RJMP _0x200001E
 _0x2000020:
@@ -6017,7 +5961,7 @@ _0x202001C:
 	CALL SUBOPT_0x77
 	RJMP _0x202001C
 _0x202001E:
-	CALL SUBOPT_0x3B
+	CALL SUBOPT_0x3A
 	CALL __CPD10
 	BRNE _0x202001F
 	LDI  R19,LOW(0)
@@ -6033,7 +5977,7 @@ _0x202001F:
 _0x2020022:
 	CALL SUBOPT_0x78
 	BRLO _0x2020024
-	CALL SUBOPT_0x3D
+	CALL SUBOPT_0x3C
 	CALL SUBOPT_0x70
 	CALL SUBOPT_0x79
 	SUBI R19,-LOW(1)
@@ -6044,7 +5988,7 @@ _0x2020021:
 _0x2020026:
 	CALL SUBOPT_0x78
 	BRSH _0x2020028
-	CALL SUBOPT_0x3D
+	CALL SUBOPT_0x3C
 	CALL SUBOPT_0x73
 	CALL SUBOPT_0x79
 	SUBI R19,LOW(1)
@@ -6052,13 +5996,13 @@ _0x2020026:
 _0x2020028:
 	CALL SUBOPT_0x77
 _0x2020025:
-	CALL SUBOPT_0x3B
+	CALL SUBOPT_0x3A
 	CALL SUBOPT_0x74
 	CALL __ADDF12
 	CALL SUBOPT_0x79
 	CALL SUBOPT_0x78
 	BRLO _0x2020029
-	CALL SUBOPT_0x3D
+	CALL SUBOPT_0x3C
 	CALL SUBOPT_0x70
 	CALL SUBOPT_0x79
 	SUBI R19,-LOW(1)
@@ -6069,14 +6013,14 @@ _0x202002A:
 	LDD  R30,Y+11
 	CP   R30,R17
 	BRLO _0x202002C
-	CALL SUBOPT_0x41
+	CALL SUBOPT_0x40
 	CALL SUBOPT_0x70
 	CALL SUBOPT_0x74
-	CALL SUBOPT_0x65
+	CALL SUBOPT_0x64
 	CALL _floor
-	CALL SUBOPT_0x3F
-	CALL SUBOPT_0x43
-	CALL SUBOPT_0x3D
+	CALL SUBOPT_0x3E
+	CALL SUBOPT_0x42
+	CALL SUBOPT_0x3C
 	CALL __DIVF21
 	CALL __CFD1U
 	MOV  R16,R30
@@ -6089,10 +6033,10 @@ _0x202002A:
 	CLR  R22
 	CLR  R23
 	CALL __CDF1
-	CALL SUBOPT_0x41
+	CALL SUBOPT_0x40
 	CALL __MULF12
+	CALL SUBOPT_0x3C
 	CALL SUBOPT_0x3D
-	CALL SUBOPT_0x3E
 	CALL SUBOPT_0x79
 	MOV  R30,R17
 	SUBI R17,-1
@@ -6881,11 +6825,11 @@ _floor:
 	CALL __PUTD1S0
     brne __floor1
 __floor0:
-	CALL SUBOPT_0x50
+	CALL SUBOPT_0x4F
 	RJMP _0x20C0004
 __floor1:
     brtc __floor0
-	CALL SUBOPT_0x50
+	CALL SUBOPT_0x4F
 	CALL SUBOPT_0x89
 _0x20C0004:
 	ADIW R28,4
@@ -6939,9 +6883,9 @@ _0x208000D:
 	CALL SUBOPT_0x8D
 	CALL SUBOPT_0x8E
 	__GETD2N 0x3F654226
-	CALL SUBOPT_0x68
+	CALL SUBOPT_0x67
 	__GETD1N 0x4054114E
-	CALL SUBOPT_0x3E
+	CALL SUBOPT_0x3D
 	CALL SUBOPT_0x8A
 	CALL __MULF12
 	PUSH R23
@@ -6961,7 +6905,7 @@ _0x208000D:
 	PUSH R31
 	PUSH R30
 	MOVW R30,R16
-	CALL SUBOPT_0x3C
+	CALL SUBOPT_0x3B
 	__GETD2N 0x3F317218
 	CALL __MULF12
 	POP  R26
@@ -7011,12 +6955,12 @@ _0x2080011:
 	MOVW R16,R30
 	MOVW R30,R16
 	CALL SUBOPT_0x90
-	CALL SUBOPT_0x3C
-	CALL SUBOPT_0x3E
+	CALL SUBOPT_0x3B
+	CALL SUBOPT_0x3D
 	MOVW R26,R30
 	MOVW R24,R22
 	__GETD1N 0x3F000000
-	CALL SUBOPT_0x3E
+	CALL SUBOPT_0x3D
 	CALL SUBOPT_0x8C
 	CALL SUBOPT_0x8D
 	CALL SUBOPT_0x8E
@@ -7059,7 +7003,7 @@ _0x20C0002:
 _pow:
 	CALL __PUTPARD2
 	SBIW R28,4
-	CALL SUBOPT_0x4F
+	CALL SUBOPT_0x4E
 	CALL __CPD10
 	BRNE _0x2080012
 	CALL SUBOPT_0x91
@@ -7068,7 +7012,7 @@ _0x2080012:
 	__GETD2S 8
 	CALL __CPD02
 	BRGE _0x2080013
-	CALL SUBOPT_0x43
+	CALL SUBOPT_0x42
 	CALL __CPD10
 	BRNE _0x2080014
 	CALL SUBOPT_0x9
@@ -7079,21 +7023,21 @@ _0x2080014:
 	RCALL _exp
 	RJMP _0x20C0001
 _0x2080013:
-	CALL SUBOPT_0x43
+	CALL SUBOPT_0x42
 	MOVW R26,R28
 	CALL __CFD1
 	CALL __PUTDP1
-	CALL SUBOPT_0x50
+	CALL SUBOPT_0x4F
 	CALL __CDF1
 	MOVW R26,R30
 	MOVW R24,R22
-	CALL SUBOPT_0x43
+	CALL SUBOPT_0x42
 	CALL __CPD12
 	BREQ _0x2080015
 	CALL SUBOPT_0x91
 	RJMP _0x20C0001
 _0x2080015:
-	CALL SUBOPT_0x4F
+	CALL SUBOPT_0x4E
 	CALL __ANEGF1
 	MOVW R26,R30
 	MOVW R24,R22
@@ -7103,10 +7047,10 @@ _0x2080015:
 	LD   R30,Y
 	ANDI R30,LOW(0x1)
 	BRNE _0x2080016
-	CALL SUBOPT_0x4F
+	CALL SUBOPT_0x4E
 	RJMP _0x20C0001
 _0x2080016:
-	CALL SUBOPT_0x4F
+	CALL SUBOPT_0x4E
 	CALL __ANEGF1
 _0x20C0001:
 	ADIW R28,12
@@ -7266,7 +7210,7 @@ SUBOPT_0x0:
 	SBIW R30,0
 	RET
 
-;OPTIMIZER ADDED SUBROUTINE, CALLED 4 TIMES, CODE SIZE REDUCTION:6 WORDS
+;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:3 WORDS
 SUBOPT_0x1:
 	LDS  R30,101
 	ANDI R30,0xFB
@@ -7281,7 +7225,7 @@ SUBOPT_0x2:
 	STS  _STATUS_DEVICE,R30
 	RET
 
-;OPTIMIZER ADDED SUBROUTINE, CALLED 11 TIMES, CODE SIZE REDUCTION:47 WORDS
+;OPTIMIZER ADDED SUBROUTINE, CALLED 9 TIMES, CODE SIZE REDUCTION:37 WORDS
 SUBOPT_0x3:
 	LDS  R30,_Eaddress
 	LDI  R31,0
@@ -7333,7 +7277,7 @@ SUBOPT_0x7:
 	ADIW R28,6
 	RET
 
-;OPTIMIZER ADDED SUBROUTINE, CALLED 28 TIMES, CODE SIZE REDUCTION:105 WORDS
+;OPTIMIZER ADDED SUBROUTINE, CALLED 27 TIMES, CODE SIZE REDUCTION:101 WORDS
 SUBOPT_0x8:
 	ST   -Y,R31
 	ST   -Y,R30
@@ -7371,7 +7315,7 @@ SUBOPT_0xC:
 	LDS  R23,_AMP_ADJ_ZERO+3
 	RET
 
-;OPTIMIZER ADDED SUBROUTINE, CALLED 6 TIMES, CODE SIZE REDUCTION:7 WORDS
+;OPTIMIZER ADDED SUBROUTINE, CALLED 8 TIMES, CODE SIZE REDUCTION:11 WORDS
 SUBOPT_0xD:
 	LDI  R26,LOW(0)
 	LDI  R27,0
@@ -7390,7 +7334,7 @@ SUBOPT_0xF:
 	LDI  R27,0
 	JMP  _delay_ms
 
-;OPTIMIZER ADDED SUBROUTINE, CALLED 7 TIMES, CODE SIZE REDUCTION:9 WORDS
+;OPTIMIZER ADDED SUBROUTINE, CALLED 9 TIMES, CODE SIZE REDUCTION:13 WORDS
 SUBOPT_0x10:
 	LDI  R26,LOW(1)
 	LDI  R27,0
@@ -7401,7 +7345,7 @@ SUBOPT_0x11:
 	CALL _device_state
 	RJMP SUBOPT_0x3
 
-;OPTIMIZER ADDED SUBROUTINE, CALLED 10 TIMES, CODE SIZE REDUCTION:15 WORDS
+;OPTIMIZER ADDED SUBROUTINE, CALLED 8 TIMES, CODE SIZE REDUCTION:11 WORDS
 SUBOPT_0x12:
 	LDS  R26,_STATUS_DEVICE
 	JMP  _EEPROM_write
@@ -7430,20 +7374,17 @@ SUBOPT_0x15:
 	LDI  R27,0
 	JMP  _delay_ms
 
-;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:5 WORDS
+;OPTIMIZER ADDED SUBROUTINE, CALLED 5 TIMES, CODE SIZE REDUCTION:5 WORDS
 SUBOPT_0x16:
-	LDI  R30,LOW(5)
-	LDI  R31,HIGH(5)
 	STS  _flag_state,R30
 	STS  _flag_state+1,R31
 	RET
 
-;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:3 WORDS
+;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:1 WORDS
 SUBOPT_0x17:
 	LDI  R30,LOW(4)
 	LDI  R31,HIGH(4)
-	STS  _flag_state,R30
-	STS  _flag_state+1,R31
+	RCALL SUBOPT_0x16
 	LDI  R26,LOW(5100)
 	LDI  R27,HIGH(5100)
 	RET
@@ -7676,16 +7617,8 @@ SUBOPT_0x34:
 	ST   -Y,R30
 	RJMP SUBOPT_0x2C
 
-;OPTIMIZER ADDED SUBROUTINE, CALLED 4 TIMES, CODE SIZE REDUCTION:9 WORDS
-SUBOPT_0x35:
-	LDI  R30,LOW(4)
-	LDI  R31,HIGH(4)
-	STS  _flag_state,R30
-	STS  _flag_state+1,R31
-	RET
-
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:17 WORDS
-SUBOPT_0x36:
+SUBOPT_0x35:
 	CALL _memcpy
 	LDS  R30,_count_input
 	LDS  R31,_count_input+1
@@ -7698,7 +7631,7 @@ SUBOPT_0x36:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:13 WORDS
-SUBOPT_0x37:
+SUBOPT_0x36:
 	LDS  R30,_count_input
 	LDS  R31,_count_input+1
 	LDI  R26,LOW(_input)
@@ -7710,7 +7643,7 @@ SUBOPT_0x37:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:1 WORDS
-SUBOPT_0x38:
+SUBOPT_0x37:
 	LDI  R26,LOW(_input)
 	LDI  R27,HIGH(_input)
 	LSL  R30
@@ -7718,13 +7651,13 @@ SUBOPT_0x38:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:2 WORDS
-SUBOPT_0x39:
+SUBOPT_0x38:
 	ST   -Y,R30
 	__GETD2N 0x9600
 	JMP  _init_uart
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:20 WORDS
-SUBOPT_0x3A:
+SUBOPT_0x39:
 	LDI  R30,0
 	SBIC 0x19,7
 	LDI  R30,1
@@ -7753,54 +7686,54 @@ SUBOPT_0x3A:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 4 TIMES, CODE SIZE REDUCTION:3 WORDS
-SUBOPT_0x3B:
+SUBOPT_0x3A:
 	__GETD1S 12
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 6 TIMES, CODE SIZE REDUCTION:7 WORDS
-SUBOPT_0x3C:
+SUBOPT_0x3B:
 	CALL __CWD1
 	CALL __CDF1
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 10 TIMES, CODE SIZE REDUCTION:15 WORDS
-SUBOPT_0x3D:
+SUBOPT_0x3C:
 	__GETD2S 12
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 7 TIMES, CODE SIZE REDUCTION:9 WORDS
-SUBOPT_0x3E:
+SUBOPT_0x3D:
 	CALL __SWAPD12
 	CALL __SUBF12
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 7 TIMES, CODE SIZE REDUCTION:9 WORDS
-SUBOPT_0x3F:
+SUBOPT_0x3E:
 	__PUTD1S 4
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 8 TIMES, CODE SIZE REDUCTION:11 WORDS
-SUBOPT_0x40:
+SUBOPT_0x3F:
 	__GETD1N 0x41200000
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 9 TIMES, CODE SIZE REDUCTION:13 WORDS
-SUBOPT_0x41:
+SUBOPT_0x40:
 	__GETD2S 4
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 5 TIMES, CODE SIZE REDUCTION:5 WORDS
-SUBOPT_0x42:
+SUBOPT_0x41:
 	CALL __MULF12
-	RJMP SUBOPT_0x3F
+	RJMP SUBOPT_0x3E
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 10 TIMES, CODE SIZE REDUCTION:15 WORDS
-SUBOPT_0x43:
+SUBOPT_0x42:
 	__GETD1S 4
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:6 WORDS
-SUBOPT_0x44:
+SUBOPT_0x43:
 	ST   -Y,R26
 	__POINTW1MN _SEND_EVENT_,5
 	ST   -Y,R31
@@ -7812,7 +7745,7 @@ SUBOPT_0x44:
 	RJMP SUBOPT_0x2C
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:3 WORDS
-SUBOPT_0x45:
+SUBOPT_0x44:
 	CALL _memcpy
 	__POINTW1MN _SEND_EVENT_,18
 	ST   -Y,R31
@@ -7820,7 +7753,7 @@ SUBOPT_0x45:
 	RJMP SUBOPT_0x31
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:7 WORDS
-SUBOPT_0x46:
+SUBOPT_0x45:
 	CALL _memcpy
 	__POINTW1MN _SEND_EVENT_,26
 	ST   -Y,R31
@@ -7832,7 +7765,7 @@ SUBOPT_0x46:
 	RJMP SUBOPT_0x2C
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:3 WORDS
-SUBOPT_0x47:
+SUBOPT_0x46:
 	CALL _memcpy
 	__POINTW1MN _SEND_EVENT_,39
 	ST   -Y,R31
@@ -7840,7 +7773,7 @@ SUBOPT_0x47:
 	RJMP SUBOPT_0x18
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:13 WORDS
-SUBOPT_0x48:
+SUBOPT_0x47:
 	__PUTB1MN _SEND_EVENT_,37
 	LDD  R30,Y+1
 	__PUTB1MN _SEND_EVENT_,38
@@ -7854,7 +7787,7 @@ SUBOPT_0x48:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 4 TIMES, CODE SIZE REDUCTION:15 WORDS
-SUBOPT_0x49:
+SUBOPT_0x48:
 	LDI  R30,LOW(_SEND_EVENT_)
 	LDI  R31,HIGH(_SEND_EVENT_)
 	ST   -Y,R31
@@ -7864,18 +7797,18 @@ SUBOPT_0x49:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:1 WORDS
-SUBOPT_0x4A:
+SUBOPT_0x49:
 	ST   -Y,R31
 	ST   -Y,R30
 	RJMP SUBOPT_0x31
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:3 WORDS
-SUBOPT_0x4B:
+SUBOPT_0x4A:
 	LDI  R27,0
 	JMP  _xbee_checksum
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:3 WORDS
-SUBOPT_0x4C:
+SUBOPT_0x4B:
 	ST   -Y,R31
 	ST   -Y,R30
 	LDI  R26,LOW(39)
@@ -7883,7 +7816,7 @@ SUBOPT_0x4C:
 	JMP  _print_payload
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 4 TIMES, CODE SIZE REDUCTION:15 WORDS
-SUBOPT_0x4D:
+SUBOPT_0x4C:
 	ST   -Y,R31
 	ST   -Y,R30
 	LDI  R30,LOW(_Gateway_MacAddress)
@@ -7893,29 +7826,29 @@ SUBOPT_0x4D:
 	RJMP SUBOPT_0x2C
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 4 TIMES, CODE SIZE REDUCTION:3 WORDS
-SUBOPT_0x4E:
+SUBOPT_0x4D:
 	ST   -Y,R31
 	ST   -Y,R30
 	RJMP SUBOPT_0x13
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 5 TIMES, CODE SIZE REDUCTION:5 WORDS
-SUBOPT_0x4F:
+SUBOPT_0x4E:
 	__GETD1S 8
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 4 TIMES, CODE SIZE REDUCTION:3 WORDS
-SUBOPT_0x50:
+SUBOPT_0x4F:
 	CALL __GETD1S0
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 4 TIMES, CODE SIZE REDUCTION:3 WORDS
-SUBOPT_0x51:
+SUBOPT_0x50:
 	ST   -Y,R31
 	ST   -Y,R30
 	RJMP SUBOPT_0x2C
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:3 WORDS
-SUBOPT_0x52:
+SUBOPT_0x51:
 	LDI  R30,LOW(_SEND_REPORT_)
 	LDI  R31,HIGH(_SEND_REPORT_)
 	ST   -Y,R31
@@ -7925,13 +7858,13 @@ SUBOPT_0x52:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 4 TIMES, CODE SIZE REDUCTION:3 WORDS
-SUBOPT_0x53:
+SUBOPT_0x52:
 	LDS  R30,_number
 	LDS  R31,_number+1
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:3 WORDS
-SUBOPT_0x54:
+SUBOPT_0x53:
 	LDS  R26,_Vsum
 	LDS  R27,_Vsum+1
 	LDS  R24,_Vsum+2
@@ -7939,7 +7872,7 @@ SUBOPT_0x54:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 4 TIMES, CODE SIZE REDUCTION:9 WORDS
-SUBOPT_0x55:
+SUBOPT_0x54:
 	CLR  R22
 	CLR  R23
 	CALL __CDF1
@@ -7947,7 +7880,7 @@ SUBOPT_0x55:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:3 WORDS
-SUBOPT_0x56:
+SUBOPT_0x55:
 	LDS  R26,_Isum
 	LDS  R27,_Isum+1
 	LDS  R24,_Isum+2
@@ -7955,7 +7888,7 @@ SUBOPT_0x56:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:9 WORDS
-SUBOPT_0x57:
+SUBOPT_0x56:
 	STS  _Iavg,R30
 	STS  _Iavg+1,R31
 	STS  _Iavg+2,R22
@@ -7963,7 +7896,7 @@ SUBOPT_0x57:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:3 WORDS
-SUBOPT_0x58:
+SUBOPT_0x57:
 	LDS  R26,_Psum
 	LDS  R27,_Psum+1
 	LDS  R24,_Psum+2
@@ -7971,7 +7904,7 @@ SUBOPT_0x58:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:9 WORDS
-SUBOPT_0x59:
+SUBOPT_0x58:
 	LDS  R30,_Vavg
 	LDS  R31,_Vavg+1
 	LDS  R22,_Vavg+2
@@ -7979,7 +7912,7 @@ SUBOPT_0x59:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:9 WORDS
-SUBOPT_0x5A:
+SUBOPT_0x59:
 	LDS  R30,_Iavg
 	LDS  R31,_Iavg+1
 	LDS  R22,_Iavg+2
@@ -7987,7 +7920,7 @@ SUBOPT_0x5A:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:3 WORDS
-SUBOPT_0x5B:
+SUBOPT_0x5A:
 	LDS  R30,_Pavg
 	LDS  R31,_Pavg+1
 	LDS  R22,_Pavg+2
@@ -7995,7 +7928,7 @@ SUBOPT_0x5B:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:7 WORDS
-SUBOPT_0x5C:
+SUBOPT_0x5B:
 	LDS  R26,_Iavg
 	LDS  R27,_Iavg+1
 	LDS  R24,_Iavg+2
@@ -8004,7 +7937,7 @@ SUBOPT_0x5C:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:3 WORDS
-SUBOPT_0x5D:
+SUBOPT_0x5C:
 	LDS  R26,_WHsum
 	LDS  R27,_WHsum+1
 	LDS  R24,_WHsum+2
@@ -8012,7 +7945,7 @@ SUBOPT_0x5D:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:9 WORDS
-SUBOPT_0x5E:
+SUBOPT_0x5D:
 	LDS  R26,_SENSOR_SENSITIVE
 	LDS  R27,_SENSOR_SENSITIVE+1
 	LDS  R24,_SENSOR_SENSITIVE+2
@@ -8020,7 +7953,7 @@ SUBOPT_0x5E:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:9 WORDS
-SUBOPT_0x5F:
+SUBOPT_0x5E:
 	LDS  R26,_Iavg
 	LDS  R27,_Iavg+1
 	LDS  R24,_Iavg+2
@@ -8028,28 +7961,28 @@ SUBOPT_0x5F:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:1 WORDS
-SUBOPT_0x60:
+SUBOPT_0x5F:
 	CALL _read_adc
 	STS  _adcValue,R30
 	STS  _adcValue+1,R31
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:1 WORDS
-SUBOPT_0x61:
+SUBOPT_0x60:
 	LDS  R30,_adcValue
 	LDS  R31,_adcValue+1
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:1 WORDS
-SUBOPT_0x62:
-	RCALL SUBOPT_0x61
+SUBOPT_0x61:
+	RCALL SUBOPT_0x60
 	CLR  R22
 	CLR  R23
 	CALL __CDF1
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 4 TIMES, CODE SIZE REDUCTION:15 WORDS
-SUBOPT_0x63:
+SUBOPT_0x62:
 	LDS  R30,_avg
 	LDS  R31,_avg+1
 	LDS  R22,_avg+2
@@ -8057,7 +7990,7 @@ SUBOPT_0x63:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 4 TIMES, CODE SIZE REDUCTION:15 WORDS
-SUBOPT_0x64:
+SUBOPT_0x63:
 	LDS  R26,_value
 	LDS  R27,_value+1
 	LDS  R24,_value+2
@@ -8065,21 +7998,21 @@ SUBOPT_0x64:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:1 WORDS
-SUBOPT_0x65:
+SUBOPT_0x64:
 	CALL __ADDF12
 	MOVW R26,R30
 	MOVW R24,R22
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:1 WORDS
-SUBOPT_0x66:
+SUBOPT_0x65:
+	RCALL SUBOPT_0x62
 	RCALL SUBOPT_0x63
-	RCALL SUBOPT_0x64
 	CALL __CMPF12
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:3 WORDS
-SUBOPT_0x67:
+SUBOPT_0x66:
 	LDS  R26,_total
 	LDS  R27,_total+1
 	LDS  R24,_total+2
@@ -8087,14 +8020,14 @@ SUBOPT_0x67:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 4 TIMES, CODE SIZE REDUCTION:3 WORDS
-SUBOPT_0x68:
+SUBOPT_0x67:
 	CALL __MULF12
 	MOVW R26,R30
 	MOVW R24,R22
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:9 WORDS
-SUBOPT_0x69:
+SUBOPT_0x68:
 	LDS  R26,_volt
 	LDS  R27,_volt+1
 	LDS  R24,_volt+2
@@ -8102,7 +8035,7 @@ SUBOPT_0x69:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 4 TIMES, CODE SIZE REDUCTION:15 WORDS
-SUBOPT_0x6A:
+SUBOPT_0x69:
 	LDS  R30,_volt
 	LDS  R31,_volt+1
 	LDS  R22,_volt+2
@@ -8110,17 +8043,30 @@ SUBOPT_0x6A:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:3 WORDS
-SUBOPT_0x6B:
+SUBOPT_0x6A:
 	LDS  R30,_amp
 	LDS  R31,_amp+1
 	LDS  R22,_amp+2
 	LDS  R23,_amp+3
 	RET
 
-;OPTIMIZER ADDED SUBROUTINE, CALLED 4 TIMES, CODE SIZE REDUCTION:3 WORDS
+;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:2 WORDS
+SUBOPT_0x6B:
+	CALL _device_state
+	LDI  R30,LOW(1)
+	__PUTB1MN _EVENT,1
+	LDI  R30,LOW(5)
+	LDI  R31,HIGH(5)
+	RET
+
+;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:2 WORDS
 SUBOPT_0x6C:
-	STS  _STATUS_DEVICE,R30
-	RJMP SUBOPT_0x3
+	CALL _device_state
+	LDI  R30,LOW(0)
+	__PUTB1MN _EVENT,1
+	LDI  R30,LOW(4)
+	LDI  R31,HIGH(4)
+	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 5 TIMES, CODE SIZE REDUCTION:5 WORDS
 SUBOPT_0x6D:
@@ -8161,7 +8107,7 @@ SUBOPT_0x72:
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:1 WORDS
 SUBOPT_0x73:
-	RCALL SUBOPT_0x40
+	RCALL SUBOPT_0x3F
 	CALL __MULF12
 	RET
 
@@ -8186,14 +8132,14 @@ SUBOPT_0x76:
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 4 TIMES, CODE SIZE REDUCTION:9 WORDS
 SUBOPT_0x77:
-	RCALL SUBOPT_0x41
 	RCALL SUBOPT_0x40
-	RJMP SUBOPT_0x42
+	RCALL SUBOPT_0x3F
+	RJMP SUBOPT_0x41
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 4 TIMES, CODE SIZE REDUCTION:9 WORDS
 SUBOPT_0x78:
-	RCALL SUBOPT_0x43
-	RCALL SUBOPT_0x3D
+	RCALL SUBOPT_0x42
+	RCALL SUBOPT_0x3C
 	CALL __CMPF12
 	RET
 
@@ -8361,8 +8307,8 @@ SUBOPT_0x91:
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:1 WORDS
 SUBOPT_0x92:
 	CALL _log
-	RCALL SUBOPT_0x41
-	RJMP SUBOPT_0x68
+	RCALL SUBOPT_0x40
+	RJMP SUBOPT_0x67
 
 
 	.CSEG

@@ -1,4 +1,5 @@
 #include <mega128a.h>
+#include <main.h>
 #include <queue.h> 
 #include <stdio.h>
 #include <stdlib.h>
@@ -41,52 +42,40 @@ void do_event(int event){
                 send_ping();  
             }
             
-        /*=============== Recive EVENT ===============*/     
+        /*=============== Recive EVENT from Gate Way ===============*/     
             else if(event == 510 || event == 511){ 
-            printDebug("\r\n ++++++++++ _event == 510 || _event == 511 ++++++++\r\n");
                 if(event == 511){
+                    device_state(1); // on
                     EVENT[1] = 1;    
                     flag_state = 5;
-                    STATUS_DEVICE = 1;
-                    EEPROM_write(Eaddress,STATUS_DEVICE); 
-                    LED_STAT_ON;
-                    POWER_RELAY_ON;
+                    EEPROM_write(Eaddress,STATUS_DEVICE);
                 }else if(event == 510){
+                    device_state(0); // off
                     EVENT[1] = 0;
                     flag_state = 4;
-                    STATUS_DEVICE = 0;
-                    EEPROM_write(Eaddress,STATUS_DEVICE); 
-                    LED_STAT_OFF;
-                    POWER_RELAY_OFF;
+                    EEPROM_write(Eaddress,STATUS_DEVICE);
                 } 
                 recive_event(1,EVENT[1]);
                 printDebug("\r\n-------- RECIVE EVENT --------\r\n");      
             }
             
-            else if(event == 5100 || event == 5110){ 
-            printDebug("\r\n ++++++++++ _event == 5100 || _event == 5110 ++++++++\r\n");
+            /*=============== Send EVENT from Smart Plug ===============*/ 
+            
+            else if(event == 5100 || event == 5110){
+            printDebug("\r\n-------- SEND EVENT --------\r\n"); 
                 if(event == 5110){
+                    device_state(1); // on
                     EVENT[1] = 1;    
                     flag_state = 5;
-                    STATUS_DEVICE = 1;
                     EEPROM_write(Eaddress,STATUS_DEVICE); 
-                    LED_STAT_ON;
-                    POWER_RELAY_ON;
-                    send_event(1,1);
+                    send_event(1,EVENT[1]);
                 }else if(event == 5100){
+                    device_state(0); // off
                     EVENT[1] = 0;
                     flag_state = 4;
-                    STATUS_DEVICE = 0;
                     EEPROM_write(Eaddress,STATUS_DEVICE); 
-                    LED_STAT_OFF;
-                    POWER_RELAY_OFF;
-                    send_event(1,0);
+                    send_event(1,EVENT[1]);
                 }    
-            }
-            
-            /*=============== Send EVENT Success ===============*/   
-            else if(event == 6){
-                printDebug("\r\n-------- SEND EVENT SUCCESS --------\r\n");
             }
         
             /*=============== Send REPPORT Success ===============*/

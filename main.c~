@@ -49,8 +49,8 @@ void device_state(int state){
         LED_STAT_ON;
         STATUS_DEVICE = 1;
     }
-}
 
+}
 void main(void) {
 
     start_event = 0;
@@ -151,7 +151,7 @@ void main(void) {
                     device_state(1);   //on
                     EEPROM_write(Eaddress,STATUS_DEVICE); 
                     start_event = 1;
-                    push_event(511);
+                    push_event(5110);
                 }
             break;
            
@@ -178,12 +178,12 @@ void main(void) {
                     if(STATUS_DEVICE == 0){
                         device_state(1);      //on        
                         EEPROM_write(Eaddress,STATUS_DEVICE);
-                        push_event(511);      
-       
+                        push_event(5110);      
+
                     }else if(STATUS_DEVICE == 1){
                         device_state(0);      //off       
                         EEPROM_write(Eaddress,STATUS_DEVICE);
-                        push_event(510);      
+                        push_event(5100);      
         
                     }
                 }
@@ -215,13 +215,13 @@ void main(void) {
                             EEPROM_write(Eaddress,STATUS_DEVICE);
                             flag_state = 5;
                             //printDebug("count_input = %d\r\n", count_input);
-                            push_event(511);       
+                            push_event(5110);       
                        }else if(STATUS_DEVICE == 1){
                             device_state(0);     //off 
                             EEPROM_write(Eaddress,STATUS_DEVICE);
                             flag_state = 4;
                             //printDebug("count_input = %d\r\n", count_input);
-                            push_event(510);      
+                            push_event(5100);      
                        }
                 }              
             break;
@@ -249,7 +249,7 @@ void main(void) {
                     EEPROM_write(Eaddress,STATUS_DEVICE);
                     flag_state = 4;
 //                    printDebug("count_input = %d\r\n", count_input);
-                    push_event(510);
+                    push_event(5100);
                 }
             break;                                      
         }

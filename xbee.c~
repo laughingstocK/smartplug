@@ -45,7 +45,6 @@ void xbee_sendATCommand(int param){
             printDebug("\r\n ++++++++++ Send SL ++++++++\r\n");
             print_payload(SL_COMMAND,8);
             xbee_send(SL_COMMAND,8);
-          
         break; 
      }
 }
@@ -109,7 +108,8 @@ void xbee_processPacket(char *buf) {
         
         if(buf[32] == 0xA2){
             memcpy(Gateway_MacAddress,&buf[1],8);  
-            input[count_input] = 2;
+            //input[count_input] = 2;
+            flag_state = 4;
         }
         else if(buf[32] == 0xA3){
             memcpy(Gateway_MacAddress,&buf[1],8); 

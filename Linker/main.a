@@ -34,6 +34,7 @@
 	#endif
 ;PCODE: $0000000B VOL: 0
 ;PCODE: $0000000C VOL: 0
+;#include <main.h>
 ;#include <stdlib.h>
 ;#include <stdio.h>
 ;#include <stdint.h>
@@ -66,81 +67,81 @@
 ;//uint8_t SEND_EVENT_TEST[38];
 ;
 ;void device_state(int state){
-; 0000 002A void device_state(int state){
+; 0000 002B void device_state(int state){
 
 	.CSEG
 ;PCODE: $0000000D VOL: 0
 ;PCODE: $0000000E VOL: 0
-; 0000 002B     if(state == 0){
+; 0000 002C     if(state == 0){
 ;PCODE: $0000000F VOL: 0
 ;	state -> Y+0
 ;PCODE: $00000010 VOL: 0
 ;PCODE: $00000011 VOL: 0
 ;PCODE: $00000012 VOL: 0
-; 0000 002C         POWER_RELAY_OFF;
+; 0000 002D         POWER_RELAY_OFF;
 ;PCODE: $00000013 VOL: 0
 ;PCODE: $00000014 VOL: 0
 ;PCODE: $00000015 VOL: 0
-; 0000 002D         LED_STAT_OFF;
+; 0000 002E         LED_STAT_OFF;
 ;PCODE: $00000016 VOL: 0
 ;PCODE: $00000017 VOL: 0
-; 0000 002E         STATUS_DEVICE = 0;
+; 0000 002F         STATUS_DEVICE = 0;
 ;PCODE: $00000018 VOL: 0
 ;PCODE: $00000019 VOL: 0
-; 0000 002F     }else if(state == 1){
+; 0000 0030     }else if(state == 1){
 ;PCODE: $0000001A VOL: 0
 ;PCODE: $0000001B VOL: 0
 ;PCODE: $0000001C VOL: 0
 ;PCODE: $0000001D VOL: 0
 ;PCODE: $0000001E VOL: 0
-; 0000 0030         POWER_RELAY_ON;
+; 0000 0031         POWER_RELAY_ON;
 ;PCODE: $0000001F VOL: 0
 ;PCODE: $00000020 VOL: 0
 ;PCODE: $00000021 VOL: 0
-; 0000 0031         LED_STAT_ON;
+; 0000 0032         LED_STAT_ON;
 ;PCODE: $00000022 VOL: 0
 ;PCODE: $00000023 VOL: 0
-; 0000 0032         STATUS_DEVICE = 1;
+; 0000 0033         STATUS_DEVICE = 1;
 ;PCODE: $00000024 VOL: 0
 ;PCODE: $00000025 VOL: 0
-; 0000 0033     }
-; 0000 0034 }
+; 0000 0034     }
+; 0000 0035 
+; 0000 0036 }
 ;PCODE: $00000026 VOL: 0
 ;PCODE: $00000027 VOL: 0
 ;PCODE: $00000028 VOL: 0
 ;PCODE: $00000029 VOL: 0
 ;PCODE: $0000002A VOL: 0
-;
 ;void main(void) {
-; 0000 0036 void main(void) {
+; 0000 0037 void main(void) {
 ;PCODE: $0000002B VOL: 0
-; 0000 0037 
-; 0000 0038     start_event = 0;
+; 0000 0038 
+; 0000 0039     start_event = 0;
 ;PCODE: $0000002C VOL: 0
-; 0000 0039     STATUS_DEVICE = EEPROM_read(Eaddress);
+; 0000 003A     STATUS_DEVICE = EEPROM_read(Eaddress);
 ;PCODE: $0000002D VOL: 0
 ;PCODE: $0000002E VOL: 0
 ;PCODE: $0000002F VOL: 0
 ;PCODE: $00000030 VOL: 0
-; 0000 003A     if(STATUS_DEVICE == 0xFF){
+; 0000 003B     if(STATUS_DEVICE == 0xFF){
 ;PCODE: $00000031 VOL: 0
 ;PCODE: $00000032 VOL: 0
 ;PCODE: $00000033 VOL: 0
-; 0000 003B         EEPROM_write(Eaddress,0);
+; 0000 003C         EEPROM_write(Eaddress,0);
 ;PCODE: $00000034 VOL: 0
 ;PCODE: $00000035 VOL: 0
 ;PCODE: $00000036 VOL: 0
 ;PCODE: $00000037 VOL: 0
 ;PCODE: $00000038 VOL: 0
-; 0000 003C         STATUS_DEVICE = EEPROM_read(Eaddress);
+; 0000 003D         STATUS_DEVICE = EEPROM_read(Eaddress);
 ;PCODE: $00000039 VOL: 0
 ;PCODE: $0000003A VOL: 0
 ;PCODE: $0000003B VOL: 0
 ;PCODE: $0000003C VOL: 0
-; 0000 003D     }
-; 0000 003E 
-; 0000 003F     /*=============== System Initialize ===============*/
-; 0000 0040     do{ error = initial_system(); }while(error);
+; 0000 003E     }
+; 0000 003F 
+; 0000 0040     /*=============== System Initialize ===============*/
+; 0000 0041     do{ error = initial_system(); }while(error);
 ;PCODE: $0000003D VOL: 0
 ;PCODE: $0000003E VOL: 0
 ;PCODE: $0000003F VOL: 0
@@ -150,22 +151,22 @@
 ;PCODE: $00000043 VOL: 0
 ;PCODE: $00000044 VOL: 0
 ;PCODE: $00000045 VOL: 0
-; 0000 0041 
-; 0000 0042     /*=============== Select Device Type ===============*/
-; 0000 0043 
-; 0000 0044     do {
+; 0000 0042 
+; 0000 0043     /*=============== Select Device Type ===============*/
+; 0000 0044 
+; 0000 0045     do {
 ;PCODE: $00000046 VOL: 0
-; 0000 0045         read_D_SW = read_dSwitch();
+; 0000 0046         read_D_SW = read_dSwitch();
 ;PCODE: $00000047 VOL: 0
 ;PCODE: $00000048 VOL: 0
-; 0000 0046         if(read_D_SW == 0x0F) {
+; 0000 0047         if(read_D_SW == 0x0F) {
 ;PCODE: $00000049 VOL: 0
 ;PCODE: $0000004A VOL: 0
 ;PCODE: $0000004B VOL: 0
-; 0000 0047             SENSOR_SENSITIVE = SENSOR5A;
+; 0000 0048             SENSOR_SENSITIVE = SENSOR5A;
 ;PCODE: $0000004C VOL: 0
 ;PCODE: $0000004D VOL: 0
-; 0000 0048             if((ADJ0_SENSOR5A > 0.0) && (ADJ0_SENSOR5A < 0.12)) {
+; 0000 0049             if((ADJ0_SENSOR5A > 0.0) && (ADJ0_SENSOR5A < 0.12)) {
 ;PCODE: $0000004E VOL: 0
 ;PCODE: $0000004F VOL: 0
 ;PCODE: $00000050 VOL: 0
@@ -179,21 +180,21 @@
 ;PCODE: $00000058 VOL: 0
 ;PCODE: $00000059 VOL: 0
 ;PCODE: $0000005A VOL: 0
-; 0000 0049                 AMP_ADJ_ZERO = ADJ0_SENSOR5A;
+; 0000 004A                 AMP_ADJ_ZERO = ADJ0_SENSOR5A;
 ;PCODE: $0000005B VOL: 0
 ;PCODE: $0000005C VOL: 0
 ;PCODE: $0000005D VOL: 0
-; 0000 004A             }else {AMP_ADJ_ZERO = 0.09;}
+; 0000 004B             }else {AMP_ADJ_ZERO = 0.09;}
 ;PCODE: $0000005E VOL: 0
 ;PCODE: $0000005F VOL: 0
 ;PCODE: $00000060 VOL: 0
 ;PCODE: $00000061 VOL: 0
 ;PCODE: $00000062 VOL: 0
-; 0000 004B             specData[8] = TYPE_SMART_SWITCH;                             // Device Type
+; 0000 004C             specData[8] = TYPE_SMART_SWITCH;                             // Device Type
 ;PCODE: $00000063 VOL: 0
 ;PCODE: $00000064 VOL: 0
 ;PCODE: $00000065 VOL: 0
-; 0000 004C             printDebug("\r\n++++++++++ Smart Switch ++++++++++\r\n");
+; 0000 004D             printDebug("\r\n++++++++++ Smart Switch ++++++++++\r\n");
 ;PCODE: $00000066 VOL: 0
 ;PCODE: $00000067 VOL: 0
 ;PCODE: $00000068 VOL: 0
@@ -201,7 +202,7 @@
 ;PCODE: $0000006A VOL: 0
 ;PCODE: $0000006B VOL: 0
 ;PCODE: $0000006C VOL: 0
-; 0000 004D             printDebug("\r\nFirmware Version : %0.1f\r\n", FIRMWARE_VERSION);
+; 0000 004E             printDebug("\r\nFirmware Version : %0.1f\r\n", FIRMWARE_VERSION);
 ;PCODE: $0000006D VOL: 0
 ;PCODE: $0000006E VOL: 0
 ;PCODE: $0000006F VOL: 0
@@ -211,7 +212,7 @@
 ;PCODE: $00000073 VOL: 0
 ;PCODE: $00000074 VOL: 0
 ;PCODE: $00000075 VOL: 0
-; 0000 004E             printDebug("Current Sensor   : ACS712ELCTR-05B-T (%0.1f mV/Amp.)\r\n", SENSOR_SENSITIVE);
+; 0000 004F             printDebug("Current Sensor   : ACS712ELCTR-05B-T (%0.1f mV/Amp.)\r\n", SENSOR_SENSITIVE);
 ;PCODE: $00000076 VOL: 0
 ;PCODE: $00000077 VOL: 0
 ;PCODE: $00000078 VOL: 0
@@ -221,16 +222,16 @@
 ;PCODE: $0000007C VOL: 0
 ;PCODE: $0000007D VOL: 0
 ;PCODE: $0000007E VOL: 0
-; 0000 004F         }else if(read_D_SW == 0x0E) {
+; 0000 0050         }else if(read_D_SW == 0x0E) {
 ;PCODE: $0000007F VOL: 0
 ;PCODE: $00000080 VOL: 0
 ;PCODE: $00000081 VOL: 0
 ;PCODE: $00000082 VOL: 0
 ;PCODE: $00000083 VOL: 0
-; 0000 0050             SENSOR_SENSITIVE = SENSOR20A;
+; 0000 0051             SENSOR_SENSITIVE = SENSOR20A;
 ;PCODE: $00000084 VOL: 0
 ;PCODE: $00000085 VOL: 0
-; 0000 0051             if((ADJ0_SENSOR20A > 0.0) && (ADJ0_SENSOR20A < 0.14)) {
+; 0000 0052             if((ADJ0_SENSOR20A > 0.0) && (ADJ0_SENSOR20A < 0.14)) {
 ;PCODE: $00000086 VOL: 0
 ;PCODE: $00000087 VOL: 0
 ;PCODE: $00000088 VOL: 0
@@ -244,21 +245,21 @@
 ;PCODE: $00000090 VOL: 0
 ;PCODE: $00000091 VOL: 0
 ;PCODE: $00000092 VOL: 0
-; 0000 0052                 AMP_ADJ_ZERO = ADJ0_SENSOR20A;
+; 0000 0053                 AMP_ADJ_ZERO = ADJ0_SENSOR20A;
 ;PCODE: $00000093 VOL: 0
 ;PCODE: $00000094 VOL: 0
 ;PCODE: $00000095 VOL: 0
-; 0000 0053             }else {AMP_ADJ_ZERO = 0.11;}
+; 0000 0054             }else {AMP_ADJ_ZERO = 0.11;}
 ;PCODE: $00000096 VOL: 0
 ;PCODE: $00000097 VOL: 0
 ;PCODE: $00000098 VOL: 0
 ;PCODE: $00000099 VOL: 0
 ;PCODE: $0000009A VOL: 0
-; 0000 0054             specData[8] = TYPE_SMART_PLUG;                               // Device Type
+; 0000 0055             specData[8] = TYPE_SMART_PLUG;                               // Device Type
 ;PCODE: $0000009B VOL: 0
 ;PCODE: $0000009C VOL: 0
 ;PCODE: $0000009D VOL: 0
-; 0000 0055             printDebug("\r\n++++++++++ Smart Plug ++++++++++\r\n");
+; 0000 0056             printDebug("\r\n++++++++++ Smart Plug ++++++++++\r\n");
 ;PCODE: $0000009E VOL: 0
 ;PCODE: $0000009F VOL: 0
 ;PCODE: $000000A0 VOL: 0
@@ -266,7 +267,7 @@
 ;PCODE: $000000A2 VOL: 0
 ;PCODE: $000000A3 VOL: 0
 ;PCODE: $000000A4 VOL: 0
-; 0000 0056             printDebug("\r\nFirmware Version : %0.1f\r\n", FIRMWARE_VERSION);
+; 0000 0057             printDebug("\r\nFirmware Version : %0.1f\r\n", FIRMWARE_VERSION);
 ;PCODE: $000000A5 VOL: 0
 ;PCODE: $000000A6 VOL: 0
 ;PCODE: $000000A7 VOL: 0
@@ -276,7 +277,7 @@
 ;PCODE: $000000AB VOL: 0
 ;PCODE: $000000AC VOL: 0
 ;PCODE: $000000AD VOL: 0
-; 0000 0057             printDebug("Current Sensor   : ACS712ELCTR-20A-T (%0.1f mV/Amp.)\r\n", SENSOR_SENSITIVE);
+; 0000 0058             printDebug("Current Sensor   : ACS712ELCTR-20A-T (%0.1f mV/Amp.)\r\n", SENSOR_SENSITIVE);
 ;PCODE: $000000AE VOL: 0
 ;PCODE: $000000AF VOL: 0
 ;PCODE: $000000B0 VOL: 0
@@ -286,16 +287,16 @@
 ;PCODE: $000000B4 VOL: 0
 ;PCODE: $000000B5 VOL: 0
 ;PCODE: $000000B6 VOL: 0
-; 0000 0058         }else if(read_D_SW == 0x0D) {
+; 0000 0059         }else if(read_D_SW == 0x0D) {
 ;PCODE: $000000B7 VOL: 0
 ;PCODE: $000000B8 VOL: 0
 ;PCODE: $000000B9 VOL: 0
 ;PCODE: $000000BA VOL: 0
 ;PCODE: $000000BB VOL: 0
-; 0000 0059             SENSOR_SENSITIVE = SENSOR30A;
+; 0000 005A             SENSOR_SENSITIVE = SENSOR30A;
 ;PCODE: $000000BC VOL: 0
 ;PCODE: $000000BD VOL: 0
-; 0000 005A             if((ADJ0_SENSOR30A > 0.0) && (ADJ0_SENSOR30A < 0.15)) {
+; 0000 005B             if((ADJ0_SENSOR30A > 0.0) && (ADJ0_SENSOR30A < 0.15)) {
 ;PCODE: $000000BE VOL: 0
 ;PCODE: $000000BF VOL: 0
 ;PCODE: $000000C0 VOL: 0
@@ -309,21 +310,21 @@
 ;PCODE: $000000C8 VOL: 0
 ;PCODE: $000000C9 VOL: 0
 ;PCODE: $000000CA VOL: 0
-; 0000 005B                 AMP_ADJ_ZERO = ADJ0_SENSOR30A;
+; 0000 005C                 AMP_ADJ_ZERO = ADJ0_SENSOR30A;
 ;PCODE: $000000CB VOL: 0
 ;PCODE: $000000CC VOL: 0
 ;PCODE: $000000CD VOL: 0
-; 0000 005C             }else {AMP_ADJ_ZERO = 0.12;}
+; 0000 005D             }else {AMP_ADJ_ZERO = 0.12;}
 ;PCODE: $000000CE VOL: 0
 ;PCODE: $000000CF VOL: 0
 ;PCODE: $000000D0 VOL: 0
 ;PCODE: $000000D1 VOL: 0
 ;PCODE: $000000D2 VOL: 0
-; 0000 005D             specData[8] = TYPE_SMART_BREAKER;                            // Device Type
+; 0000 005E             specData[8] = TYPE_SMART_BREAKER;                            // Device Type
 ;PCODE: $000000D3 VOL: 0
 ;PCODE: $000000D4 VOL: 0
 ;PCODE: $000000D5 VOL: 0
-; 0000 005E             printDebug("\r\n++++++++++ Smart Breaker ++++++++++\r\n");
+; 0000 005F             printDebug("\r\n++++++++++ Smart Breaker ++++++++++\r\n");
 ;PCODE: $000000D6 VOL: 0
 ;PCODE: $000000D7 VOL: 0
 ;PCODE: $000000D8 VOL: 0
@@ -331,7 +332,7 @@
 ;PCODE: $000000DA VOL: 0
 ;PCODE: $000000DB VOL: 0
 ;PCODE: $000000DC VOL: 0
-; 0000 005F             printDebug("\r\nFirmware Version : %0.1f\r\n", FIRMWARE_VERSION);
+; 0000 0060             printDebug("\r\nFirmware Version : %0.1f\r\n", FIRMWARE_VERSION);
 ;PCODE: $000000DD VOL: 0
 ;PCODE: $000000DE VOL: 0
 ;PCODE: $000000DF VOL: 0
@@ -341,7 +342,7 @@
 ;PCODE: $000000E3 VOL: 0
 ;PCODE: $000000E4 VOL: 0
 ;PCODE: $000000E5 VOL: 0
-; 0000 0060             printDebug("Current Sensor   : ACS712ELCTR-30A-T (%0.1f mV/Amp.)\r\n", SENSOR_SENSITIVE);
+; 0000 0061             printDebug("Current Sensor   : ACS712ELCTR-30A-T (%0.1f mV/Amp.)\r\n", SENSOR_SENSITIVE);
 ;PCODE: $000000E6 VOL: 0
 ;PCODE: $000000E7 VOL: 0
 ;PCODE: $000000E8 VOL: 0
@@ -351,13 +352,13 @@
 ;PCODE: $000000EC VOL: 0
 ;PCODE: $000000ED VOL: 0
 ;PCODE: $000000EE VOL: 0
-; 0000 0061         }else if(read_D_SW < 0) {
+; 0000 0062         }else if(read_D_SW < 0) {
 ;PCODE: $000000EF VOL: 0
 ;PCODE: $000000F0 VOL: 0
 ;PCODE: $000000F1 VOL: 0
 ;PCODE: $000000F2 VOL: 0
 ;PCODE: $000000F3 VOL: 0
-; 0000 0062             printDebug("Read Dip-Switch ERROR!\r\n");
+; 0000 0063             printDebug("Read Dip-Switch ERROR!\r\n");
 ;PCODE: $000000F4 VOL: 0
 ;PCODE: $000000F5 VOL: 0
 ;PCODE: $000000F6 VOL: 0
@@ -365,21 +366,21 @@
 ;PCODE: $000000F8 VOL: 0
 ;PCODE: $000000F9 VOL: 0
 ;PCODE: $000000FA VOL: 0
-; 0000 0063         }else {
+; 0000 0064         }else {
 ;PCODE: $000000FB VOL: 0
 ;PCODE: $000000FC VOL: 0
-; 0000 0064             SENSOR_SENSITIVE = SENSOR5A;
+; 0000 0065             SENSOR_SENSITIVE = SENSOR5A;
 ;PCODE: $000000FD VOL: 0
 ;PCODE: $000000FE VOL: 0
-; 0000 0065             AMP_ADJ_ZERO = ADJ0_SENSOR5A;
+; 0000 0066             AMP_ADJ_ZERO = ADJ0_SENSOR5A;
 ;PCODE: $000000FF VOL: 0
 ;PCODE: $00000100 VOL: 0
 ;PCODE: $00000101 VOL: 0
-; 0000 0066             specData[8] = TYPE_SMART_SWITCH;
+; 0000 0067             specData[8] = TYPE_SMART_SWITCH;
 ;PCODE: $00000102 VOL: 0
 ;PCODE: $00000103 VOL: 0
 ;PCODE: $00000104 VOL: 0
-; 0000 0067             printDebug("\r\n++++++++++ Default Type : Smart Switch ++++++++++\r\n");
+; 0000 0068             printDebug("\r\n++++++++++ Default Type : Smart Switch ++++++++++\r\n");
 ;PCODE: $00000105 VOL: 0
 ;PCODE: $00000106 VOL: 0
 ;PCODE: $00000107 VOL: 0
@@ -387,7 +388,7 @@
 ;PCODE: $00000109 VOL: 0
 ;PCODE: $0000010A VOL: 0
 ;PCODE: $0000010B VOL: 0
-; 0000 0068             printDebug("\r\nFirmware Version : %0.1f\r\n", FIRMWARE_VERSION);
+; 0000 0069             printDebug("\r\nFirmware Version : %0.1f\r\n", FIRMWARE_VERSION);
 ;PCODE: $0000010C VOL: 0
 ;PCODE: $0000010D VOL: 0
 ;PCODE: $0000010E VOL: 0
@@ -397,7 +398,7 @@
 ;PCODE: $00000112 VOL: 0
 ;PCODE: $00000113 VOL: 0
 ;PCODE: $00000114 VOL: 0
-; 0000 0069             printDebug("Current Sensor   : ACS712ELCTR-05B-T (%0.1f mV/Amp.)\r\n", SENSOR_SENSITIVE);
+; 0000 006A             printDebug("Current Sensor   : ACS712ELCTR-05B-T (%0.1f mV/Amp.)\r\n", SENSOR_SENSITIVE);
 ;PCODE: $00000115 VOL: 0
 ;PCODE: $00000116 VOL: 0
 ;PCODE: $00000117 VOL: 0
@@ -407,21 +408,21 @@
 ;PCODE: $0000011B VOL: 0
 ;PCODE: $0000011C VOL: 0
 ;PCODE: $0000011D VOL: 0
-; 0000 006A         }
+; 0000 006B         }
 ;PCODE: $0000011E VOL: 0
 ;PCODE: $0000011F VOL: 0
 ;PCODE: $00000120 VOL: 0
 ;PCODE: $00000121 VOL: 0
-; 0000 006B     }while(read_D_SW < 0);
+; 0000 006C     }while(read_D_SW < 0);
 ;PCODE: $00000122 VOL: 0
 ;PCODE: $00000123 VOL: 0
 ;PCODE: $00000124 VOL: 0
 ;PCODE: $00000125 VOL: 0
 ;PCODE: $00000126 VOL: 0
 ;PCODE: $00000127 VOL: 0
-; 0000 006C 
-; 0000 006D     /*=============== Current Measurement ===============*/
-; 0000 006E     printDebug("Current Measure  : > %0.2f Amp.\r\n", AMP_ADJ_ZERO);
+; 0000 006D 
+; 0000 006E     /*=============== Current Measurement ===============*/
+; 0000 006F     printDebug("Current Measure  : > %0.2f Amp.\r\n", AMP_ADJ_ZERO);
 ;PCODE: $00000128 VOL: 0
 ;PCODE: $00000129 VOL: 0
 ;PCODE: $0000012A VOL: 0
@@ -431,14 +432,14 @@
 ;PCODE: $0000012E VOL: 0
 ;PCODE: $0000012F VOL: 0
 ;PCODE: $00000130 VOL: 0
-; 0000 006F 
 ; 0000 0070 
-; 0000 0071     #asm("sei")    // Global enable interrupts
+; 0000 0071 
+; 0000 0072     #asm("sei")    // Global enable interrupts
 ;PCODE: $00000131 VOL: 0
 	sei
 ;PCODE: $00000132 VOL: 0
-; 0000 0072 
-; 0000 0073     printDebug("\r\n-------- Initial Complete --------\r\n");
+; 0000 0073 
+; 0000 0074     printDebug("\r\n-------- Initial Complete --------\r\n");
 ;PCODE: $00000133 VOL: 0
 ;PCODE: $00000134 VOL: 0
 ;PCODE: $00000135 VOL: 0
@@ -446,11 +447,11 @@
 ;PCODE: $00000137 VOL: 0
 ;PCODE: $00000138 VOL: 0
 ;PCODE: $00000139 VOL: 0
-; 0000 0074     delay_ms(5000);
+; 0000 0075     delay_ms(5000);
 ;PCODE: $0000013A VOL: 0
 ;PCODE: $0000013B VOL: 0
-; 0000 0075 
-; 0000 0076     printDebug("\r\n-------- Start Program --------\r\n");
+; 0000 0076 
+; 0000 0077     printDebug("\r\n-------- Start Program --------\r\n");
 ;PCODE: $0000013C VOL: 0
 ;PCODE: $0000013D VOL: 0
 ;PCODE: $0000013E VOL: 0
@@ -458,183 +459,183 @@
 ;PCODE: $00000140 VOL: 0
 ;PCODE: $00000141 VOL: 0
 ;PCODE: $00000142 VOL: 0
-; 0000 0077     while(1) {
+; 0000 0078     while(1) {
 ;PCODE: $00000143 VOL: 0
-; 0000 0078         xbee_read();
+; 0000 0079         xbee_read();
 ;PCODE: $00000144 VOL: 0
-; 0000 0079 
-; 0000 007A //        if(counter%111 == 0 && counter >= 111){
-; 0000 007B //        if(e%2 == 0){
-; 0000 007C //            SEND_EVENT_TEST[2] = 0x90;
-; 0000 007D //            SEND_EVENT_TEST[3] = 0x90;
-; 0000 007E //            SEND_EVENT_TEST[35] = 0xA5;
-; 0000 007F //            SEND_EVENT_TEST[36] = 0x01;
-; 0000 0080 //            SEND_EVENT_TEST[37] = 0x01;
-; 0000 0081 //            xbee_receivePacket(SEND_EVENT_TEST,38);
-; 0000 0082 //        }else{
-; 0000 0083 //            SEND_EVENT_TEST[2] = 0x90;
-; 0000 0084 //            SEND_EVENT_TEST[3] = 0x90;
-; 0000 0085 //            SEND_EVENT_TEST[35] = 0xA5;
-; 0000 0086 //            SEND_EVENT_TEST[36] = 0x01;
-; 0000 0087 //            SEND_EVENT_TEST[37] = 0x00;
-; 0000 0088 //            xbee_receivePacket(SEND_EVENT_TEST,38);
-; 0000 0089 //       }
-; 0000 008A //       e++;
-; 0000 008B //}
-; 0000 008C         switch (flag_state) {
+; 0000 007A 
+; 0000 007B //        if(counter%111 == 0 && counter >= 111){
+; 0000 007C //        if(e%2 == 0){
+; 0000 007D //            SEND_EVENT_TEST[2] = 0x90;
+; 0000 007E //            SEND_EVENT_TEST[3] = 0x90;
+; 0000 007F //            SEND_EVENT_TEST[35] = 0xA5;
+; 0000 0080 //            SEND_EVENT_TEST[36] = 0x01;
+; 0000 0081 //            SEND_EVENT_TEST[37] = 0x01;
+; 0000 0082 //            xbee_receivePacket(SEND_EVENT_TEST,38);
+; 0000 0083 //        }else{
+; 0000 0084 //            SEND_EVENT_TEST[2] = 0x90;
+; 0000 0085 //            SEND_EVENT_TEST[3] = 0x90;
+; 0000 0086 //            SEND_EVENT_TEST[35] = 0xA5;
+; 0000 0087 //            SEND_EVENT_TEST[36] = 0x01;
+; 0000 0088 //            SEND_EVENT_TEST[37] = 0x00;
+; 0000 0089 //            xbee_receivePacket(SEND_EVENT_TEST,38);
+; 0000 008A //       }
+; 0000 008B //       e++;
+; 0000 008C //}
+; 0000 008D         switch (flag_state) {
 ;PCODE: $00000145 VOL: 0
-; 0000 008D 
-; 0000 008E             /*=============== Send AI ===============*/
-; 0000 008F             case 0 :
+; 0000 008E 
+; 0000 008F             /*=============== Send AI ===============*/
+; 0000 0090             case 0 :
 ;PCODE: $00000146 VOL: 0
 ;PCODE: $00000147 VOL: 0
-; 0000 0090                 xbee_sendATCommand(AI);
+; 0000 0091                 xbee_sendATCommand(AI);
 ;PCODE: $00000148 VOL: 0
 ;PCODE: $00000149 VOL: 0
 ;PCODE: $0000014A VOL: 0
-; 0000 0091                 delay_ms(100);
+; 0000 0092                 delay_ms(100);
 ;PCODE: $0000014B VOL: 0
 ;PCODE: $0000014C VOL: 0
 ;PCODE: $0000014D VOL: 0
-; 0000 0092 
-; 0000 0093                 /*=============== Check last state from eeprom ===============*/
-; 0000 0094 
-; 0000 0095                 if(STATUS_DEVICE == 1){
+; 0000 0093 
+; 0000 0094                 /*=============== Check last state from eeprom ===============*/
+; 0000 0095 
+; 0000 0096                 if(STATUS_DEVICE == 1){
 ;PCODE: $0000014E VOL: 0
 ;PCODE: $0000014F VOL: 0
 ;PCODE: $00000150 VOL: 0
-; 0000 0096                     delay_ms(100);
+; 0000 0097                     delay_ms(100);
 ;PCODE: $00000151 VOL: 0
 ;PCODE: $00000152 VOL: 0
 ;PCODE: $00000153 VOL: 0
-; 0000 0097                     device_state(1);   //on
+; 0000 0098                     device_state(1);   //on
 ;PCODE: $00000154 VOL: 0
 ;PCODE: $00000155 VOL: 0
 ;PCODE: $00000156 VOL: 0
-; 0000 0098                     EEPROM_write(Eaddress,STATUS_DEVICE);
+; 0000 0099                     EEPROM_write(Eaddress,STATUS_DEVICE);
 ;PCODE: $00000157 VOL: 0
 ;PCODE: $00000158 VOL: 0
 ;PCODE: $00000159 VOL: 0
 ;PCODE: $0000015A VOL: 0
 ;PCODE: $0000015B VOL: 0
-; 0000 0099                     start_event = 1;
+; 0000 009A                     start_event = 1;
 ;PCODE: $0000015C VOL: 0
 ;PCODE: $0000015D VOL: 0
-; 0000 009A                     push_event(511);
+; 0000 009B                     push_event(5110);
 ;PCODE: $0000015E VOL: 0
 ;PCODE: $0000015F VOL: 0
-; 0000 009B                 }
-; 0000 009C             break;
+; 0000 009C                 }
+; 0000 009D             break;
 ;PCODE: $00000160 VOL: 0
 ;PCODE: $00000161 VOL: 0
-; 0000 009D 
-; 0000 009E             /*=============== Send SH( High Bits MacAddress) ===============*/
-; 0000 009F             case 1 :
+; 0000 009E 
+; 0000 009F             /*=============== Send SH( High Bits MacAddress) ===============*/
+; 0000 00A0             case 1 :
 ;PCODE: $00000162 VOL: 0
 ;PCODE: $00000163 VOL: 0
 ;PCODE: $00000164 VOL: 0
-; 0000 00A0                 xbee_sendATCommand(SH);
+; 0000 00A1                 xbee_sendATCommand(SH);
 ;PCODE: $00000165 VOL: 0
 ;PCODE: $00000166 VOL: 0
 ;PCODE: $00000167 VOL: 0
-; 0000 00A1                 delay_ms(100);
+; 0000 00A2                 delay_ms(100);
 ;PCODE: $00000168 VOL: 0
 ;PCODE: $00000169 VOL: 0
 ;PCODE: $0000016A VOL: 0
-; 0000 00A2             break;
+; 0000 00A3             break;
 ;PCODE: $0000016B VOL: 0
-; 0000 00A3 
-; 0000 00A4             /*=============== Send SL( LOW Bits MacAddress) ===============*/
-; 0000 00A5             case 2 :
+; 0000 00A4 
+; 0000 00A5             /*=============== Send SL( LOW Bits MacAddress) ===============*/
+; 0000 00A6             case 2 :
 ;PCODE: $0000016C VOL: 0
 ;PCODE: $0000016D VOL: 0
 ;PCODE: $0000016E VOL: 0
-; 0000 00A6                 xbee_sendATCommand(SL);
+; 0000 00A7                 xbee_sendATCommand(SL);
 ;PCODE: $0000016F VOL: 0
 ;PCODE: $00000170 VOL: 0
 ;PCODE: $00000171 VOL: 0
-; 0000 00A7                 delay_ms(100);
+; 0000 00A8                 delay_ms(100);
 ;PCODE: $00000172 VOL: 0
 ;PCODE: $00000173 VOL: 0
 ;PCODE: $00000174 VOL: 0
-; 0000 00A8             break;
+; 0000 00A9             break;
 ;PCODE: $00000175 VOL: 0
-; 0000 00A9 
-; 0000 00AA             /*=============== Send Join ===============*/
-; 0000 00AB             case 3 :
+; 0000 00AA 
+; 0000 00AB             /*=============== Send Join ===============*/
+; 0000 00AC             case 3 :
 ;PCODE: $00000176 VOL: 0
 ;PCODE: $00000177 VOL: 0
 ;PCODE: $00000178 VOL: 0
-; 0000 00AC                 delay_ms(2000);
+; 0000 00AD                 delay_ms(2000);
 ;PCODE: $00000179 VOL: 0
 ;PCODE: $0000017A VOL: 0
-; 0000 00AD                 send_join();
+; 0000 00AE                 send_join();
 ;PCODE: $0000017B VOL: 0
-; 0000 00AE                 delay_ms(100);
+; 0000 00AF                 delay_ms(100);
 ;PCODE: $0000017C VOL: 0
 ;PCODE: $0000017D VOL: 0
 ;PCODE: $0000017E VOL: 0
-; 0000 00AF 
-; 0000 00B0                 if(SWITCH_PRESSED){
+; 0000 00B0 
+; 0000 00B1                 if(SWITCH_PRESSED){
 ;PCODE: $0000017F VOL: 0
 ;PCODE: $00000180 VOL: 0
 ;PCODE: $00000181 VOL: 0
-; 0000 00B1                     delay_ms(100);
+; 0000 00B2                     delay_ms(100);
 ;PCODE: $00000182 VOL: 0
 ;PCODE: $00000183 VOL: 0
 ;PCODE: $00000184 VOL: 0
-; 0000 00B2                     if(STATUS_DEVICE == 0){
+; 0000 00B3                     if(STATUS_DEVICE == 0){
 ;PCODE: $00000185 VOL: 0
 ;PCODE: $00000186 VOL: 0
 ;PCODE: $00000187 VOL: 0
-; 0000 00B3                         device_state(1);      //on
+; 0000 00B4                         device_state(1);      //on
 ;PCODE: $00000188 VOL: 0
 ;PCODE: $00000189 VOL: 0
 ;PCODE: $0000018A VOL: 0
-; 0000 00B4                         EEPROM_write(Eaddress,STATUS_DEVICE);
+; 0000 00B5                         EEPROM_write(Eaddress,STATUS_DEVICE);
 ;PCODE: $0000018B VOL: 0
 ;PCODE: $0000018C VOL: 0
 ;PCODE: $0000018D VOL: 0
 ;PCODE: $0000018E VOL: 0
 ;PCODE: $0000018F VOL: 0
-; 0000 00B5                         push_event(5110);
+; 0000 00B6                         push_event(5110);
 ;PCODE: $00000190 VOL: 0
 ;PCODE: $00000191 VOL: 0
-; 0000 00B6 
-; 0000 00B7                     }else if(STATUS_DEVICE == 1){
+; 0000 00B7 
+; 0000 00B8                     }else if(STATUS_DEVICE == 1){
 ;PCODE: $00000192 VOL: 0
 ;PCODE: $00000193 VOL: 0
 ;PCODE: $00000194 VOL: 0
 ;PCODE: $00000195 VOL: 0
 ;PCODE: $00000196 VOL: 0
-; 0000 00B8                         device_state(0);      //off
+; 0000 00B9                         device_state(0);      //off
 ;PCODE: $00000197 VOL: 0
 ;PCODE: $00000198 VOL: 0
 ;PCODE: $00000199 VOL: 0
-; 0000 00B9                         EEPROM_write(Eaddress,STATUS_DEVICE);
+; 0000 00BA                         EEPROM_write(Eaddress,STATUS_DEVICE);
 ;PCODE: $0000019A VOL: 0
 ;PCODE: $0000019B VOL: 0
 ;PCODE: $0000019C VOL: 0
 ;PCODE: $0000019D VOL: 0
 ;PCODE: $0000019E VOL: 0
-; 0000 00BA                         push_event(5100);
+; 0000 00BB                         push_event(5100);
 ;PCODE: $0000019F VOL: 0
 ;PCODE: $000001A0 VOL: 0
-; 0000 00BB 
-; 0000 00BC                     }
-; 0000 00BD                 }
+; 0000 00BC 
+; 0000 00BD                     }
+; 0000 00BE                 }
 ;PCODE: $000001A1 VOL: 0
 ;PCODE: $000001A2 VOL: 0
-; 0000 00BE             break;
+; 0000 00BF             break;
 ;PCODE: $000001A3 VOL: 0
 ;PCODE: $000001A4 VOL: 0
-; 0000 00BF 
-; 0000 00C0             /*=============== Idle State ===============*/
-; 0000 00C1             case 4 :
+; 0000 00C0 
+; 0000 00C1             /*=============== Idle State ===============*/
+; 0000 00C2             case 4 :
 ;PCODE: $000001A5 VOL: 0
 ;PCODE: $000001A6 VOL: 0
 ;PCODE: $000001A7 VOL: 0
-; 0000 00C2                 printDebug("\r\n-------- Idle --------\r\n");
+; 0000 00C3                 printDebug("\r\n-------- Idle --------\r\n");
 ;PCODE: $000001A8 VOL: 0
 ;PCODE: $000001A9 VOL: 0
 ;PCODE: $000001AA VOL: 0
@@ -642,19 +643,19 @@
 ;PCODE: $000001AC VOL: 0
 ;PCODE: $000001AD VOL: 0
 ;PCODE: $000001AE VOL: 0
-; 0000 00C3                 counter++;
+; 0000 00C4                 counter++;
 ;PCODE: $000001AF VOL: 0
 ;PCODE: $000001B0 VOL: 0
 ;PCODE: $000001B1 VOL: 0
-; 0000 00C4                 if(counter%10 == 0 ){
+; 0000 00C5                 if(counter%10 == 0 ){
 ;PCODE: $000001B2 VOL: 0
 ;PCODE: $000001B3 VOL: 0
 ;PCODE: $000001B4 VOL: 0
 ;PCODE: $000001B5 VOL: 0
 ;PCODE: $000001B6 VOL: 0
-; 0000 00C5                     pop_event();
+; 0000 00C6                     pop_event();
 ;PCODE: $000001B7 VOL: 0
-; 0000 00C6                     printDebug("\r\n-------- POP EVENT --------\r\n");
+; 0000 00C7                     printDebug("\r\n-------- POP EVENT --------\r\n");
 ;PCODE: $000001B8 VOL: 0
 ;PCODE: $000001B9 VOL: 0
 ;PCODE: $000001BA VOL: 0
@@ -662,104 +663,104 @@
 ;PCODE: $000001BC VOL: 0
 ;PCODE: $000001BD VOL: 0
 ;PCODE: $000001BE VOL: 0
-; 0000 00C7                 }
-; 0000 00C8 
-; 0000 00C9                 if(start_event == 1){
+; 0000 00C8                 }
+; 0000 00C9 
+; 0000 00CA                 if(start_event == 1){
 ;PCODE: $000001BF VOL: 0
 ;PCODE: $000001C0 VOL: 0
 ;PCODE: $000001C1 VOL: 0
 ;PCODE: $000001C2 VOL: 0
-; 0000 00CA                     if(STATUS_DEVICE == 1){
+; 0000 00CB                     if(STATUS_DEVICE == 1){
 ;PCODE: $000001C3 VOL: 0
 ;PCODE: $000001C4 VOL: 0
 ;PCODE: $000001C5 VOL: 0
-; 0000 00CB                         flag_state = 5;
+; 0000 00CC                         flag_state = 5;
 ;PCODE: $000001C6 VOL: 0
 ;PCODE: $000001C7 VOL: 0
-; 0000 00CC                     }else if(STATUS_DEVICE == 0){
+; 0000 00CD                     }else if(STATUS_DEVICE == 0){
 ;PCODE: $000001C8 VOL: 0
 ;PCODE: $000001C9 VOL: 0
 ;PCODE: $000001CA VOL: 0
 ;PCODE: $000001CB VOL: 0
 ;PCODE: $000001CC VOL: 0
-; 0000 00CD                         flag_state = 4;
+; 0000 00CE                         flag_state = 4;
 ;PCODE: $000001CD VOL: 0
 ;PCODE: $000001CE VOL: 0
-; 0000 00CE                     }
-; 0000 00CF                     start_event = 0;
+; 0000 00CF                     }
+; 0000 00D0                     start_event = 0;
 ;PCODE: $000001CF VOL: 0
 ;PCODE: $000001D0 VOL: 0
 ;PCODE: $000001D1 VOL: 0
-; 0000 00D0                 }
-; 0000 00D1 
+; 0000 00D1                 }
 ; 0000 00D2 
-; 0000 00D3                 if(SWITCH_PRESSED){
+; 0000 00D3 
+; 0000 00D4                 if(SWITCH_PRESSED){
 ;PCODE: $000001D2 VOL: 0
 ;PCODE: $000001D3 VOL: 0
 ;PCODE: $000001D4 VOL: 0
 ;PCODE: $000001D5 VOL: 0
-; 0000 00D4                     delay_ms(200);
+; 0000 00D5                     delay_ms(200);
 ;PCODE: $000001D6 VOL: 0
 ;PCODE: $000001D7 VOL: 0
 ;PCODE: $000001D8 VOL: 0
-; 0000 00D5                        if(STATUS_DEVICE == 0){
+; 0000 00D6                        if(STATUS_DEVICE == 0){
 ;PCODE: $000001D9 VOL: 0
 ;PCODE: $000001DA VOL: 0
 ;PCODE: $000001DB VOL: 0
-; 0000 00D6                             device_state(1);      //on
+; 0000 00D7                             device_state(1);      //on
 ;PCODE: $000001DC VOL: 0
 ;PCODE: $000001DD VOL: 0
 ;PCODE: $000001DE VOL: 0
-; 0000 00D7                             EEPROM_write(Eaddress,STATUS_DEVICE);
+; 0000 00D8                             EEPROM_write(Eaddress,STATUS_DEVICE);
 ;PCODE: $000001DF VOL: 0
 ;PCODE: $000001E0 VOL: 0
 ;PCODE: $000001E1 VOL: 0
 ;PCODE: $000001E2 VOL: 0
 ;PCODE: $000001E3 VOL: 0
-; 0000 00D8                             flag_state = 5;
+; 0000 00D9                             flag_state = 5;
 ;PCODE: $000001E4 VOL: 0
 ;PCODE: $000001E5 VOL: 0
-; 0000 00D9                             //printDebug("count_input = %d\r\n", count_input);
-; 0000 00DA                             push_event(5110);
+; 0000 00DA                             //printDebug("count_input = %d\r\n", count_input);
+; 0000 00DB                             push_event(5110);
 ;PCODE: $000001E6 VOL: 0
 ;PCODE: $000001E7 VOL: 0
-; 0000 00DB                        }else if(STATUS_DEVICE == 1){
+; 0000 00DC                        }else if(STATUS_DEVICE == 1){
 ;PCODE: $000001E8 VOL: 0
 ;PCODE: $000001E9 VOL: 0
 ;PCODE: $000001EA VOL: 0
 ;PCODE: $000001EB VOL: 0
 ;PCODE: $000001EC VOL: 0
-; 0000 00DC                             device_state(0);     //off
+; 0000 00DD                             device_state(0);     //off
 ;PCODE: $000001ED VOL: 0
 ;PCODE: $000001EE VOL: 0
 ;PCODE: $000001EF VOL: 0
-; 0000 00DD                             EEPROM_write(Eaddress,STATUS_DEVICE);
+; 0000 00DE                             EEPROM_write(Eaddress,STATUS_DEVICE);
 ;PCODE: $000001F0 VOL: 0
 ;PCODE: $000001F1 VOL: 0
 ;PCODE: $000001F2 VOL: 0
 ;PCODE: $000001F3 VOL: 0
 ;PCODE: $000001F4 VOL: 0
-; 0000 00DE                             flag_state = 4;
+; 0000 00DF                             flag_state = 4;
 ;PCODE: $000001F5 VOL: 0
 ;PCODE: $000001F6 VOL: 0
-; 0000 00DF                             //printDebug("count_input = %d\r\n", count_input);
-; 0000 00E0                             push_event(5100);
+; 0000 00E0                             //printDebug("count_input = %d\r\n", count_input);
+; 0000 00E1                             push_event(5100);
 ;PCODE: $000001F7 VOL: 0
 ;PCODE: $000001F8 VOL: 0
-; 0000 00E1                        }
-; 0000 00E2                 }
+; 0000 00E2                        }
+; 0000 00E3                 }
 ;PCODE: $000001F9 VOL: 0
 ;PCODE: $000001FA VOL: 0
-; 0000 00E3             break;
+; 0000 00E4             break;
 ;PCODE: $000001FB VOL: 0
 ;PCODE: $000001FC VOL: 0
-; 0000 00E4 
-; 0000 00E5             /*=============== Active State ===============*/
-; 0000 00E6             case 5 :
+; 0000 00E5 
+; 0000 00E6             /*=============== Active State ===============*/
+; 0000 00E7             case 5 :
 ;PCODE: $000001FD VOL: 0
 ;PCODE: $000001FE VOL: 0
 ;PCODE: $000001FF VOL: 0
-; 0000 00E7             printDebug("\r\n-------- Active --------\r\n");
+; 0000 00E8             printDebug("\r\n-------- Active --------\r\n");
 ;PCODE: $00000200 VOL: 0
 ;PCODE: $00000201 VOL: 0
 ;PCODE: $00000202 VOL: 0
@@ -767,22 +768,22 @@
 ;PCODE: $00000204 VOL: 0
 ;PCODE: $00000205 VOL: 0
 ;PCODE: $00000206 VOL: 0
-; 0000 00E8                 ReadCurrent();
+; 0000 00E9                 ReadCurrent();
 ;PCODE: $00000207 VOL: 0
-; 0000 00E9                 ReadVoltage();
+; 0000 00EA                 ReadVoltage();
 ;PCODE: $00000208 VOL: 0
-; 0000 00EA 
-; 0000 00EB                 counter++;
+; 0000 00EB 
+; 0000 00EC                 counter++;
 ;PCODE: $00000209 VOL: 0
 ;PCODE: $0000020A VOL: 0
 ;PCODE: $0000020B VOL: 0
-; 0000 00EC                 if(counter%10 == 0 ){
+; 0000 00ED                 if(counter%10 == 0 ){
 ;PCODE: $0000020C VOL: 0
 ;PCODE: $0000020D VOL: 0
 ;PCODE: $0000020E VOL: 0
 ;PCODE: $0000020F VOL: 0
 ;PCODE: $00000210 VOL: 0
-; 0000 00ED                     printDebug("\r\n-------- POP EVENT --------\r\n");
+; 0000 00EE                     printDebug("\r\n-------- POP EVENT --------\r\n");
 ;PCODE: $00000211 VOL: 0
 ;PCODE: $00000212 VOL: 0
 ;PCODE: $00000213 VOL: 0
@@ -790,56 +791,56 @@
 ;PCODE: $00000215 VOL: 0
 ;PCODE: $00000216 VOL: 0
 ;PCODE: $00000217 VOL: 0
-; 0000 00EE                     pop_event();
+; 0000 00EF                     pop_event();
 ;PCODE: $00000218 VOL: 0
-; 0000 00EF                 }
-; 0000 00F0 
+; 0000 00F0                 }
 ; 0000 00F1 
-; 0000 00F2                 if(number == 1000){
+; 0000 00F2 
+; 0000 00F3                 if(number == 1000){
 ;PCODE: $00000219 VOL: 0
 ;PCODE: $0000021A VOL: 0
 ;PCODE: $0000021B VOL: 0
 ;PCODE: $0000021C VOL: 0
-; 0000 00F3                     SendStatusReport();
+; 0000 00F4                     SendStatusReport();
 ;PCODE: $0000021D VOL: 0
-; 0000 00F4                 }
-; 0000 00F5 
-; 0000 00F6                 if(SWITCH_PRESSED){
+; 0000 00F5                 }
+; 0000 00F6 
+; 0000 00F7                 if(SWITCH_PRESSED){
 ;PCODE: $0000021E VOL: 0
 ;PCODE: $0000021F VOL: 0
 ;PCODE: $00000220 VOL: 0
 ;PCODE: $00000221 VOL: 0
-; 0000 00F7                     delay_ms(200);
+; 0000 00F8                     delay_ms(200);
 ;PCODE: $00000222 VOL: 0
 ;PCODE: $00000223 VOL: 0
 ;PCODE: $00000224 VOL: 0
-; 0000 00F8                     device_state(0); // off
+; 0000 00F9                     device_state(0); // off
 ;PCODE: $00000225 VOL: 0
 ;PCODE: $00000226 VOL: 0
 ;PCODE: $00000227 VOL: 0
-; 0000 00F9                     EEPROM_write(Eaddress,STATUS_DEVICE);
+; 0000 00FA                     EEPROM_write(Eaddress,STATUS_DEVICE);
 ;PCODE: $00000228 VOL: 0
 ;PCODE: $00000229 VOL: 0
 ;PCODE: $0000022A VOL: 0
 ;PCODE: $0000022B VOL: 0
 ;PCODE: $0000022C VOL: 0
-; 0000 00FA                     flag_state = 4;
+; 0000 00FB                     flag_state = 4;
 ;PCODE: $0000022D VOL: 0
 ;PCODE: $0000022E VOL: 0
-; 0000 00FB //                    printDebug("count_input = %d\r\n", count_input);
-; 0000 00FC                     push_event(5100);
+; 0000 00FC //                  printDebug("count_input = %d\r\n", count_input);
+; 0000 00FD                     push_event(5100);
 ;PCODE: $0000022F VOL: 0
 ;PCODE: $00000230 VOL: 0
-; 0000 00FD                 }
-; 0000 00FE             break;
+; 0000 00FE                 }
+; 0000 00FF             break;
 ;PCODE: $00000231 VOL: 0
 ;PCODE: $00000232 VOL: 0
-; 0000 00FF         }
+; 0000 0100         }
 ;PCODE: $00000233 VOL: 0
-; 0000 0100     }
+; 0000 0101     }
 ;PCODE: $00000234 VOL: 0
 ;PCODE: $00000235 VOL: 0
-; 0000 0101 }
+; 0000 0102 }
 ;PCODE: $00000236 VOL: 0
 ;PCODE: $00000237 VOL: 0
 ;PCODE: $00000238 VOL: 0
